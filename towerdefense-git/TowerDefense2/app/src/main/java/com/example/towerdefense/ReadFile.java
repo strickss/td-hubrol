@@ -28,7 +28,7 @@ public class ReadFile {
         ListLevel.add("Map2.txt");
         ListLevel.add("Map3.txt");
 
-        int [][] map = new int[35][20];
+        int [][] map = new int[40][20];
         Log.d(TAG, "n: " + ListLevel.get(a));
         try{
 
@@ -45,7 +45,7 @@ public class ReadFile {
                 for (int i=0; i < ligne.length(); i++){
                     String l = ligne.substring(i,i+1);
                     int n = Integer.parseInt(l);
-                    map [line][i] = n;
+                    map [i][line] = n;
                 }
                 line += 1;
             }
