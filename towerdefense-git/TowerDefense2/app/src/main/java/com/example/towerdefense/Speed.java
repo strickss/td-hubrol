@@ -15,7 +15,6 @@ public class Speed {
 
     private int xDirection = DIRECTION_RIGHT;
     private int yDirection = DIRECTION_DOWN;
-    private int yDirection = 0;//DIRECTION_DOWN;
 
     public Speed() {
         this.xv = 5;
