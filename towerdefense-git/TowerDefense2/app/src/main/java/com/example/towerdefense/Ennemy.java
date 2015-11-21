@@ -44,8 +44,8 @@ public class Ennemy extends Elements{
     }
 
     public void update() {
-            this.setX((int) (this.getX()+ (10*speed.getXv() * speed.getxDirection())));
-            this.setY((int) (this.getY() + (10*speed.getYv() * speed.getyDirection())));
+            this.setX((int) (this.getX()+ (1*speed.getXv() * speed.getxDirection())));
+            this.setY((int) (this.getY() + (1*speed.getYv() * speed.getyDirection())));
     }
 
 

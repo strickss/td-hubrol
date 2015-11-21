@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -32,6 +33,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private List<Buttons> buttons;
     private Map map;
     private int increment;
+    private String avgFps; //the fps to be displayed
 
     public MainGamePanel(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -85,8 +87,11 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (buttons.size() != 0) {
                 for (int i = 0; i < buttons.size(); i++) {
-                    if ((event.getX() < buttons.get(i).getX() + buttons.get(i).getBitmap().getWidth()) && (event.getX() > buttons.get(i).getX() - buttons.get(i).getBitmap().getWidth())) {
-                        if ((event.getY() < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight()) && (event.getY() > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight())) {
+                    //if ((event.getX() < buttons.get(i).getX() + buttons.get(i).getBitmap().getWidth()) && (event.getX() > buttons.get(i).getX() - buttons.get(i).getBitmap().getWidth())) {
+                      //if ((event.getY() < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight()) && (event.getY() > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight())) {
+                    if ((event.getX() < buttons.get(i).getX() + buttons.get(i).getBitmap().getWidth()/2) && (event.getX() > buttons.get(i).getX() - buttons.get(i).getBitmap().getWidth()/2)) {
+                        if ((event.getY() < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight()/2) && (event.getY() > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight()/2)) {
+
                             buttons.get(i).getEvent(event, towers, getContext());
                         }
                     }
@@ -153,6 +158,8 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             buttons.get(i).draw(canvas);
         }
         //canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.goblin),10,10,null); //Pla soldier on (10,10) ((0,0) is the upper right cornn
+        displayFps(canvas, avgFps);
+
     }
 
     public void update() {// check collision with right wall if heading right
@@ -173,11 +180,23 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         }
         // Update the lone droid
         goblin.update();
-        Log.d(TAG, "xi" + goblin.getX() + "yi" + goblin.getY());
-        Log.d(TAG, "xf" + map.getPath().get(increment).get(0) + "yf" + map.getPath().get(increment).get(1));
+        //Log.d(TAG, "xi" + goblin.getX() + "yi" + goblin.getY());
+        //Log.d(TAG, "xf" + map.getPath().get(increment).get(0) + "yf" + map.getPath().get(increment).get(1));
         if (goblin.getX() == map.getPath().get(increment).get(0) && goblin.getY() == map.getPath().get(increment).get(1)) {
             increment++;
             Log.d(TAG, "i" + increment);
+        }
+    }
+
+    public void setAvgFps(String avgFps){
+        this.avgFps = avgFps;
+    }
+
+    private void displayFps(Canvas canvas, String fps) {
+        if (canvas != null && fps != null){
+            Paint paint = new Paint();
+            paint.setARGB(255, 255, 255, 255);
+            canvas.drawText(fps, this.getWidth() - 100, 20, paint);
         }
     }
 }
