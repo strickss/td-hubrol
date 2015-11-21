@@ -28,8 +28,8 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private MainThread thread;
     private Ennemy goblin;
     //final ImageButton imageButton;
-    private List<Tower> towers;
-    private List<Ennemy> buttons;
+    private List<Towers> towers;
+    private List<Buttons> buttons;
     private Map map;
     private int increment;
 
@@ -42,10 +42,10 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         increment = 0;
 
         // create tower and load bitmap
-        goblin = new Ennemy(10, 10, BitmapFactory.decodeResource(getResources(), R.drawable.goblin), 1, 1, 1);
+        goblin = new Ennemy(10, 10, context, 1, 1, 1);
 
-        towers = new ArrayList<Tower>();
-        buttons = new ArrayList<Ennemy>();
+        towers = new ArrayList<Towers>();
+        buttons = new ArrayList<Buttons>();
 
         //create the game loop thread
         thread = new MainThread(getHolder(), this);
@@ -84,15 +84,14 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (buttons.size() != 0) {
-                //for (int i = 0; i < towers.size(); i++) {
-                int i = 0;
-                if ((event.getX() < buttons.get(i).getX() + buttons.get(i).getBitmap().getWidth()) && (event.getX() > buttons.get(i).getX() - buttons.get(i).getBitmap().getWidth())) {
-                    if ((event.getY() < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight()) && (event.getY() > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight())) {
-                        towers.add(new Tower((int) event.getX(), (int) event.getY() + 200, BitmapFactory.decodeResource(getResources(), R.drawable.tower), 1, 1, 1));
+                for (int i = 0; i < buttons.size(); i++) {
+                    if ((event.getX() < buttons.get(i).getX() + buttons.get(i).getBitmap().getWidth()) && (event.getX() > buttons.get(i).getX() - buttons.get(i).getBitmap().getWidth())) {
+                        if ((event.getY() < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight()) && (event.getY() > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight())) {
+                            buttons.get(i).getEvent(event, towers, getContext());
+                        }
                     }
                 }
-                buttons.remove(i);
-                //}
+                buttons = new ArrayList<Buttons>();
             } else {
                 // check if in the lower part of the screen we exit
                 if (event.getY() > getHeight() - 50) {
@@ -102,20 +101,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                     Log.d(TAG, "Coords: x=" + event.getX() + ",y=" + event.getY());
                 }
                 // delegating event handling to the towers
-                boolean create = true;
-                for (int i = 0; i < towers.size(); i++) {
-                    towers.get(i).handleActionDown((int) event.getX(), (int) event.getY());
-                    if (towers.get(i).isTouched()) {
-                        create = false;
-                        //towers.get(i).info();
-                    }
-                    if (!create) {
-                        break;
-                    }
-                }
-                if (create) {
-                    towerCreation(event);
-                }
+                towerOnClickEvent(event);
             }
         }
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
@@ -127,8 +113,33 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         return true;
     }
 
+    private void towerOnClickEvent(MotionEvent event) {
+        boolean create = true;
+        for (int i = 0; i < towers.size(); i++) {
+            towers.get(i).handleActionDown((int) event.getX(), (int) event.getY());
+            if (towers.get(i).isTouched()) {
+                create = false;
+                towerUpgrade(event, i);
+                //towers.get(i).info();
+            }
+            if (!create) {
+                //break;
+            }
+        }
+        if (create) {
+            towerCreation(event);
+        }
+    }
+
+    private void towerUpgrade(MotionEvent event, int towerIndex) {
+        buttons.add(new Buttons_tower_upgrade((int) event.getX(), (int) event.getY() - 200, getContext(), towerIndex));
+        buttons.add(new Buttons_tower_stop((int) event.getX(), (int) event.getY(), getContext()));
+        buttons.add(new Buttons_tower_delete((int) event.getX(), (int) event.getY() + 200, getContext(), towerIndex));
+    }
+
     private void towerCreation(final MotionEvent event) {
-        buttons.add(new Ennemy((int) event.getX(), (int) event.getY() - 200, BitmapFactory.decodeResource(getResources(), R.drawable.play_now_green), 1, 1, 1));
+        buttons.add(new Buttons_tower_creation((int) event.getX(), (int) event.getY() - 200, getContext()));
+        buttons.add(new Buttons_tower_stop((int) event.getX(), (int) event.getY(), getContext()));
     }
 
     protected void render(Canvas canvas) {
