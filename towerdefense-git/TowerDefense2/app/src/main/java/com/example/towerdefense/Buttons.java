@@ -19,4 +19,12 @@ public class Buttons extends Elements{
 
     public void getEvent(MotionEvent event, List<Towers> towers, Context context) {
     }
+
+    public int getType() {
+        return 1;
+    }
+
+    public int getTowerIndex(){
+        return 0;
+    }
 }
