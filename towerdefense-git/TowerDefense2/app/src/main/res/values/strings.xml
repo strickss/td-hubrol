@@ -3,4 +3,7 @@
 
     <string name="bandeau_haut">ALAPECHEAUXMOULESMOULESMOULESJENEVEUXPLUSYALLERMAMANLESGENSDELAVILLEVILLEVILLE</string>
     <string name="action_settings">Settings</string>
+    <string name="monster1"> Goblin</string>
+    <string name="monster2"> Troll</string>
+    <string name="exemple">Coucou gobelin</string>
 </resources>
