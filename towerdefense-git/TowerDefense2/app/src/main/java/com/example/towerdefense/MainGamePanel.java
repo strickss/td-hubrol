@@ -47,11 +47,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         increment = 0;
 
         // create tower and load bitmap
-<<<<<<< HEAD
-        goblin = new Ennemy(150,0, context, 1, 1, 1);
-=======
-        goblin = new Gobelin(10, 10, context, 1, 1, 1);
->>>>>>> refs/remotes/origin/Tower_creation
+        goblin = new Gobelin(150,0, context, 1, 1, 1);
 
         towers = new ArrayList<Towers>();
         buttons = new ArrayList<Buttons>();
@@ -183,54 +179,33 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     }
 
-<<<<<<< HEAD
-    public void update() {// check collision with right wall if heading right
 
-        if (goblin.getX() < map.getPath().get(increment)) {
-=======
-    public void update() {
+    public void update() {// check collision with right wall if heading right
         gryphon.update(System.currentTimeMillis());
-        if (goblin.getX() < map.getPath().get(increment).get(0)) {
->>>>>>> refs/remotes/origin/Tower_creation
+        if (goblin.getX() < map.getPath().get(increment)) {
             goblin.getSpeed().setxDirection(1);
         } else if (goblin.getX() > map.getPath().get(increment)) {
             goblin.getSpeed().setxDirection(-1);
         } else {
             goblin.getSpeed().setxDirection(0);
         }
-<<<<<<< HEAD
         // check collision with left wall if heading left
         if (goblin.getY() < map.getPath().get(increment+1)) {
-=======
-        if (goblin.getY() < map.getPath().get(increment).get(1)) {
->>>>>>> refs/remotes/origin/Tower_creation
             goblin.getSpeed().setyDirection(1);
         } else if (goblin.getY() > map.getPath().get(increment+1)) {
             goblin.getSpeed().setyDirection(-1);
         } else {
             goblin.getSpeed().setyDirection(0);
         }
-<<<<<<< HEAD
         // Update the lone droid
         Log.d(TAG, "xi" + goblin.getX() + "yi" + goblin.getY());
         Log.d(TAG, "xf" + map.getPath().get(increment) + "yf" + map.getPath().get(increment+1));
         if (Math.abs(goblin.getX() - map.getPath().get(increment)) < goblin.getSpeed().getXv() && Math.abs(goblin.getY()- map.getPath().get(increment+1))< goblin.getSpeed().getYv()) {
             goblin.setX(map.getPath().get(increment));
             goblin.setY(map.getPath().get(increment + 1));
-=======
-        goblin.update();
-        Log.d(TAG, "xi" + goblin.getX() + "yi" + goblin.getY());
-        //Log.d(TAG, "xf" + map.getPath().get(increment).get(0) + "yf" + map.getPath().get(increment).get(1));
-        if (goblin.getX() == map.getPath().get(increment).get(0) && goblin.getY() == map.getPath().get(increment).get(1)) {
-            increment++;
->>>>>>> refs/remotes/origin/Tower_creation
-            Log.d(TAG, "i" + increment);
             increment=increment+2;
         }
-<<<<<<< HEAD
         goblin.update();
-=======
-
         if (System.currentTimeMillis() - a > 10000){
             gryphon.getSpeed().setxDirection(0);
             gryphon.getSpeed().setyDirection(1);
@@ -247,7 +222,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             paint.setARGB(255, 255, 255, 255);
             canvas.drawText(fps, this.getWidth() - 100, 20, paint);
         }
->>>>>>> refs/remotes/origin/Tower_creation
     }
 
 

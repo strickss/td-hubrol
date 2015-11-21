@@ -62,12 +62,10 @@ public class MainThread extends Thread {
             try { //try to get hold of it
                 canvas = this.surfaceHolder.lockCanvas();
                 synchronized (surfaceHolder) {
-<<<<<<< HEAD
                     // update game state
                     // draws the canvas on the panel
                     this.gamePanel.update(); //we trigger the panel’s onDraw event to which we pass the obtained canvas
                     this.gamePanel.render(canvas);
-=======
                     framesSkipped = 0; //resetting the frames skipped
                     this.gamePanel.update(); // update game state
                     this.gamePanel.render(canvas); // draws the canvas on the panel
@@ -98,7 +96,6 @@ public class MainThread extends Thread {
                     }
                     framesSkippedPerStatCycle += framesSkipped;//for statistics
                     storeStats();// calling the routine to store the gathered statistics
->>>>>>> refs/remotes/origin/Tower_creation
                 }
             } finally {
                 // in case of an exception the surface is not left in

@@ -82,6 +82,7 @@ public class Map {
 
     }
 
-
-
+    public ArrayList<Integer> getPath() {
+        return path;
+    }
 }
