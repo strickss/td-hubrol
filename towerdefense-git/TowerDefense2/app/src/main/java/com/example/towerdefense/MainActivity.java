@@ -10,8 +10,13 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.PopupMenu;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
@@ -37,6 +42,9 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         final ImageButton imageButton2 = (ImageButton) findViewById(R.id.button_2);
         final ImageButton imageButton3 = (ImageButton) findViewById(R.id.button_3);
         final ImageButton imageButton4 = (ImageButton) findViewById(R.id.button_4);
+        final Chronometer chronometer = (Chronometer)  findViewById(R.id.chronometer);
+
+        chronometer.start();
 
 
 
@@ -56,9 +64,23 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
 
     public void showPopup(View v) {
         PopupMenu popup = new PopupMenu(this, v);
-        popup.setOnMenuItemClickListener(this);
+        popup.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) this);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.monsters, popup.getMenu());
+
+        try {
+            Field field = popup.getClass().getDeclaredField("mPopup");
+            field.setAccessible(true);
+            Object menuPopupHelper = field.get(popup);
+            Class<?> cls = Class.forName("com.android.internal.view.menu.MenuPopupHelper");
+            Method method = cls.getDeclaredMethod("setForceShowIcon", new Class[]{boolean.class});
+            method.setAccessible(true);
+            method.invoke(menuPopupHelper, new Object[]{true});
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         popup.show();
     }
 

@@ -40,7 +40,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         // adding the callback (this) to the surface holder to intercept events
         getHolder().addCallback(this); //  sets the current class (MainGamePanel) as the handler for the events happening on the actual surface
 
-        map = new Map(1);
+        map = new Map(0);
         increment = 0;
 
         // create tower and load bitmap
