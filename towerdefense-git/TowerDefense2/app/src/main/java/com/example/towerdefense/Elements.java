@@ -11,7 +11,6 @@ public class Elements {
     private int y;
     private Bitmap bitmap;
 
-
     public Elements(int x, int y,Bitmap bitmap){
         this.x = x;
         this.y = y;
