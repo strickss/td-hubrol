@@ -14,8 +14,8 @@ public class Ennemy extends Elements{
     private int mr;
     private int test ;
 
-    public Ennemy(int x, int y, Context context, int hp, int armor, int mr){
-        super(x,y, BitmapFactory.decodeResource(context.getResources(), R.drawable.goblin));
+    public Ennemy(int x, int y, Bitmap bitmap, int hp, int armor, int mr){
+        super(x,y, bitmap);
         this.speed = new Speed();
         this.hp = hp;
         this.armor = armor;
@@ -47,6 +47,5 @@ public class Ennemy extends Elements{
             this.setX((int) (this.getX()+ (speed.getXv() * speed.getxDirection())));
             this.setY((int) (this.getY() + (speed.getYv() * speed.getyDirection())));
     }
-
 
 }
