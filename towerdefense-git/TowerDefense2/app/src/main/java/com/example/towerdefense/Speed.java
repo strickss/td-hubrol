@@ -14,7 +14,7 @@ public class Speed {
     private float yv = 1;   // velocity value on the Y axis
 
     private int xDirection = DIRECTION_RIGHT;
-    private int yDirection = DIRECTION_DOWN;
+    private int yDirection = 0;//DIRECTION_DOWN;
 
     public Speed() {
         this.xv = 1;

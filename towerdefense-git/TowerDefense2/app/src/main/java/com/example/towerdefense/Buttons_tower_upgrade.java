@@ -22,4 +22,12 @@ public class Buttons_tower_upgrade extends Buttons {
         towers.add(new Tower2(towers.get(towerIndex).getX(), towers.get(towerIndex).getY(), context));
         towers.remove(towerIndex);
     }
+
+    public int getType() {
+        return 2;
+    }
+
+    public int getTowerIndex(){
+        return towerIndex;
+    }
 }

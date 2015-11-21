@@ -41,4 +41,7 @@ public class Towers extends Elements{
         this.touched = touched;
     }
 
+    public int getRange() {
+        return range;
+    }
 }

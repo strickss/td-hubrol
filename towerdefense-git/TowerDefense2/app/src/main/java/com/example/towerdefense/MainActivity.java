@@ -64,7 +64,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
 
     public void showPopup(View v) {
         PopupMenu popup = new PopupMenu(this, v);
-        popup.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) this);
+        popup.setOnMenuItemClickListener(this);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.monsters, popup.getMenu());
 
@@ -73,9 +73,9 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             field.setAccessible(true);
             Object menuPopupHelper = field.get(popup);
             Class<?> cls = Class.forName("com.android.internal.view.menu.MenuPopupHelper");
-            Method method = cls.getDeclaredMethod("setForceShowIcon", new Class[]{boolean.class});
+            Method method = cls.getDeclaredMethod("setForceShowIcon", boolean.class);
             method.setAccessible(true);
-            method.invoke(menuPopupHelper, new Object[]{true});
+            method.invoke(menuPopupHelper, true);
         } catch (Exception e) {
             e.printStackTrace();
         }
