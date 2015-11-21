@@ -10,6 +10,7 @@ public class Ennemy extends Elements{
     private int hp;
     private int armor;
     private int mr;
+    private int test ;
 
     public Ennemy(int x, int y, Bitmap bitmap, int hp, int armor, int mr){
         super(x,y,bitmap);
