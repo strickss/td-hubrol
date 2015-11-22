@@ -31,6 +31,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     //final ImageButton imageButton;
     private List<Towers> towers;
     private List<Buttons> buttons;
+    private List<Shot> shots;
     private Map map;
     private int increment;
     private String avgFps; //the fps to be displayed
@@ -51,8 +52,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
         towers = new ArrayList<Towers>();
         buttons = new ArrayList<Buttons>();
+        shots = new ArrayList<Shot>();
 
-        gryphon = new Gryphon( 300, 200,BitmapFactory.decodeResource(getResources(), R.drawable.gryphon_sprite));
+        gryphon = new Gryphon( 600, 600, context);
 
         //create the game loop thread
         thread = new MainThread(getHolder(), this);
@@ -177,11 +179,25 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             }
         }
 
+        for (int i = 0; i < shots.size(); i++) {
+            shots.get(i).draw(canvas);
+        }
+
     }
 
 
     public void update() {// check collision with right wall if heading right
         gryphon.update(System.currentTimeMillis());
+        //gobUpdate();
+        if (System.currentTimeMillis() - a > 10000){
+            gryphon.getSpeed().setxDirection(0);
+            gryphon.getSpeed().setyDirection(1);
+        }
+        missileUpdate();
+        missileCreation();
+    }
+
+    private void gobUpdate() {
         if (goblin.getX() < map.getPath().get(increment)) {
             goblin.getSpeed().setxDirection(1);
         } else if (goblin.getX() > map.getPath().get(increment)) {
@@ -199,16 +215,37 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         }
         // Update the lone droid
         Log.d(TAG, "xi" + goblin.getX() + "yi" + goblin.getY());
-        Log.d(TAG, "xf" + map.getPath().get(increment) + "yf" + map.getPath().get(increment+1));
+        Log.d(TAG, "xf" + map.getPath().get(increment) + "yf" + map.getPath().get(increment + 1));
         if (Math.abs(goblin.getX() - map.getPath().get(increment)) < goblin.getSpeed().getXv() && Math.abs(goblin.getY()- map.getPath().get(increment+1))< goblin.getSpeed().getYv()) {
             goblin.setX(map.getPath().get(increment));
             goblin.setY(map.getPath().get(increment + 1));
             increment=increment+2;
         }
         goblin.update();
-        if (System.currentTimeMillis() - a > 10000){
-            gryphon.getSpeed().setxDirection(0);
-            gryphon.getSpeed().setyDirection(1);
+    }
+
+    private void missileCreation() {
+        for (int i = 0; i < towers.size(); i++) {
+            //for (int j = 0; j < monsters.size(); j++) {
+            double dx =towers.get(i).getX()- gryphon.getX();
+            double dy = towers.get(i).getY()- gryphon.getY();
+            double dist = Math.sqrt(dx*dx + dy*dy);
+            Log.d(TAG, "dist:" + dist);
+            if (towers.get(i).getRange() >= dist){
+                if (towers.get(i).canFire()) {
+                    towers.get(i).fire();
+                    Log.d(TAG, "1 missile created");
+                    shots.add(new Missile(towers.get(i).getX(), towers.get(i).getY(), getContext(), gryphon.getX(), gryphon.getY()));
+                }
+            }
+            //}
+        }
+    }
+
+
+    private void missileUpdate() {
+        for (int i = 0; i < shots.size(); i++) {
+            shots.get(i).update();
         }
     }
 
