@@ -6,18 +6,22 @@ import android.graphics.Bitmap;
  * Created by Brieuc on 21-11-15.
  */
 public class Towers extends Elements{
+    private long lastFired;
     private boolean touched;
     private int attack;
     private int armorPen;
     private int magicPen;
     private int range;
+    private int recharge;
 
-    public Towers(int x, int y, Bitmap bitmap,int attack, int range, int armorPen, int magicPen) {
+    public Towers(int x, int y, Bitmap bitmap,int attack, int range, int armorPen, int magicPen, int recharge) {
         super(x, y, bitmap);
         this.attack = attack;
         this.range = range;
         this.armorPen = armorPen;
         this.magicPen = magicPen;
+        this.lastFired = 0;
+        this.recharge = recharge; //tir toutes les recharge millisecondes
     }
 
     public void handleActionDown(int eventX, int eventY) {
@@ -31,6 +35,18 @@ public class Towers extends Elements{
         } else {
             setTouched(false);
         }
+    }
+
+    public boolean canFire(){
+        if (System.currentTimeMillis() > this.lastFired + this.recharge){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public void fire(){
+        this.lastFired = System.currentTimeMillis();
     }
 
     public boolean isTouched(){

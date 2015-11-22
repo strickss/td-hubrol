@@ -4,7 +4,9 @@ package com.example.towerdefense;
  * Created by Brieuc on 21-11-15.
  */
 
+    import android.content.Context;
     import android.graphics.Bitmap;
+    import android.graphics.BitmapFactory;
     import android.graphics.Canvas;
     import android.graphics.Paint;
     import android.graphics.Rect;
@@ -30,8 +32,8 @@ package com.example.towerdefense;
         private int y;				// the Y coordinate of the object (top left of the image)
         private Speed speed;
 
-        public Gryphon(int x, int y,Bitmap bitmap) {
-            this.bitmap = bitmap;
+        public Gryphon(int x, int y,Context context) {
+            this.bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.gryphon_sprite);
             this.x = x;
             this.y = y;
             this.currentFrame = 0;
@@ -99,15 +101,16 @@ package com.example.towerdefense;
 
         public void draw(Canvas canvas) {
             // where to draw the sprite
-            Rect destRect = new Rect(getX(), getY(), getX() + width, getY() + height);
+            Rect destRect = new Rect(getX() -  + width/2, getY() - height/2, getX() + width/2, getY() + height/2);
             canvas.drawBitmap(bitmap, sourceRect, destRect, null);
-            drawSpriteSelector(canvas);
+            //drawSpriteSelector(canvas);
         }
 
         private void drawSpriteSelector(Canvas canvas) {
-            canvas.drawBitmap(bitmap, 600, 150, null);
+            canvas.drawBitmap(bitmap, 800, 150, null);
             Paint paint = new Paint();
-            canvas.drawRect(600 + (currentFrame * sourceRect.width()), 150 + this.sourceRect.top, 600 + (currentFrame * sourceRect.width()) + sourceRect.width(), 150 + this.sourceRect.bottom,  paint);
+            paint.setARGB(50, 0, 255, 0);
+            canvas.drawRect(800 + (currentFrame * sourceRect.width()), 150 + this.sourceRect.top, 800 + (currentFrame * sourceRect.width()) + sourceRect.width(), 150 + this.sourceRect.bottom,  paint);
 
         }
 

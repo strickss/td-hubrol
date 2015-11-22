@@ -91,7 +91,7 @@ public class MainThread extends Thread {
                         framesSkipped++;
                     }
                     if (framesSkipped >0){
-                        Log.d(TAG, "Skipped:" + framesSkipped);
+                        //Log.d(TAG, "Skipped:" + framesSkipped);
                         sleepTime = framesSkipped*FRAME_PERIOD;
                     }
                     framesSkippedPerStatCycle += framesSkipped;//for statistics
@@ -124,7 +124,7 @@ public class MainThread extends Thread {
         if (System.currentTimeMillis() >= lastStatusStore + STAT_INTERVAL) {
             // calculate the actual frames pers status check interval
             double actualFps = (double)(frameCountPerStatCycle / (STAT_INTERVAL / 1000));
-            Log.d(TAG, "actualFPS:" + actualFps);
+            //Log.d(TAG, "actualFPS:" + actualFps);
             //double actualUps = (double)((frameCountPerStatCycle+framesSkippedPerStatCycle) / (STAT_INTERVAL / 1000));
             //Log.d(TAG, "actualUPS:" + actualUps);
             //stores the latest fps in the array
