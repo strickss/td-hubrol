@@ -1,0 +1,188 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/bandeau_haut"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/black"
+        android:layout_alignParentTop="true">
+
+        <Chronometer
+            android:id="@+id/chronometer"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"/>
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/coins"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="4dp"
+            android:textColor="@color/white"
+            android:text="@string/gold"
+            android:textSize="20dp"
+            android:layout_marginTop="3dp">
+            </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:textColor="@color/white"
+            android:text="@string/yourIncome"
+            android:textSize="20dp"
+            android:layout_marginTop="3dp">
+            </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:textColor="@color/white"
+            android:text="@string/yourIncomeValue"
+            android:textSize="20dp"
+            android:layout_marginTop="3dp">
+            </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:textColor="@color/white"
+            android:text="@string/OppIncome"
+            android:textSize="20dp"
+            android:layout_marginTop="3dp">
+            </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:textColor="@color/white"
+            android:text="@string/OppIncomeValue"
+            android:textSize="20dp"
+            android:layout_marginTop="3dp">
+            </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:textColor="@color/white"
+            android:text="@string/yourLife"
+            android:textSize="20dp"
+            android:layout_marginTop="3dp">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:textColor="@color/white"
+            android:text="@string/yourLifeValue"
+            android:textSize="20dp"
+            android:layout_marginTop="3dp">
+        </TextView>
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/heart"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:textColor="@color/white"
+            android:text="@string/OppLife"
+            android:textSize="20dp"
+            android:layout_marginTop="3dp">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:textColor="@color/white"
+            android:text="@string/OppLifeValue"
+            android:textSize="20dp"
+            android:layout_marginTop="3dp">
+        </TextView>
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/heart"/>
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bandeau_bas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black">
+
+        <ImageButton
+            android:id="@+id/button_1"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:src="@drawable/button_icon1"
+            android:onClick="showPopup"/>
+
+        <ImageButton
+            android:id="@+id/button_2"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:src="@drawable/button_icon1"
+            android:onClick="showPopup"/>
+
+        <ImageButton
+            android:id="@+id/button_3"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:src="@drawable/button_icon1"
+            android:onClick="showPopup"/>
+
+        <ImageButton
+            android:id="@+id/button_4"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:src="@drawable/button_icon1"
+            android:onClick="showPopup"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/bandeau_haut"
+        android:layout_above="@id/bandeau_bas">
+
+        <com.example.towerdefense.MainGamePanel
+            android:id="@+id/GamePanel"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
