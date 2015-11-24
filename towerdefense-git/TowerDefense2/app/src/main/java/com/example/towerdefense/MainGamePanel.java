@@ -47,7 +47,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         shots = new ArrayList<Shot>();
         enemies = new ArrayList<Enemy>();
 
-        enemies.add(new Gobelin(150, 0, context, 1, 1, 1));
+        enemies.add(new Gobelin(150, 0, context, 10, 1, 1));
         //goblin = new Gobelin(150,0, context, 1, 1, 1);
 
         gryphon = new Gryphon( 600, 600, context, 0, 0);
@@ -195,11 +195,20 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             gryphon.setDx(0);
             gryphon.setDy(0);
             if (enemies.size()<2) {
-                enemies.add(new Gobelin(150, 0, getContext(), 1, 1, 1));
+                enemies.add(new Gobelin(150, 0, getContext(), 5, 1, 1));
             }
         }
         missileUpdate();
         missileCreation();
+        enemiesUpdate();
+    }
+
+    private void enemiesUpdate() {
+        for (int j = 0; j < enemies.size(); j++) {
+            if (enemies.get(j).getHp() ==0){
+                enemies.remove(j);
+            }
+        }
     }
 
     private void missileCreation() {
@@ -225,6 +234,11 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         for (int i = 0; i < shots.size(); i++) {
             shots.get(i).update();
             if (shots.get(i).hasHit()){
+                for (int j = 0; j < enemies.size(); j++) {
+                    if ((Math.abs(enemies.get(j).getX() - shots.get(i).getX()) < 10) && (Math.abs(enemies.get(j).getY() - shots.get(i).getY()) < 10)){
+                        enemies.get(j).damaged(1);
+                    }
+                }
                 shots.remove(i);
             }
         }
