@@ -12,6 +12,6 @@ public class Missile extends Shot {
 
     public Missile(int x, int y, Context context, Enemy enemy) {
         super(x, y, BitmapFactory.decodeResource(context.getResources(), R.drawable.missile), enemy, 10);
-        Log.d(TAG, "Tir");
+        //Log.d(TAG, "Tir");
     }
 }

@@ -1,9 +1,12 @@
 package com.example.towerdefense;
 
 import android.graphics.Canvas;
+import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
+import android.widget.TextView;
 
+import java.text.CollationElementIterator;
 import java.text.DecimalFormat;
 
 /**
@@ -54,7 +57,6 @@ public class MainThread extends Thread {
         int framesSkipped; //number of frames being skipped
         long beginTime =0;
         long endTime;
-
 
         while (running) {
             canvas = null;
