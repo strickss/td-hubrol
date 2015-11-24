@@ -10,7 +10,7 @@ import android.graphics.BitmapFactory;
 public class Tower2 extends Towers{
 
     public Tower2(int x, int y, Context context) {
-        super(x, y, BitmapFactory.decodeResource(context.getResources(), R.drawable.tower2),2,600,2,2, 500);
+        super(x, y, BitmapFactory.decodeResource(context.getResources(), R.drawable.tower2),2,600,2,2, 1000);
     }
 
 

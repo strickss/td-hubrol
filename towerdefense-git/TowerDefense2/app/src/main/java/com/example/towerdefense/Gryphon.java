@@ -14,6 +14,8 @@ package com.example.towerdefense;
     public class Gryphon {
 
         private static final String TAG = Gryphon.class.getSimpleName();
+        private int dy;
+        private int dx;
 
         private Bitmap bitmap;		// the animation sequence
         private Rect sourceRect;	// the rectangle to be drawn from the animation bitmap
@@ -30,9 +32,8 @@ package com.example.towerdefense;
 
         private int x;				// the X coordinate of the object (top left of the image)
         private int y;				// the Y coordinate of the object (top left of the image)
-        private Speed speed;
 
-        public Gryphon(int x, int y,Context context) {
+        public Gryphon(int x, int y,Context context, int dx, int dy) {
             this.bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.gryphon_sprite);
             this.x = x;
             this.y = y;
@@ -45,7 +46,8 @@ package com.example.towerdefense;
             this.height = 200;
             this.framePeriod = 1000 / 5; // 1000/fps
             this.frameTicker = 0l;
-            this.speed = new Speed(1,0);
+            this.dx = dx;
+            this.dy = dy;
         }
 
 
@@ -81,22 +83,21 @@ package com.example.towerdefense;
             // define the rectangle to cut out sprite
             this.sourceRect.left = currentFrame * spriteWidth;
             this.sourceRect.right = this.sourceRect.left + spriteWidth;
-            if (this.getSpeed().getxDirection() == 0){
-                if (this.getSpeed().getyDirection() == 1){
+            if (this.getDx() == 0){
+                if (this.getDy() > 0){
                     this.sourceRect.top = 0;
                     this.sourceRect.bottom = spriteHeight;
                 } else {
                     this.sourceRect.top = 3 * spriteHeight;
                     this.sourceRect.bottom = 4 * spriteHeight;
                 }
-            } else if (this.getSpeed().getxDirection() == 1){
+            } else if (this.getDx() > 0){
                 this.sourceRect.top = 2 * spriteHeight;
                 this.sourceRect.bottom = 3 * spriteHeight;
             } else {
                 this.sourceRect.top = spriteHeight;
                 this.sourceRect.bottom = 2 * spriteHeight;
             }
-
         }
 
         public void draw(Canvas canvas) {
@@ -110,11 +111,23 @@ package com.example.towerdefense;
             canvas.drawBitmap(bitmap, 800, 150, null);
             Paint paint = new Paint();
             paint.setARGB(50, 0, 255, 0);
-            canvas.drawRect(800 + (currentFrame * sourceRect.width()), 150 + this.sourceRect.top, 800 + (currentFrame * sourceRect.width()) + sourceRect.width(), 150 + this.sourceRect.bottom,  paint);
+            canvas.drawRect(800 + (currentFrame * sourceRect.width()), 150 + this.sourceRect.top, 800 + (currentFrame * sourceRect.width()) + sourceRect.width(), 150 + this.sourceRect.bottom, paint);
 
         }
 
-        public Speed getSpeed() {
-            return speed;
+        public int getDx() {
+            return dx;
+        }
+
+        public int getDy() {
+            return dy;
+        }
+
+        public void setDx(int dx) {
+            this.dx = dx;
+        }
+
+        public void setDy(int dy) {
+            this.dy = dy;
         }
     }
