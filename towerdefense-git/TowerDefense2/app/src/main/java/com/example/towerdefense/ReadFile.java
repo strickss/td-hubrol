@@ -21,17 +21,16 @@ public class ReadFile {
 
     }
 
-    public static int [][] getmap(int a){
+    public static String [][] getmap(int a){
 
         ListLevel= new ArrayList<String>();
         ListLevel.add("Map1.txt");
         ListLevel.add("Map2.txt");
         ListLevel.add("Map3.txt");
 
-        int [][] map = new int[40][20];
-        Log.d(TAG, "n: " + ListLevel.get(a));
+        String [][] map = new String[40][20];
+        Log.d(TAG, "n: " + map);
         try{
-
             AssetManager assetManager = ApplicationContextProvider.getContext().getAssets();
             InputStream iS = assetManager.open(ListLevel.get(a));
             BufferedReader br = new BufferedReader(new InputStreamReader(iS));
@@ -41,11 +40,10 @@ public class ReadFile {
 
 
             while ((ligne=br.readLine())!= null){
-
+                Log.d(TAG, "ligne: " +ligne);
                 for (int i=0; i < ligne.length(); i++){
                     String l = ligne.substring(i,i+1);
-                    int n = Integer.parseInt(l);
-                    map [i][line] = n;
+                    map [i][line] = l;
                 }
                 line += 1;
             }
