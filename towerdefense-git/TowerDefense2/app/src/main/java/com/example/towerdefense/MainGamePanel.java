@@ -38,7 +38,12 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         // adding the callback (this) to the surface holder to intercept events
         getHolder().addCallback(this); //  sets the current class (MainGamePanel) as the handler for the events happening on the actual surface
 
+<<<<<<< HEAD
         map = new Map(0);
+=======
+        map = new Map(context, 0);
+        increment = 0;
+>>>>>>> refs/remotes/origin/Samedi-matin
 
         // create tower and load bitmap
 
@@ -150,6 +155,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     }
 
     protected void render(Canvas canvas) {
+<<<<<<< HEAD
         canvas.drawColor(Color.BLUE);
         //goblin.draw(canvas);
         gryphon.draw(canvas);
@@ -158,6 +164,11 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             enemies.get(i).draw(canvas);
         }
 
+=======
+        canvas.drawColor(Color.GREEN);
+        map.draw(canvas);
+        goblin.draw(canvas);
+>>>>>>> refs/remotes/origin/Samedi-matin
 
         for (int i = 0; i < towers.size(); i++) {
             towers.get(i).draw(canvas);
@@ -187,6 +198,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
 
     public void update() {// check collision with right wall if heading right
+<<<<<<< HEAD
         gryphon.update(System.currentTimeMillis());
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).gobUpdate(map);
@@ -240,6 +252,39 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             paint.setARGB(255, 255, 255, 255);
             canvas.drawText(fps, this.getWidth() - 100, 20, paint);
         }
+=======
+        try {
+            if (goblin.getX() < map.getPath().get(increment)) {
+                goblin.getSpeed().setxDirection(1);
+            } else if (goblin.getX() > map.getPath().get(increment)) {
+                goblin.getSpeed().setxDirection(-1);
+            } else {
+                goblin.getSpeed().setxDirection(0);
+            }
+            // check collision with left wall if heading left
+            if (goblin.getY() < map.getPath().get(increment + 1)) {
+                goblin.getSpeed().setyDirection(1);
+            } else if (goblin.getY() > map.getPath().get(increment + 1)) {
+                goblin.getSpeed().setyDirection(-1);
+            } else {
+                goblin.getSpeed().setyDirection(0);
+            }
+            // Update the lone droid
+            Log.d(TAG, "xi" + goblin.getX() + "yi" + goblin.getY());
+            Log.d(TAG, "xf" + map.getPath().get(increment) + "yf" + map.getPath().get(increment + 1));
+            if (Math.abs(goblin.getX() - map.getPath().get(increment)) < goblin.getSpeed().getXv() && Math.abs(goblin.getY() - map.getPath().get(increment + 1)) < goblin.getSpeed().getYv()) {
+                goblin.setX(map.getPath().get(increment));
+                goblin.setY(map.getPath().get(increment + 1));
+                Log.d(TAG, "i" + increment);
+                increment = increment + 2;
+            }
+        }catch (Exception e){
+                increment=0;
+                goblin.setX(150);
+                goblin.setY(0);
+        }
+        goblin.update();
+>>>>>>> refs/remotes/origin/Samedi-matin
     }
 
 
