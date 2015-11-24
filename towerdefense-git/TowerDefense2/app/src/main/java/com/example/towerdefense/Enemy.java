@@ -28,7 +28,7 @@ public class Enemy extends Elements{
         this.increment = 0;
     }
 
-    private void damaged(int damage){
+    protected void damaged(int damage){
         this.hp = this.hp - damage;
     }
 
@@ -74,7 +74,7 @@ public class Enemy extends Elements{
 
     public void update() {
             this.setX((int) (this.getX() + this.getDx()));
-            this.setY((int) (this.getY() +this.getDy()));
+            this.setY((int) (this.getY() + this.getDy()));
     }
 
     public int getDx() {
@@ -91,5 +91,9 @@ public class Enemy extends Elements{
 
     public void setDy(int dy) {
         this.dy = dy;
+    }
+
+    public int getHp() {
+        return hp;
     }
 }
