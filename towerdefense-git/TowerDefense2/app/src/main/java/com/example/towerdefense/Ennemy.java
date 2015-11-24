@@ -1,6 +1,8 @@
 package com.example.towerdefense;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 /**
  * Created by Brieuc on 10-11-15.
@@ -10,9 +12,10 @@ public class Ennemy extends Elements{
     private int hp;
     private int armor;
     private int mr;
+    private int test ;
 
-    public Ennemy(int x, int y, Bitmap bitmap, int hp, int armor, int mr){
-        super(x,y,bitmap);
+    public Ennemy(int x, int y, Context context, int hp, int armor, int mr){
+        super(x,y, BitmapFactory.decodeResource(context.getResources(), R.drawable.goblin));
         this.speed = new Speed();
         this.hp = hp;
         this.armor = armor;
@@ -41,8 +44,8 @@ public class Ennemy extends Elements{
     }
 
     public void update() {
-            this.setX((int) (this.getX()+ (10*speed.getXv() * speed.getxDirection())));
-            this.setY((int) (this.getY() + (10*speed.getYv() * speed.getyDirection())));
+            this.setX((int) (this.getX()+ (speed.getXv() * speed.getxDirection())));
+            this.setY((int) (this.getY() + (speed.getYv() * speed.getyDirection())));
     }
 
 

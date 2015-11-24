@@ -1,6 +1,19 @@
 <resources>
     <string name="app_name">TowerDefense</string>
 
-    <string name="bandeau_haut">ALAPECHEAUXMOULESMOULESMOULESJENEVEUXPLUSYALLERMAMANLESGENSDELAVILLEVILLEVILLE</string>
+    <string name="gold">28</string>
     <string name="action_settings">Settings</string>
+    <string name="monster1"> Goblin</string>
+    <string name="monster2"> Troll</string>
+    <string name="exemple">Coucou gobelin</string>
+    <string name="yourIncome"> Your income : </string>
+    <string name="yourIncomeValue"> +32 </string>
+    <string name="OppIncome"> Opponent income : </string>
+    <string name="OppIncomeValue"> +41 </string>
+    <string name="yourLife"> Your life : </string>
+    <string name="yourLifeValue"> 20 </string>
+    <string name="OppLife"> Opponent life : </string>
+    <string name="OppLifeValue"> 20 </string>
+
+
 </resources>
