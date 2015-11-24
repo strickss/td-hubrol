@@ -6,7 +6,6 @@ package com.example.towerdefense;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -16,10 +15,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import android.widget.ImageButton;
-import android.view.View;
-import android.widget.Button;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,13 +22,12 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     private static final String TAG = MainGamePanel.class.getSimpleName();
     private MainThread thread;
-    private Ennemy goblin;
     //final ImageButton imageButton;
     private List<Towers> towers;
     private List<Buttons> buttons;
     private List<Shot> shots;
+    private List<Enemy> enemies;
     private Map map;
-    private int increment;
     private String avgFps; //the fps to be displayed
     private Gryphon gryphon;
 
@@ -45,16 +39,18 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         getHolder().addCallback(this); //  sets the current class (MainGamePanel) as the handler for the events happening on the actual surface
 
         map = new Map(0);
-        increment = 0;
 
         // create tower and load bitmap
-        goblin = new Gobelin(150,0, context, 1, 1, 1);
 
         towers = new ArrayList<Towers>();
         buttons = new ArrayList<Buttons>();
         shots = new ArrayList<Shot>();
+        enemies = new ArrayList<Enemy>();
 
-        gryphon = new Gryphon( 600, 600, context);
+        enemies.add(new Gobelin(150, 0, context, 1, 1, 1));
+        //goblin = new Gobelin(150,0, context, 1, 1, 1);
+
+        gryphon = new Gryphon( 600, 600, context, 0, 0);
 
         //create the game loop thread
         thread = new MainThread(getHolder(), this);
@@ -143,9 +139,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     }
 
     private void towerUpgrade(MotionEvent event, int towerIndex) {
-        buttons.add(new Buttons_tower_upgrade(towers.get(towerIndex).getX(), towers.get(towerIndex).getY() - 200, getContext(), towerIndex));
-        buttons.add(new Buttons_tower_stop(towers.get(towerIndex).getX(), towers.get(towerIndex).getY(), getContext()));
-        buttons.add(new Buttons_tower_delete(towers.get(towerIndex).getX(), towers.get(towerIndex).getY() + 200, getContext(), towerIndex));
+        buttons.add(new Buttons_tower_upgrade((int) towers.get(towerIndex).getX(),(int) towers.get(towerIndex).getY() - 200, getContext(), towerIndex));
+        buttons.add(new Buttons_tower_stop((int)towers.get(towerIndex).getX(),(int) towers.get(towerIndex).getY(), getContext()));
+        buttons.add(new Buttons_tower_delete((int)towers.get(towerIndex).getX(), (int)towers.get(towerIndex).getY() + 200, getContext(), towerIndex));
     }
 
     private void towerCreation(final MotionEvent event) {
@@ -155,8 +151,12 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     protected void render(Canvas canvas) {
         canvas.drawColor(Color.BLUE);
-        goblin.draw(canvas);
+        //goblin.draw(canvas);
         gryphon.draw(canvas);
+
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).draw(canvas);
+        }
 
 
         for (int i = 0; i < towers.size(); i++) {
@@ -165,7 +165,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).draw(canvas);
         }
-        //canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.goblin),10,10,null); //Pla soldier on (10,10) ((0,0) is the upper right cornn
+        //canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.goblin),10,10,null);
         displayFps(canvas, avgFps);
 
         if (buttons.size() != 0) {
@@ -173,7 +173,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                 if (buttons.get(i).getType() == 2){
                     Paint paint = new Paint();
                     paint.setARGB(50, 0, 255, 0);
-                    canvas.drawCircle(towers.get(buttons.get(i).getTowerIndex()).getX(), towers.get(buttons.get(i).getTowerIndex()).getY(), towers.get(buttons.get(i).getTowerIndex()).getRange(), paint);
+                    canvas.drawCircle((int)towers.get(buttons.get(i).getTowerIndex()).getX(), (int)towers.get(buttons.get(i).getTowerIndex()).getY(), towers.get(buttons.get(i).getTowerIndex()).getRange(), paint);
                 }
 
             }
@@ -188,57 +188,35 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     public void update() {// check collision with right wall if heading right
         gryphon.update(System.currentTimeMillis());
-        //gobUpdate();
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).gobUpdate(map);
+        }
         if (System.currentTimeMillis() - a > 10000){
-            gryphon.getSpeed().setxDirection(0);
-            gryphon.getSpeed().setyDirection(1);
+            gryphon.setDx(0);
+            gryphon.setDy(0);
+            if (enemies.size()<2) {
+                enemies.add(new Gobelin(150, 0, getContext(), 1, 1, 1));
+            }
         }
         missileUpdate();
         missileCreation();
     }
 
-    private void gobUpdate() {
-        if (goblin.getX() < map.getPath().get(increment)) {
-            goblin.getSpeed().setxDirection(1);
-        } else if (goblin.getX() > map.getPath().get(increment)) {
-            goblin.getSpeed().setxDirection(-1);
-        } else {
-            goblin.getSpeed().setxDirection(0);
-        }
-        // check collision with left wall if heading left
-        if (goblin.getY() < map.getPath().get(increment+1)) {
-            goblin.getSpeed().setyDirection(1);
-        } else if (goblin.getY() > map.getPath().get(increment+1)) {
-            goblin.getSpeed().setyDirection(-1);
-        } else {
-            goblin.getSpeed().setyDirection(0);
-        }
-        // Update the lone droid
-        Log.d(TAG, "xi" + goblin.getX() + "yi" + goblin.getY());
-        Log.d(TAG, "xf" + map.getPath().get(increment) + "yf" + map.getPath().get(increment + 1));
-        if (Math.abs(goblin.getX() - map.getPath().get(increment)) < goblin.getSpeed().getXv() && Math.abs(goblin.getY()- map.getPath().get(increment+1))< goblin.getSpeed().getYv()) {
-            goblin.setX(map.getPath().get(increment));
-            goblin.setY(map.getPath().get(increment + 1));
-            increment=increment+2;
-        }
-        goblin.update();
-    }
-
     private void missileCreation() {
         for (int i = 0; i < towers.size(); i++) {
-            //for (int j = 0; j < monsters.size(); j++) {
-            double dx =towers.get(i).getX()- gryphon.getX();
-            double dy = towers.get(i).getY()- gryphon.getY();
-            double dist = Math.sqrt(dx*dx + dy*dy);
-            Log.d(TAG, "dist:" + dist);
-            if (towers.get(i).getRange() >= dist){
-                if (towers.get(i).canFire()) {
-                    towers.get(i).fire();
-                    Log.d(TAG, "1 missile created");
-                    shots.add(new Missile(towers.get(i).getX(), towers.get(i).getY(), getContext(), gryphon.getX(), gryphon.getY()));
+            for (int j = 0; j < enemies.size(); j++) {
+                double dx =towers.get(i).getX()- enemies.get(j).getX();
+                double dy = towers.get(i).getY()- enemies.get(j).getY();
+                double dist = Math.sqrt(dx*dx + dy*dy);
+                //Log.d(TAG, "dist:" + dist);
+                if (towers.get(i).getRange() >= dist){
+                    if (towers.get(i).canFire()) {
+                        towers.get(i).fire();
+                        //Log.d(TAG, "1 missile created");
+                        shots.add(new Missile((int)towers.get(i).getX(), (int)towers.get(i).getY(), getContext(), enemies.get(j)));
+                    }
                 }
             }
-            //}
         }
     }
 
@@ -246,6 +224,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private void missileUpdate() {
         for (int i = 0; i < shots.size(); i++) {
             shots.get(i).update();
+            if (shots.get(i).hasHit()){
+                shots.remove(i);
+            }
         }
     }
 

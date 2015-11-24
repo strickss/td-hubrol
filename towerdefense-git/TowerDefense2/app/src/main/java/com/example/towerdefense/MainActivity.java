@@ -77,8 +77,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             method.setAccessible(true);
             method.invoke(menuPopupHelper, true);
         } catch (Exception e) {
-            e.printStackTrace();
-        }
+        e.printStackTrace();
+    }
 
 
         popup.show();
