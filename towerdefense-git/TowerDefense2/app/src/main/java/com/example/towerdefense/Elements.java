@@ -10,12 +10,7 @@ public class Elements {
     protected double x;
     protected double y;
     protected Bitmap bitmap;
-
-<<<<<<< HEAD
     public Elements(double x, double y,Bitmap bitmap){
-=======
-    public Elements(int x, int y, Bitmap bitmap){
->>>>>>> refs/remotes/origin/Samedi-matin
         this.x = x;
         this.y = y;
         this.bitmap = bitmap;
