@@ -1,6 +1,10 @@
 package com.example.towerdefense;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -9,19 +13,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Set;
 
 
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    private final static int REQUEST_ENABLE_BT = 1;
+    private ArrayAdapter<String> mArrayAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,11 +53,33 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         final ImageButton imageButton3 = (ImageButton) findViewById(R.id.button_3);
         final ImageButton imageButton4 = (ImageButton) findViewById(R.id.button_4);
         final Chronometer chronometer = (Chronometer)  findViewById(R.id.chronometer);
-
         chronometer.start();
 
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter == null) {
+            // Device does not support Bluetooth
+        }
+
+        if (!mBluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        }
+
+        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+// If there are paired devices
+        if (pairedDevices.size() > 0) {
+            // Loop through paired devices
+            for (BluetoothDevice device : pairedDevices) {
+                // Add the name and address to an array adapter to show in a ListView
+                mArrayAdapter = new ArrayAdapter<>(this, R.layout.arrays);
+                //ListView newDevicesListView = (ListView) findViewById(R.id.array);
+                //newDevicesListView.setAdapter(mArrayAdapter);
 
 
+                //newDevicesListView.setOnItemClickListener(mDeviceClickListener);
+                mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+            }
+        }
     }
 
     @Override

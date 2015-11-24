@@ -3,8 +3,15 @@
 
     <string name="gold">28</string>
     <string name="action_settings">Settings</string>
+<<<<<<< HEAD
     <string name="monster1"> Goblin </string>
     <string name="monster2"> Troll</string>
+=======
+    <string name="monster1"> Goblin 1</string>
+    <string name="monster2"> Troll 1 </string>
+    <string name="monster3"> Goblin 2</string>
+
+>>>>>>> origin/master
     <string name="exemple">Coucou gobelin</string>
     <string name="yourIncome"> Your income : </string>
     <string name="yourIncomeValue"> +32 </string>
