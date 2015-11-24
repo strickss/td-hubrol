@@ -46,27 +46,33 @@ public class Enemy extends Elements{
     }
 
     protected void gobUpdate(Map map) {
-        if (this.getX() < map.getPath().get(this.increment)) {
-            this.setDx(1);
-        } else if (this.getX() > map.getPath().get(this.increment)) {
-            this.setDx(-1);
-        } else {
-            this.setDx(0);
-        }
-        // check collision with left wall if heading left
-        if (this.getY() < map.getPath().get(this.increment+1)) {
-            this.setDy(1);
-        } else if (this.getY() > map.getPath().get(this.increment+1)) {
-            this.setDy(-1);
-        } else {
-            this.setDy(0);
-        }
-        //Log.d(TAG, "xi" + goblin.getX() + "yi" + goblin.getY());
-        //Log.d(TAG, "xf" + map.getPath().get(increment) + "yf" + map.getPath().get(increment + 1));
-        if (Math.abs(this.getX() - map.getPath().get(this.increment)) < this.getSpeed().getXv() && Math.abs(this.getY()- map.getPath().get(this.increment+1))< this.getSpeed().getYv()) {
-            this.setX(map.getPath().get(this.increment));
-            this.setY(map.getPath().get(this.increment + 1));
-            this.increment=this.increment+2;
+        try {
+            if (this.getX() < map.getPath().get(this.increment)) {
+                this.setDx(1);
+            } else if (this.getX() > map.getPath().get(this.increment)) {
+                this.setDx(-1);
+            } else {
+                this.setDx(0);
+            }
+            // check collision with left wall if heading left
+            if (this.getY() < map.getPath().get(this.increment + 1)) {
+                this.setDy(1);
+            } else if (this.getY() > map.getPath().get(this.increment + 1)) {
+                this.setDy(-1);
+            } else {
+                this.setDy(0);
+            }
+            //Log.d(TAG, "xi" + goblin.getX() + "yi" + goblin.getY());
+            //Log.d(TAG, "xf" + map.getPath().get(increment) + "yf" + map.getPath().get(increment + 1));
+            if (Math.abs(this.getX() - map.getPath().get(this.increment)) < this.getSpeed().getXv() && Math.abs(this.getY() - map.getPath().get(this.increment + 1)) < this.getSpeed().getYv()) {
+                this.setX(map.getPath().get(this.increment));
+                this.setY(map.getPath().get(this.increment + 1));
+                this.increment = this.increment + 2;
+            }
+        } catch (Exception e) {
+            increment = 0;
+            this.setX(150);
+            this.setY(0);
         }
         this.update();
     }
