@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Set;
 
 
@@ -32,6 +34,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private static final String TAG = MainActivity.class.getSimpleName();
     private final static int REQUEST_ENABLE_BT = 1;
     private ArrayAdapter<String> mArrayAdapter;
+    private MainGamePanel gamePanel;
+    private AttributeSet attributeSet;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         // set our MainGamePanel as the View
         //setContentView(new MainGamePanel(this));
         setContentView(R.layout.activity_main);
+        gamePanel = (MainGamePanel) findViewById(R.id.GamePanel);
 
 
         Log.d(TAG, "View added");
@@ -59,13 +64,14 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         if (mBluetoothAdapter == null) {
             // Device does not support Bluetooth
         }
-
-        if (!mBluetoothAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        }
+        try {
+            if (!mBluetoothAdapter.isEnabled()) {
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            }
 
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+
 // If there are paired devices
         if (pairedDevices.size() > 0) {
             // Loop through paired devices
@@ -80,6 +86,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
             }
         }
+        }catch(Exception e){}
     }
 
     @Override
@@ -121,10 +128,10 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.monster1:
-                showPopup(findViewById(R.id.button_1));
+                gamePanel.CreateMonster(1);
                 return true;
             case R.id.monster2:
-                showPopup(findViewById(R.id.button_4));
+                gamePanel.CreateMonster(2);
                 return true;
             default:
                 return false;
