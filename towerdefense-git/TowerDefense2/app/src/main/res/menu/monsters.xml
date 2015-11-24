@@ -5,7 +5,8 @@
         android:id="@+id/monster1"
         android:icon="@drawable/goblin"
         android:title="@string/monster1"
-        android:onClick="onMenuItemClick"/>
+        android:onClick="onMenuItemClick"
+        />
 
 
 
