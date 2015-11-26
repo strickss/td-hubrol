@@ -12,5 +12,6 @@ public class Gobelin extends Enemy {
 
     public Gobelin(double x, double y, Context context, int hp, int armor, int mr, ArrayList path){
         super(x,y, BitmapFactory.decodeResource(context.getResources(), R.drawable.goblin), hp, armor, mr, path);
+        this.value=10;
     }
 }
