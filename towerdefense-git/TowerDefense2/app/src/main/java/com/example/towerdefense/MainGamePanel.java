@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.List;
 public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     private static final String TAG = MainGamePanel.class.getSimpleName();
+    private Player player1;
     private MainThread thread;
     //final ImageButton imageButton;
     private List<Towers> towers;
@@ -40,6 +42,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         map = new Map(context, 0);
 
         // create tower and load bitmap
+        this.player1 = new Player(50,10,20);
 
         towers = new ArrayList<Towers>();
         buttons = new ArrayList<Buttons>();
@@ -200,7 +203,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         missileUpdate();
         missileCreation();
         enemiesUpdate();
-    }
+        }
 
     private void enemiesUpdate() {
         for (int j = 0; j < enemies.size(); j++) {
