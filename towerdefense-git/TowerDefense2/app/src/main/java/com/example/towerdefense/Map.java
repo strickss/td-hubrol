@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Hugo on 17/11/2015.
@@ -20,6 +21,7 @@ public class Map {
     private final int blockSizeX;
     private final int blockSizeY;
     private ArrayList<ArrayList<Integer>> pathList;
+    private Random rand;
 
     public Map(Context context, int lvl) {
         mapSizeX = 2000;
@@ -29,6 +31,7 @@ public class Map {
         blockSizeY = mapSizeY / mapMatrix[0].length;
         path = new Path(mapMatrix, this, context);
         CreateMapList(mapMatrix);
+        rand = new Random();
     }
 
     public void draw(Canvas canvas) {
@@ -54,6 +57,11 @@ public class Map {
     public int getBlockSizeY() {return blockSizeY; }
 
     public ArrayList<Integer> getPath() {
-        return path.getPathList().get(0);
+       if(rand.nextDouble()<0.5) {
+
+           return path.getPathList().get(0);
+       }else{
+           return path.getPathList().get(1);
+       }
     }
 }
