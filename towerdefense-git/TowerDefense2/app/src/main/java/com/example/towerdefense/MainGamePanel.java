@@ -208,6 +208,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private void enemiesUpdate() {
         for (int j = 0; j < enemies.size(); j++) {
             if (enemies.get(j).getHp() ==0){
+                player1.increaseGold(enemies.get(j).getValue());
                 enemies.remove(j);
             }
         }
@@ -263,7 +264,11 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             enemies.add(new Gobelin(150, 0, getContext() , 1, 1, 1, map.getPath()));
         }
         if (i ==2){
-            enemies.add(new Gobelin(180, 0, getContext() , 10, 1, 1, map.getPath()));
+            enemies.add(new Gobelin(150, 0, getContext(), 10, 1, 1, map.getPath()));
         }
+    }
+
+    public Player getPlayer() {
+        return this.player1;
     }
 }

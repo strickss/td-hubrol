@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
@@ -34,12 +35,10 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private static final String TAG = MainActivity.class.getSimpleName();
     private final static int REQUEST_ENABLE_BT = 1;
     private ArrayAdapter<String> mArrayAdapter;
-<<<<<<< HEAD
-    long beginTime = System.currentTimeMillis();
-=======
     private MainGamePanel gamePanel;
-    private AttributeSet attributeSet;
->>>>>>> refs/remotes/origin/Samedi-matin
+    private Handler mHandler;
+    private TextView textGold;
+    private TextView textYourIncome;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,10 +51,10 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         //setContentView(new MainGamePanel(this));
         setContentView(R.layout.activity_main);
         gamePanel = (MainGamePanel) findViewById(R.id.GamePanel);
+        //updateTextViewGold(1);
 
 
         Log.d(TAG, "View added");
-
 
         final ImageButton imageButton1 = (ImageButton) findViewById(R.id.button_1);
         final ImageButton imageButton2 = (ImageButton) findViewById(R.id.button_2);
@@ -74,45 +73,42 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             }
 
-        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-<<<<<<< HEAD
-        // If there are paired devices
-=======
-
-// If there are paired devices
->>>>>>> refs/remotes/origin/Samedi-matin
-        if (pairedDevices.size() > 0) {
-            // Loop through paired devices
-            for (BluetoothDevice device : pairedDevices) {
-                // Add the name and address to an array adapter to show in a ListView
-                mArrayAdapter = new ArrayAdapter<>(this, R.layout.arrays);
-                //ListView newDevicesListView = (ListView) findViewById(R.id.array);
-                //newDevicesListView.setAdapter(mArrayAdapter);
+            Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+            // If there are paired devices
+            if (pairedDevices.size() > 0) {
+                // Loop through paired devices
+                for (BluetoothDevice device : pairedDevices) {
+                    // Add the name and address to an array adapter to show in a ListView
+                    mArrayAdapter = new ArrayAdapter<>(this, R.layout.arrays);
+                    //ListView newDevicesListView = (ListView) findViewById(R.id.array);
+                    //newDevicesListView.setAdapter(mArrayAdapter);
 
 
-                //newDevicesListView.setOnItemClickListener(mDeviceClickListener);
-                mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+                    //newDevicesListView.setOnItemClickListener(mDeviceClickListener);
+                    mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+                }
             }
+        } catch (Exception e) {
         }
-<<<<<<< HEAD
 
-        if(System.currentTimeMillis() - beginTime > 10000){
-            updateTextView("ok");
+        textGold = (TextView) findViewById(R.id.gold);
+        textYourIncome = (TextView) findViewById(R.id.yourIncomeValue);
+        mHandler = new Handler();
+        mHandler.post(mUpdate);
+    }
+
+    private Runnable mUpdate = new Runnable() {
+        public void run() {
+            int txtGold = gamePanel.getPlayer().getGold();
+            textGold.setText(txtGold);
+            int txtYourIncome = gamePanel.getPlayer().getIncome();
+            textYourIncome.setText(txtYourIncome);
+            mHandler.postDelayed(this, 100);
         }
-    }
+    };
 
-    public void updateTextView(String toThis) {
-        TextView textView = (TextView) findViewById(R.id.gold);
-        textView.setText(toThis);
-    }
 
-    @Override
-    protected void onUpdate(){
 
-=======
-        }catch(Exception e){}
->>>>>>> refs/remotes/origin/Samedi-matin
-    }
 
     @Override
     protected void onDestroy() {
@@ -154,14 +150,35 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         switch (item.getItemId()) {
             case R.id.monster1:
                 gamePanel.CreateMonster(1);
+                gamePanel.getPlayer().cost(10);
+                gamePanel.getPlayer().increaseIncome(1);
+                //updateTextViewGold(gamePanel.getPlayer().getGold());
                 return true;
             case R.id.monster2:
                 gamePanel.CreateMonster(2);
+                //updateTextViewYourIncome(10);
+                //gamePanel.getPlayer().cost(10);
+                //updateTextViewGold(gamePanel.getPlayer().getGold());
                 return true;
             default:
                 return false;
 
         }
+    }
+
+    public void updateTextViewGold(int toThis) {
+        TextView textView = (TextView) findViewById(R.id.gold);
+        textView.setText(toThis);
+    }
+
+    public void updateTextViewYourIncome(int toThis) {
+        TextView textView = (TextView) findViewById(R.id.yourIncomeValue);
+        textView.setText(toThis);
+    }
+
+    public void updateTextViewOpponentIncome(int toThis) {
+        TextView textView = (TextView) findViewById(R.id.oppIncomeValue);
+        textView.setText(toThis);
     }
 
 }
