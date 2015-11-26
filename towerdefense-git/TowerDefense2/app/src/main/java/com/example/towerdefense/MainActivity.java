@@ -32,6 +32,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private static final String TAG = MainActivity.class.getSimpleName();
     private final static int REQUEST_ENABLE_BT = 1;
     private ArrayAdapter<String> mArrayAdapter;
+    long beginTime = System.currentTimeMillis();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         final ImageButton imageButton2 = (ImageButton) findViewById(R.id.button_2);
         final ImageButton imageButton3 = (ImageButton) findViewById(R.id.button_3);
         final ImageButton imageButton4 = (ImageButton) findViewById(R.id.button_4);
-        final Chronometer chronometer = (Chronometer)  findViewById(R.id.chronometer);
+        final Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
         chronometer.start();
 
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -80,6 +81,20 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
             }
         }
+
+        if(System.currentTimeMillis() - beginTime > 10000){
+            updateTextView("ok");
+        }
+    }
+
+    public void updateTextView(String toThis) {
+        TextView textView = (TextView) findViewById(R.id.gold);
+        textView.setText(toThis);
+    }
+
+    @Override
+    protected void onUpdate(){
+
     }
 
     @Override
