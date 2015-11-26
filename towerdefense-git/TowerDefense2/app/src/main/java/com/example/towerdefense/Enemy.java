@@ -19,10 +19,7 @@ public class Enemy extends Elements{
     private int dy;
     private int dx;
     private int increment;
-<<<<<<< HEAD
     private int cost;
-=======
->>>>>>> origin/master
     protected int value;
 
     public Enemy(double x, double y, Bitmap bitmap, int hp, int armor, int mr, ArrayList<Elements> path){
@@ -35,12 +32,9 @@ public class Enemy extends Elements{
         this.dy = 0;
         this.increment = 0;
         this.path = path;
-<<<<<<< HEAD
         this.value = 1;
         this.cost = 10;
-=======
         this.value=0;
->>>>>>> origin/master
     }
 
     protected void damaged(int damage){

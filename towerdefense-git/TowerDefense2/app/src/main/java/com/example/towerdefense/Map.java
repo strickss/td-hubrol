@@ -21,10 +21,7 @@ public class Map {
     private final int blockSizeX;
     private final int blockSizeY;
     private Random rand;
-<<<<<<< HEAD
-=======
     private Context context;
->>>>>>> origin/master
     private double endzoneX;
     private double endzoneY;
 
@@ -37,11 +34,8 @@ public class Map {
         path = new PathList(mapMatrix, this, context);
         rand = new Random();
         mapList = new ArrayList<>();
-<<<<<<< HEAD
         CreateMapList(context);
-=======
-        CreateMapList();
->>>>>>> origin/master
+        CreateMapList(context);
     }
 
     public void draw(Canvas canvas) {
@@ -64,36 +58,18 @@ public class Map {
     private void CreateMapList(Context context) {
         for (int x = 0; x < mapMatrix.length; x++) {
             for (int y = 0; y < mapMatrix[0].length; y++) {
-<<<<<<< HEAD
                 if (mapMatrix[x][y].equals("Z")) {
                     mapList.add(new EndZone(getBlockSizeX() * x, getBlockSizeY() * y, context));
                     endzoneX = getBlockSizeX() * x;
                     endzoneY = getBlockSizeY() * y;
-=======
+                }
                 if (mapMatrix[x][y].equals("P")) {
-                    path.getPathList().get(0).get(1).draw(canvas); // A changer: les P sont des chemins affiché mais pas "logic"
->>>>>>> origin/master
+                     // path.getPathList().get(0).get(1).draw(canvas); // A changer: les P sont des chemins affiché mais pas "logic"
                 }
             }
         }
     }
 
-<<<<<<< HEAD
-=======
-    private void CreateMapList() {
-
-        for (int x = 0; x < mapMatrix.length; x++) {
-            for (int y = 0; y < mapMatrix[0].length; y++) {
-                if (mapMatrix[x][y].equals("Z")) {
-                    mapList.add(new EndZone(getBlockSizeX() * x, getBlockSizeY() * y, context));
-                    endzoneX = getBlockSizeX() * x;
-                    endzoneY = getBlockSizeY() * y;
-                }
-            }
-        }
-    }
-
->>>>>>> origin/master
     public int getBlockSizeX() {
         return blockSizeX;
     }
