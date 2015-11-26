@@ -82,8 +82,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                     mArrayAdapter = new ArrayAdapter<>(this, R.layout.arrays);
                     //ListView newDevicesListView = (ListView) findViewById(R.id.array);
                     //newDevicesListView.setAdapter(mArrayAdapter);
-
-
                     //newDevicesListView.setOnItemClickListener(mDeviceClickListener);
                     mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
                 }
@@ -100,9 +98,9 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private Runnable mUpdate = new Runnable() {
         public void run() {
             int txtGold = gamePanel.getPlayer().getGold();
-            textGold.setText(txtGold);
+            //textGold.setText(txtGold);
             int txtYourIncome = gamePanel.getPlayer().getIncome();
-            textYourIncome.setText(txtYourIncome);
+            //textYourIncome.setText(txtYourIncome);
             mHandler.postDelayed(this, 100);
         }
     };
