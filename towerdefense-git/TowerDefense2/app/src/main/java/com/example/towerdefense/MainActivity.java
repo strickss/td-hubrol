@@ -144,8 +144,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         switch (item.getItemId()) {
             case R.id.monster1:
                 gamePanel.CreateMonster(1);
-                gamePanel.getPlayer().cost(10);
-                gamePanel.getPlayer().increaseIncome(1);
                 //updateTextViewGold(gamePanel.getPlayer().getGold());
                 return true;
             case R.id.monster2:
