@@ -196,6 +196,12 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         if (System.currentTimeMillis() - a > 10000){
             gryphon.setDx(0);
             gryphon.setDy(0);
+<<<<<<< HEAD
+=======
+            if (enemies.size()<2) {
+                enemies.add(new Gobelin(150, 0, getContext(), 5, 1, 1, map.getLogicPath()));
+            }
+>>>>>>> origin/master
         }
         missileUpdate();
         missileCreation();
@@ -206,6 +212,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         for (int j = 0; j < enemies.size(); j++) {
             if (enemies.get(j).getHp() ==0){
                 player1.increaseGold(enemies.get(j).getValue());
+                enemies.remove(j);
+            }
+            if(enemies.get(j).getX() == map.getEndZoneX() && enemies.get(j).getY() == map.getEndZoneY()){
                 enemies.remove(j);
             }
             if(enemies.get(j).getX() == map.getEndZoneX() && enemies.get(j).getY() == map.getEndZoneY()){

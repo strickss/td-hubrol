@@ -73,6 +73,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             }
 
+<<<<<<< HEAD
             Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
             // If there are paired devices
             if (pairedDevices.size() > 0) {
@@ -85,6 +86,26 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                     //newDevicesListView.setOnItemClickListener(mDeviceClickListener);
                     mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
                 }
+=======
+        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+<<<<<<< HEAD
+
+// If there are paired devices
+=======
+        // If there are paired devices
+>>>>>>> refs/remotes/origin/master
+        if (pairedDevices.size() > 0) {
+            // Loop through paired devices
+            for (BluetoothDevice device : pairedDevices) {
+                // Add the name and address to an array adapter to show in a ListView
+                mArrayAdapter = new ArrayAdapter<>(this, R.layout.arrays);
+                //ListView newDevicesListView = (ListView) findViewById(R.id.array);
+                //newDevicesListView.setAdapter(mArrayAdapter);
+
+
+                //newDevicesListView.setOnItemClickListener(mDeviceClickListener);
+                mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+>>>>>>> origin/master
             }
         } catch (Exception e) {
         }
