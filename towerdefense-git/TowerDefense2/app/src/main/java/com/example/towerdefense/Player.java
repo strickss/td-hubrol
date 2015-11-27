@@ -33,4 +33,16 @@ public class Player {
     public int getIncome() {
         return income;
     }
+
+    public int getLife() {
+        return life;
+    }
+
+    public void looseLife() {
+        this.life = this.life - 1;
+    }
+
+    public void getFunding() {
+        this.gold = this.gold + this.income;
+    }
 }
