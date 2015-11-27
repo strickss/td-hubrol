@@ -71,12 +71,9 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             }
 
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-<<<<<<< HEAD
 
-// If there are paired devices
-=======
         // If there are paired devices
->>>>>>> refs/remotes/origin/master
+
         if (pairedDevices.size() > 0) {
             // Loop through paired devices
             for (BluetoothDevice device : pairedDevices) {
