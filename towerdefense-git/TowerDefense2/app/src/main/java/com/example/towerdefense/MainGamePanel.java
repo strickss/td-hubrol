@@ -189,6 +189,10 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
 
     public void update() {// check collision with right wall if heading right
+        if (System.currentTimeMillis() - a > 10000){
+            player1.getFunding();
+            a = System.currentTimeMillis();
+        }
         gryphon.update(System.currentTimeMillis());
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).gobUpdate(map);

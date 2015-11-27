@@ -39,6 +39,9 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private Handler mHandler;
     private TextView textGold;
     private TextView textYourIncome;
+    private TextView textOppIncome;
+    private TextView textYourLife;
+    private TextView textOppLife;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,6 +93,9 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
 
         textGold = (TextView) findViewById(R.id.gold);
         textYourIncome = (TextView) findViewById(R.id.yourIncomeValue);
+        textOppIncome = (TextView) findViewById(R.id.oppIncomeValue);
+        textYourLife = (TextView) findViewById(R.id.yourLifeValue);
+        textOppLife = (TextView) findViewById(R.id.oppLifeValue);
         mHandler = new Handler();
         mHandler.post(mUpdate);
     }
@@ -100,6 +106,12 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             textGold.setText(""+txtGold);
             int txtYourIncome = gamePanel.getPlayer().getIncome();
             textYourIncome.setText(""+txtYourIncome);
+            int txtOppIncome = gamePanel.getPlayer().getIncome() +1;
+            textOppIncome.setText(""+txtOppIncome);
+            int txtYourLife = gamePanel.getPlayer().getLife();
+            textYourLife.setText(""+txtYourLife);
+            int txtOppLife = gamePanel.getPlayer().getLife() + 1;
+            textOppLife.setText(""+txtOppLife);
             mHandler.postDelayed(this, 100);
         }
     };
@@ -132,9 +144,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             method.invoke(menuPopupHelper, true);
         } catch (Exception e) {
         e.printStackTrace();
-    }
-
-
+        }
         popup.show();
     }
 
@@ -144,33 +154,15 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         switch (item.getItemId()) {
             case R.id.monster1:
                 gamePanel.CreateMonster(1);
-                //updateTextViewGold(gamePanel.getPlayer().getGold());
+                showPopup(findViewById(R.id.button_1));
                 return true;
             case R.id.monster2:
                 gamePanel.CreateMonster(2);
-                //updateTextViewYourIncome(10);
-                //gamePanel.getPlayer().cost(10);
-                //updateTextViewGold(gamePanel.getPlayer().getGold());
                 return true;
             default:
                 return false;
 
         }
-    }
-
-    public void updateTextViewGold(int toThis) {
-        TextView textView = (TextView) findViewById(R.id.gold);
-        textView.setText(toThis);
-    }
-
-    public void updateTextViewYourIncome(int toThis) {
-        TextView textView = (TextView) findViewById(R.id.yourIncomeValue);
-        textView.setText(toThis);
-    }
-
-    public void updateTextViewOpponentIncome(int toThis) {
-        TextView textView = (TextView) findViewById(R.id.oppIncomeValue);
-        textView.setText(toThis);
     }
 
 }
