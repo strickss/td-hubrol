@@ -20,7 +20,6 @@ public class Map {
     private final int mapSizeY;
     private final int blockSizeX;
     private final int blockSizeY;
-    private ArrayList<ArrayList<Integer>> pathList;
     private Random rand;
     private Context context;
     private double endzoneX;
@@ -35,7 +34,8 @@ public class Map {
         path = new PathList(mapMatrix, this, context);
         rand = new Random();
         mapList = new ArrayList<>();
-        CreateMapList();
+        CreateMapList(context);
+        CreateMapList(context);
     }
 
     public void draw(Canvas canvas) {
@@ -43,23 +43,28 @@ public class Map {
             path.getPathList().get(0).get(i).draw(canvas);
             path.getPathList().get(1).get(i).draw(canvas);
         }
-        for (int x = 0; x < mapMatrix.length; x++) {
-            for (int y = 0; y < mapMatrix[0].length; y++) {
-                if (mapMatrix[x][y].equals("P")) {
-                    path.getPathList().get(0).get(1).draw(canvas); // A changer: les P sont des chemins affiché mais pas "logic"
-                }
-            }
+        for(int j=0; j<mapList.size();j++){
+            mapList.get(j).draw(canvas);
         }
+        //for (int x = 0; x < mapMatrix.length; x++) {
+        //for (int y = 0; y < mapMatrix[0].length; y++) {
+        //        if (mapMatrix[x][y].equals("P")) {
+        //            path.getPathList().get(0).get(1).draw(canvas); // A changer: les P sont des chemins affiché mais pas "logic"
+        //        }
+        //    }
+        //}
     }
 
-    private void CreateMapList() {
-
+    private void CreateMapList(Context context) {
         for (int x = 0; x < mapMatrix.length; x++) {
             for (int y = 0; y < mapMatrix[0].length; y++) {
                 if (mapMatrix[x][y].equals("Z")) {
                     mapList.add(new EndZone(getBlockSizeX() * x, getBlockSizeY() * y, context));
                     endzoneX = getBlockSizeX() * x;
                     endzoneY = getBlockSizeY() * y;
+                }
+                if (mapMatrix[x][y].equals("P")) {
+                     // path.getPathList().get(0).get(1).draw(canvas); // A changer: les P sont des chemins affiché mais pas "logic"
                 }
             }
         }

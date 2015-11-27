@@ -13,4 +13,28 @@ public class Player {
         this.income = income;
         this.life = life;
     }
+
+    public int getGold(){
+        return this.gold;
+    }
+
+    public void increaseIncome(int inc){
+        this.income = this.income + inc;
+    }
+
+    public void cost(int i) {
+        this.gold = this.gold - i;
+    }
+
+    public void increaseGold(int value) {
+        this.cost(-value);
+    }
+
+    public int getIncome() {
+        return income;
+    }
+
+    public void looseLife() {
+        this.life = this.life - 1;
+    }
 }

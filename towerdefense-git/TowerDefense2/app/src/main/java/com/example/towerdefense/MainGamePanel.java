@@ -196,9 +196,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         if (System.currentTimeMillis() - a > 10000){
             gryphon.setDx(0);
             gryphon.setDy(0);
-            if (enemies.size()<2) {
-                enemies.add(new Gobelin(150, 0, getContext(), 5, 1, 1, map.getLogicPath()));
-            }
         }
         missileUpdate();
         missileCreation();
@@ -208,10 +205,11 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private void enemiesUpdate() {
         for (int j = 0; j < enemies.size(); j++) {
             if (enemies.get(j).getHp() ==0){
+                player1.increaseGold(enemies.get(j).getValue());
                 enemies.remove(j);
-            }
-            if(enemies.get(j).getX() == map.getEndZoneX() && enemies.get(j).getY() == map.getEndZoneY()){
+            }else if(enemies.get(j).getX() == map.getEndZoneX() && enemies.get(j).getY() == map.getEndZoneY()){
                 enemies.remove(j);
+                player1.looseLife();
             }
         }
     }
@@ -263,10 +261,18 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     public void CreateMonster(int i) {
         if (i ==1){
-            enemies.add(new Gobelin(150, 0, getContext() , 1, 1, 1, map.getLogicPath()));
+            enemies.add(new Gobelin(150, 0, getContext(), 1, 1, 1, map.getLogicPath()));
+            player1.cost(10);
+            player1.increaseIncome(1);
         }
-        if (i ==2){
+        if (i ==2) {
             enemies.add(new Gobelin(180, 0, getContext() , 10, 1, 1, map.getLogicPath()));
+            player1.cost(20);
+            player1.increaseIncome(2);
         }
+    }
+
+    public Player getPlayer() {
+        return this.player1;
     }
 }

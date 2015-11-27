@@ -9,9 +9,9 @@
 
     <string name="exemple">Coucou gobelin</string>
     <string name="yourIncome"> Your income : </string>
-    <string name="yourIncomeValue"> +32 </string>
-    <string name="OppIncome"> Opponent income : </string>
-    <string name="OppIncomeValue"> +41 </string>
+    <string name="yourIncomeValue"> 32 </string>
+    <string name="oppIncome"> Opponent income : </string>
+    <string name="oppIncomeValue"> 41 </string>
     <string name="yourLife"> Your life : </string>
     <string name="yourLifeValue"> 20 </string>
     <string name="OppLife"> Opponent life : </string>

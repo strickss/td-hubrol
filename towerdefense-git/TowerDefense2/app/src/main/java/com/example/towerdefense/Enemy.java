@@ -19,6 +19,7 @@ public class Enemy extends Elements{
     private int dy;
     private int dx;
     private int increment;
+    private int cost;
     protected int value;
 
     public Enemy(double x, double y, Bitmap bitmap, int hp, int armor, int mr, ArrayList<Elements> path){
@@ -31,6 +32,8 @@ public class Enemy extends Elements{
         this.dy = 0;
         this.increment = 0;
         this.path = path;
+        this.value = 1;
+        this.cost = 10;
         this.value=0;
     }
 
@@ -107,5 +110,13 @@ public class Enemy extends Elements{
 
     public int getHp() {
         return hp;
+    }
+
+    public int getValue() {
+        return this.value;
+    }
+
+    public int getCost(){
+        return this.cost;
     }
 }
