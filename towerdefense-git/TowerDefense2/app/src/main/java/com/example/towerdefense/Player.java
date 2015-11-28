@@ -34,6 +34,11 @@ public class Player {
         return income;
     }
 
+<<<<<<< HEAD
+    public void looseLife() {
+        this.life = this.life - 1;
+    }
+=======
     public int getLife() {
         return life;
     }
@@ -45,4 +50,5 @@ public class Player {
     public void getFunding() {
         this.gold = this.gold + this.income;
     }
+>>>>>>> refs/remotes/origin/Tower_creation
 }
