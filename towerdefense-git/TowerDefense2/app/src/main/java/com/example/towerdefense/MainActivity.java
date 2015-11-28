@@ -42,6 +42,10 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private TextView textOppIncome;
     private TextView textYourLife;
     private TextView textOppLife;
+    private Chronometer chronometer;
+    private long a = System.currentTimeMillis();
+    private boolean updateMenu;
+    private PopupMenu popup;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +67,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         final ImageButton imageButton2 = (ImageButton) findViewById(R.id.button_2);
         final ImageButton imageButton3 = (ImageButton) findViewById(R.id.button_3);
         final ImageButton imageButton4 = (ImageButton) findViewById(R.id.button_4);
-        final Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
+        this.chronometer = (Chronometer) findViewById(R.id.chronometer);
         chronometer.start();
 
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -96,6 +100,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         textOppIncome = (TextView) findViewById(R.id.oppIncomeValue);
         textYourLife = (TextView) findViewById(R.id.yourLifeValue);
         textOppLife = (TextView) findViewById(R.id.oppLifeValue);
+        updateMenu = true;
         mHandler = new Handler();
         mHandler.post(mUpdate);
     }
@@ -109,10 +114,20 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             int txtOppIncome = gamePanel.getPlayer().getIncome() +1;
             textOppIncome.setText(""+txtOppIncome);
             int txtYourLife = gamePanel.getPlayer().getLife();
-            textYourLife.setText(""+txtYourLife);
+            textYourLife.setText("" + txtYourLife);
             int txtOppLife = gamePanel.getPlayer().getLife() + 1;
-            textOppLife.setText(""+txtOppLife);
+            textOppLife.setText("" + txtOppLife);
             mHandler.postDelayed(this, 100);
+
+            if (updateMenu) {
+                if (System.currentTimeMillis() - a > 10000) {
+                    try {
+                        popup.dismiss();
+                    } catch (Exception e){}
+                    popUpMenuUpdate();
+                    updateMenu = false;
+                }
+            }
         }
     };
 
@@ -129,12 +144,14 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     }
 
     public void showPopup(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
+        popup = new PopupMenu(this, v);
         popup.setOnMenuItemClickListener(this);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.monsters, popup.getMenu());
-
         try {
+            if (System.currentTimeMillis() - a > 10000) {
+                popup.getMenu().findItem(R.id.monster2).setVisible(true);
+            }
             Field field = popup.getClass().getDeclaredField("mPopup");
             field.setAccessible(true);
             Object menuPopupHelper = field.get(popup);
@@ -143,26 +160,30 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             method.setAccessible(true);
             method.invoke(menuPopupHelper, true);
         } catch (Exception e) {
-        e.printStackTrace();
+            e.printStackTrace();
         }
         popup.show();
     }
-
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.monster1:
                 gamePanel.CreateMonster(1);
-                showPopup(findViewById(R.id.button_1));
+                popUpMenuUpdate();
                 return true;
             case R.id.monster2:
                 gamePanel.CreateMonster(2);
+                popUpMenuUpdate();
                 return true;
             default:
                 return false;
 
         }
+    }
+
+    public void popUpMenuUpdate(){
+        showPopup(findViewById(R.id.button_1));
     }
 
 }
