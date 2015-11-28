@@ -123,8 +123,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 if (System.currentTimeMillis() - a > 10000) {
                     try {
                         popup.dismiss();
+                        popUpMenuUpdate();
                     } catch (Exception e){}
-                    popUpMenuUpdate();
                     updateMenu = false;
                 }
             }
