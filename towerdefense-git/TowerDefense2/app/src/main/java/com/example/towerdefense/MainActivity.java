@@ -95,6 +95,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         } catch (Exception e) {
         }
 
+<<<<<<< HEAD
         textGold = (TextView) findViewById(R.id.gold);
         textYourIncome = (TextView) findViewById(R.id.yourIncomeValue);
         textOppIncome = (TextView) findViewById(R.id.oppIncomeValue);
@@ -104,6 +105,20 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         mHandler = new Handler();
         mHandler.post(mUpdate);
     }
+=======
+        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+
+        // If there are paired devices
+
+        if (pairedDevices.size() > 0) {
+            // Loop through paired devices
+            for (BluetoothDevice device : pairedDevices) {
+                // Add the name and address to an array adapter to show in a ListView
+                mArrayAdapter = new ArrayAdapter<>(this, R.layout.arrays);
+                //ListView newDevicesListView = (ListView) findViewById(R.id.array);
+                //newDevicesListView.setAdapter(mArrayAdapter);
+
+>>>>>>> refs/remotes/origin/Samedi-matin
 
     private Runnable mUpdate = new Runnable() {
         public void run() {
