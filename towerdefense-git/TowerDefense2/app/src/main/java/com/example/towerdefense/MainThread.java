@@ -63,7 +63,7 @@ public class MainThread extends Thread {
             // try locking the canvas for exclusive pixel editing on the surface
             try { //try to get hold of it
                 canvas = this.surfaceHolder.lockCanvas();
-                canvas.translate(1000,100);
+                //canvas.translate(1000,100);
                 synchronized (surfaceHolder) {
                     // update game state
                     // draws the canvas on the panel
