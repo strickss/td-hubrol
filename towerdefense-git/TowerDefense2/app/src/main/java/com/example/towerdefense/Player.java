@@ -43,8 +43,15 @@ public class Player {
     public int getLife() {
         return life;
     }
+<<<<<<< HEAD
     public void getFunding() {
         this.gold = this.gold + this.income;
     }
 
+=======
+
+    public void getFunding() {
+        this.gold = this.gold + this.income;
+    }
+>>>>>>> refs/remotes/origin/master
 }
