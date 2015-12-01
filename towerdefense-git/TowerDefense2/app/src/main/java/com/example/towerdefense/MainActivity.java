@@ -58,8 +58,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         //setContentView(new MainGamePanel(this));
         setContentView(R.layout.activity_main);
         gamePanel = (MainGamePanel) findViewById(R.id.GamePanel);
-        //updateTextViewGold(1);
-
 
         Log.d(TAG, "View added");
 

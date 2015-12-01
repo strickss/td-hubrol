@@ -39,20 +39,14 @@ public class Map {
     }
 
     public void draw(Canvas canvas) {
-        for(int i=0; i < path.getPathList().get(0).size(); i=i+1){
+        for(int i=0; i < path.getPathList().get(0).size()-1; i=i+1){
             path.getPathList().get(0).get(i).draw(canvas);
+            //Log.d(TAG, "i :" + i);
             path.getPathList().get(1).get(i).draw(canvas);
         }
         for(int j=0; j<mapList.size();j++){
             mapList.get(j).draw(canvas);
         }
-        //for (int x = 0; x < mapMatrix.length; x++) {
-        //for (int y = 0; y < mapMatrix[0].length; y++) {
-        //        if (mapMatrix[x][y].equals("P")) {
-        //            path.getPathList().get(0).get(1).draw(canvas); // A changer: les P sont des chemins affiché mais pas "logic"
-        //        }
-        //    }
-        //}
     }
 
     private void CreateMapList(Context context) {
@@ -64,8 +58,9 @@ public class Map {
                     endzoneY = getBlockSizeY() * y;
                 }
                 if (mapMatrix[x][y].equals("P")) {
-                     // path.getPathList().get(0).get(1).draw(canvas); // A changer: les P sont des chemins affiché mais pas "logic"
+                     mapList.add(new Path(getBlockSizeX() * x, getBlockSizeY() * y, context));
                 }
+
             }
         }
     }
