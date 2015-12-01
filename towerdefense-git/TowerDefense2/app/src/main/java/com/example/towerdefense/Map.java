@@ -64,8 +64,9 @@ public class Map {
                     endzoneY = getBlockSizeY() * y;
                 }
                 if (mapMatrix[x][y].equals("P")) {
-                     // path.getPathList().get(0).get(1).draw(canvas); // A changer: les P sont des chemins affiché mais pas "logic"
+                     mapList.add(new Path(getBlockSizeX() * x, getBlockSizeY() * y, context));
                 }
+
             }
         }
     }
