@@ -53,7 +53,8 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         shots = new ArrayList<Shot>();
         enemies = new ArrayList<Enemy>();
 
-        enemies.add(new Gryphon(context, map.getLogicPath()));
+        //enemies.add(new Gryphon(context, map.getLogicPath()));
+        enemies.add(new Skeleton(context, map.getLogicPath()));
         //goblin = new Gobelin(150,0, context, 1, 1, 1);
 
 
@@ -122,9 +123,11 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
             if (Math.abs(event.getX()-x1)>map.getBlockSizeX()/2 && Math.abs(event.getY()-y1)>map.getBlockSizeY()/2) {
                 thread.setCanvasMoved(true);
-                thread.getCanvas().translate(event.getX() - x1, event.getY() - y1);
+                //thread.getCanvas().translate(event.getX() - x1, event.getY() - y1);
                 canvasX = canvasX + (event.getX() - x1);
                 canvasY = canvasY + (event.getY() - y1);
+                x1 = event.getX();
+                y1 = event.getY();
             }
         }
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
