@@ -72,6 +72,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             }
+
             Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
             // If there are paired devices
             if (pairedDevices.size() > 0) {
@@ -84,6 +85,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                     //newDevicesListView.setOnItemClickListener(mDeviceClickListener);
                     mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
                 }
+
             }
         } catch (Exception e) {
         }
