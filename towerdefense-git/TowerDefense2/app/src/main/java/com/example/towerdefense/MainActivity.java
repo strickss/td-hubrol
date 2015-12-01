@@ -68,7 +68,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         this.chronometer = (Chronometer) findViewById(R.id.chronometer);
         chronometer.start();
 
-        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+     /*   BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
             // Device does not support Bluetooth
         }
@@ -77,6 +77,10 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             }
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/master
             Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
             // If there are paired devices
             if (pairedDevices.size() > 0) {
@@ -103,8 +107,13 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 mArrayAdapter = new ArrayAdapter<>(this, R.layout.arrays);
                 //ListView newDevicesListView = (ListView) findViewById(R.id.array);
                 //newDevicesListView.setAdapter(mArrayAdapter);
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/master
             }
-        }
+        }*/
+
         textGold = (TextView) findViewById(R.id.gold);
         textYourIncome = (TextView) findViewById(R.id.yourIncomeValue);
         textOppIncome = (TextView) findViewById(R.id.oppIncomeValue);
