@@ -33,8 +33,11 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private Map map;
     private String avgFps; //the fps to be displayed
     private Gryphon gryphon;
+    private float x1,y1;
 
     private long a =System.currentTimeMillis();
+    private float canvasX =0;
+    private float canvasY=0;
 
     public MainGamePanel(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -87,37 +90,47 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (buttons.size() != 0) {
-                for (int i = 0; i < buttons.size(); i++) {
-                    //if ((event.getX() < buttons.get(i).getX() + buttons.get(i).getBitmap().getWidth()) && (event.getX() > buttons.get(i).getX() - buttons.get(i).getBitmap().getWidth())) {
-                      //if ((event.getY() < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight()) && (event.getY() > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight())) {
-                    if ((event.getX() < buttons.get(i).getX() + buttons.get(i).getBitmap().getWidth()/2) && (event.getX() > buttons.get(i).getX() - buttons.get(i).getBitmap().getWidth()/2)) {
-                        if ((event.getY() < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight()/2) && (event.getY() > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight()/2)) {
-                            buttons.get(i).getEvent(event, towers, getContext());
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            if (thread.getCanvasMoved() == false) {
+                if (buttons.size() != 0) {
+                    for (int i = 0; i < buttons.size(); i++) {
+                        //if ((event.getX() < buttons.get(i).getX() + buttons.get(i).getBitmap().getWidth()) && (event.getX() > buttons.get(i).getX() - buttons.get(i).getBitmap().getWidth())) {
+                        //if ((event.getY() < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight()) && (event.getY() > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight())) {
+                        if ((event.getX() < buttons.get(i).getX() + buttons.get(i).getBitmap().getWidth() / 2) && (event.getX() > buttons.get(i).getX() - buttons.get(i).getBitmap().getWidth() / 2)) {
+                            if ((event.getY() < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight() / 2) && (event.getY() > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight() / 2)) {
+                                buttons.get(i).getEvent(event, towers, getContext());
+                            }
                         }
                     }
-                }
-                buttons = new ArrayList<Buttons>();
-            } else {
-                // check if in the lower part of the screen we exit
-                if (event.getY() > getHeight() - 50) {
-                    thread.setRunning(false);
-                    ((Activity) getContext()).finish();
+                    buttons = new ArrayList<Buttons>();
                 } else {
-                    Log.d(TAG, "Coords: x=" + event.getX() + ",y=" + event.getY());
+                    // check if in the lower part of the screen we exit
+                    if (event.getY() > getHeight() - 50) {
+                        thread.setRunning(false);
+                        ((Activity) getContext()).finish();
+                    } else {
+                        Log.d(TAG, "Coords: x=" + event.getX() + ",y=" + event.getY());
+                    }
+                    // delegating event handling to the towers
+                    towerOnClickEvent(event);
                 }
-                // delegating event handling to the towers
-                towerOnClickEvent(event);
             }
         }
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
-            // the gestures
+            if (Math.abs(event.getX()-x1)>map.getBlockSizeX()/2 && Math.abs(event.getY()-y1)>map.getBlockSizeY()/2) {
+                thread.setCanvasMoved(true);
+                thread.getCanvas().translate(event.getX() - x1, event.getY() - y1);
+                canvasX = canvasX + (event.getX() - x1);
+                canvasY = canvasY + (event.getY() - y1);
+            }
         }
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            // touch was released
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            thread.setCanvasMoved(false);
+            x1 = event.getX();
+            y1 = event.getY();
         }
         return true;
     }
@@ -283,5 +296,13 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     public Player getPlayer() {
         return this.player1;
+    }
+
+    public float getCanvasX() {
+        return canvasX;
+    }
+
+    public float getCanvasY() {
+        return canvasY;
     }
 }
