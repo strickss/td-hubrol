@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -189,6 +190,10 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
 
     public void update() {// check collision with right wall if heading right
+        if (System.currentTimeMillis() - a > 10000){
+            player1.getFunding();
+            a = System.currentTimeMillis();
+        }
         gryphon.update(System.currentTimeMillis());
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).gobUpdate(map);
@@ -260,15 +265,25 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     }
 
     public void CreateMonster(int i) {
-        if (i ==1){
-            enemies.add(new Gobelin(150, 0, getContext(), 1, 1, 1, map.getLogicPath()));
-            player1.cost(10);
-            player1.increaseIncome(1);
+        if (i ==1) {
+            if (player1.getGold() > 10){
+                enemies.add(new Gobelin(150, 0, getContext(), 1, 1, 1, map.getLogicPath()));
+                player1.cost(10);
+                player1.increaseIncome(1);
+            } else {
+                Toast toast = Toast.makeText(getContext(), "Not enough gold !", Toast.LENGTH_SHORT);
+                toast.show();
+            }
         }
         if (i ==2) {
-            enemies.add(new Gobelin(180, 0, getContext() , 10, 1, 1, map.getLogicPath()));
-            player1.cost(20);
-            player1.increaseIncome(2);
+            if (player1.getGold() > 20){
+                enemies.add(new Gobelin(180, 0, getContext() , 10, 1, 1, map.getLogicPath()));
+                player1.cost(20);
+                player1.increaseIncome(2);
+            } else {
+                Toast toast = Toast.makeText(getContext(), "Not enough gold !", Toast.LENGTH_SHORT);
+                toast.show();
+            }
         }
     }
 
