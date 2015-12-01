@@ -38,6 +38,7 @@ public class MainThread extends Thread {
     private double averageFps = 0.0;// the average FPS since the game started
     private Canvas canvas;
     private boolean canvasMoved=false;
+    private float xCanvas, yCanvas;
 
     public MainThread(SurfaceHolder surfaceHolder, MainGamePanel gamePanel){
         super();
@@ -65,6 +66,9 @@ public class MainThread extends Thread {
             // try locking the canvas for exclusive pixel editing on the surface
             try { //try to get hold of it
                 canvas = this.surfaceHolder.lockCanvas();
+                xCanvas =gamePanel.getCanvasX();
+                yCanvas =gamePanel.getCanvasY();
+                canvas.translate(xCanvas, yCanvas);
                 synchronized (surfaceHolder) {
                     // update game state
                     // draws the canvas on the panel
@@ -105,6 +109,7 @@ public class MainThread extends Thread {
                 // in case of an exception the surface is not left in
                 // an inconsistent state
                 if (canvas != null) {
+
                     surfaceHolder.unlockCanvasAndPost(canvas);
                 }
             } // end finally

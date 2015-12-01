@@ -36,6 +36,8 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private float x1,y1;
 
     private long a =System.currentTimeMillis();
+    private float canvasX =0;
+    private float canvasY=0;
 
     public MainGamePanel(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -122,6 +124,8 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             if (Math.abs(event.getX()-x1)>map.getBlockSizeX()/2 && Math.abs(event.getY()-y1)>map.getBlockSizeY()/2) {
                 thread.setCanvasMoved(true);
                 thread.getCanvas().translate(event.getX() - x1, event.getY() - y1);
+                canvasX = canvasX + (event.getX() - x1);
+                canvasY = canvasY + (event.getY() - y1);
             }
         }
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -298,5 +302,13 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     public Player getPlayer() {
         return this.player1;
+    }
+
+    public float getCanvasX() {
+        return canvasX;
+    }
+
+    public float getCanvasY() {
+        return canvasY;
     }
 }
