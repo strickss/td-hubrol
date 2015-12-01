@@ -63,11 +63,10 @@ public class MainThread extends Thread {
             // try locking the canvas for exclusive pixel editing on the surface
             try { //try to get hold of it
                 canvas = this.surfaceHolder.lockCanvas();
+                canvas.translate(1000,100);
                 synchronized (surfaceHolder) {
                     // update game state
                     // draws the canvas on the panel
-                    this.gamePanel.update(); //we trigger the panel’s onDraw event to which we pass the obtained canvas
-                    this.gamePanel.render(canvas);
                     framesSkipped = 0; //resetting the frames skipped
                     this.gamePanel.update(); // update game state
                     this.gamePanel.render(canvas); // draws the canvas on the panel
