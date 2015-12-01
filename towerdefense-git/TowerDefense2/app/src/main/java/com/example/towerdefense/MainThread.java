@@ -36,6 +36,8 @@ public class MainThread extends Thread {
     private double fpsStore[];// the last FPS values
     private long statsCount = 0;// the number of times the stat has been read
     private double averageFps = 0.0;// the average FPS since the game started
+    private Canvas canvas;
+    private boolean canvasMoved=false;
 
     public MainThread(SurfaceHolder surfaceHolder, MainGamePanel gamePanel){
         super();
@@ -49,7 +51,7 @@ public class MainThread extends Thread {
 
     @Override
     public void run() {
-        Canvas canvas; //declare the canvas on which we will draw our image. The canvas is the surface’s bitmap onto which we can draw and we can edit its pixels
+        //Canvas canvas; //declare the canvas on which we will draw our image. The canvas is the surface’s bitmap onto which we can draw and we can edit its pixels
         Log.d(TAG, "Starting game loop");
         initTimingElements();
         long timeDiff; //the time it took for the cycle to execute
@@ -165,4 +167,11 @@ public class MainThread extends Thread {
         Log.d(TAG + ".initTimingElements()", "Timing elements for stats initialised");
     }
 
+    public Canvas getCanvas() {
+        return canvas;
+    }
+    public void setCanvasMoved(boolean bool){
+        canvasMoved = bool;
+    }
+    public boolean getCanvasMoved(){return canvasMoved;}
 }
