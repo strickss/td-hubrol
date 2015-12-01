@@ -9,12 +9,11 @@
         android:onClick="onMenuItemClick"
         />
 
-
-
     <item
         android:id="@+id/monster2"
         android:icon="@drawable/goblin"
         android:title="@string/monster2"
-        android:onClick="onMenuItemClick"/>
+        android:onClick="onMenuItemClick"
+        android:visible = "false"/>
 
 </menu>
