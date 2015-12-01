@@ -38,7 +38,6 @@ public class MainThread extends Thread {
     private double averageFps = 0.0;// the average FPS since the game started
     private Canvas canvas;
     private boolean canvasMoved=false;
-    private float xCanvas, yCanvas;
 
     public MainThread(SurfaceHolder surfaceHolder, MainGamePanel gamePanel){
         super();
@@ -67,12 +66,17 @@ public class MainThread extends Thread {
             try { //try to get hold of it
                 canvas = this.surfaceHolder.lockCanvas();
 <<<<<<< HEAD
+<<<<<<< HEAD
                 //canvas.translate(1000,100);
 =======
                 xCanvas =gamePanel.getCanvasX();
                 yCanvas =gamePanel.getCanvasY();
                 canvas.translate(xCanvas, yCanvas);
 >>>>>>> origin/master
+=======
+                //canvas.translate(1000,100);
+                canvas.translate(gamePanel.getCanvasX(), gamePanel.getCanvasY());
+>>>>>>> refs/remotes/origin/Tower_creation
                 synchronized (surfaceHolder) {
                     // update game state
                     // draws the canvas on the panel

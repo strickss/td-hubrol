@@ -101,7 +101,6 @@ public class Enemy extends Elements{
                 //Log.d(TAG, "OK !");
             }
         } catch (Exception e) {
-            this.increment = 0;
             this.setX(map.getEndZoneX());
             this.setY(map.getEndZoneY());
         }
@@ -143,14 +142,14 @@ public class Enemy extends Elements{
         // where to draw the sprite
         Rect destRect = new Rect((int) this.getX() - this.width/2, (int) this.getY() - height/2, (int) this.getX() + width/2, (int) this.getY() + height/2);
         canvas.drawBitmap(bitmap, sourceRect, destRect, null);
-        //drawSpriteSelector(canvas);
+        drawSpriteSelector(canvas);
     }
 
     private void drawSpriteSelector(Canvas canvas) {
-        canvas.drawBitmap(bitmap, 800, 150, null);
+        canvas.drawBitmap(bitmap, 800, 400, null);
         Paint paint = new Paint();
         paint.setARGB(50, 0, 255, 0);
-        canvas.drawRect(800 + (currentFrame * sourceRect.width()), 150 + this.sourceRect.top, 800 + (currentFrame * sourceRect.width()) + sourceRect.width(), 150 + this.sourceRect.bottom, paint);
+        canvas.drawRect(800 + (currentFrame * sourceRect.width()), 400 + this.sourceRect.top, 800 + (currentFrame * sourceRect.width()) + sourceRect.width(), 400 + this.sourceRect.bottom, paint);
     }
 
     public int getDx() {

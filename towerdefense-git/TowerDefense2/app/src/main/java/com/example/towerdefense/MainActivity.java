@@ -80,7 +80,11 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 >>>>>>> origin/master
+=======
+>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/Tower_creation
             Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
             // If there are paired devices
             if (pairedDevices.size() > 0) {
@@ -110,7 +114,11 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 >>>>>>> origin/master
+=======
+>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/Tower_creation
             }
         }*/
 
