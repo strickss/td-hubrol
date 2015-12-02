@@ -135,14 +135,14 @@ public class Enemy extends Elements{
             this.sourceRect.bottom = 2 * spriteHeight;
         }
         this.setX((int) (this.getX() + this.getDx()*speed));
-        this.setY((int) (this.getY() + this.getDy()*speed));
+        this.setY((int) (this.getY() + this.getDy() * speed));
     }
 
     public void draw(Canvas canvas) {
         // where to draw the sprite
         Rect destRect = new Rect((int) this.getX() - this.width/2, (int) this.getY() - height/2, (int) this.getX() + width/2, (int) this.getY() + height/2);
         canvas.drawBitmap(bitmap, sourceRect, destRect, null);
-        drawSpriteSelector(canvas);
+        //drawSpriteSelector(canvas);
     }
 
     private void drawSpriteSelector(Canvas canvas) {
@@ -183,4 +183,5 @@ public class Enemy extends Elements{
     public int getSpeed() {
         return speed;
     }
+
 }

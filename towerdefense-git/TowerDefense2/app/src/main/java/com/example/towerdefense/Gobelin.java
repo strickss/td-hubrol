@@ -11,9 +11,10 @@ import java.util.ArrayList;
  */
 public class Gobelin extends Enemy {
 
-    public Gobelin(Context context, int hp, int armor, int mr, ArrayList path){
-        super(BitmapFactory.decodeResource(context.getResources(), R.drawable.goblin), hp, armor, mr, path);
-        this.value=10;
+    public Gobelin(Context context,ArrayList path){
+        super(BitmapFactory.decodeResource(context.getResources(), R.drawable.goblin), 2, 1, 1, path);
+        this.value=1;
+        this.cost = 10;
         this.frameNr = 1; //framecount
         this.spriteWidth = bitmap.getWidth() / 1;
         this.spriteHeight = bitmap.getHeight() / 1;
