@@ -158,8 +158,8 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     private void towerUpgrade(MotionEvent event, int towerIndex) {
         buttons.add(new Buttons_tower_upgrade((int) towers.get(towerIndex).getX(),(int) towers.get(towerIndex).getY() - 200, getContext(), towerIndex));
-        buttons.add(new Buttons_tower_stop((int)towers.get(towerIndex).getX(),(int) towers.get(towerIndex).getY(), getContext()));
-        buttons.add(new Buttons_tower_delete((int)towers.get(towerIndex).getX(), (int)towers.get(towerIndex).getY() + 200, getContext(), towerIndex));
+        buttons.add(new Buttons_tower_stop((int) towers.get(towerIndex).getX(), (int) towers.get(towerIndex).getY(), getContext()));
+        buttons.add(new Buttons_tower_delete((int) towers.get(towerIndex).getX(), (int) towers.get(towerIndex).getY() + 200, getContext(), towerIndex));
     }
 
     private void towerCreation(final MotionEvent event) {
@@ -274,26 +274,27 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
-    public void CreateMonster(int i) {
-        if (i ==1) {
-            if (player1.getGold() >= 10){
-                enemies.add(new Gobelin(getContext(), 1, 1, 1, map.getLogicPath()));
-                player1.cost(enemies.get(enemies.size()-1).getCost());
-                player1.increaseIncome(enemies.get(enemies.size() - 1).getValue());
-            } else {
-                Toast toast = Toast.makeText(getContext(), "Not enough gold !", Toast.LENGTH_SHORT);
-                toast.show();
-            }
+    public void create(int i){
+        switch (i){
+            case 1:
+                CreateMonster(new Gobelin(getContext(), map.getLogicPath()));
+                return;
+            case 2 :
+                CreateMonster(new Robot(getContext(),map.getLogicPath()));
+                return;
+            default:
+                return;
         }
-        if (i ==2) {
-            if (player1.getGold() >= 20){
-                enemies.add(new Gobelin(getContext(), 2, 1, 1, map.getLogicPath()));
-                player1.cost(enemies.get(enemies.size() - 1).getCost());
-                player1.increaseIncome(enemies.get(enemies.size()-1).getValue());
-            } else {
-                Toast toast = Toast.makeText(getContext(), "Not enough gold !", Toast.LENGTH_SHORT);
-                toast.show();
-            }
+    }
+
+    public void CreateMonster(Enemy enemy) {
+        if (player1.getGold() >= enemy.getCost()) {
+            enemies.add(enemy);
+            player1.cost(enemy.getCost());
+            player1.increaseIncome(enemy.getValue());
+        } else {
+            Toast toast = Toast.makeText(getContext(), "Not enough gold !", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
