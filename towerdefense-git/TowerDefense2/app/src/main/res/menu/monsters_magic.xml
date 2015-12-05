@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/gryphon"
+        android:icon="@drawable/gryphon_sprite"
+        android:title="@string/monster_gryphon"
+        android:onClick="onMenuItemClick"
+        android:visible = "true"/>
+
+    <item
+        android:id="@+id/fairy"
+        android:icon="@drawable/fairy_sprite"
+        android:title="@string/monster_fairy"
+        android:onClick="onMenuItemClick"
+        android:visible = "true"/>
+
+    <item
+        android:id="@+id/dark_vador"
+        android:icon="@drawable/dark_vador_sprite"
+        android:title="@string/monster_dark_vador"
+        android:onClick="onMenuItemClick"
+        android:visible = "true"/>
+
+    <item
+        android:id="@+id/blue_dragon"
+        android:icon="@drawable/bluedragon_sprite"
+        android:title="@string/monster_blue_dragon"
+        android:onClick="onMenuItemClick"
+        android:visible = "true"/>
+
+</menu>
