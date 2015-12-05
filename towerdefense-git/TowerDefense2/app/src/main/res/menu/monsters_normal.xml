@@ -4,14 +4,14 @@
 
     <item
         android:id="@+id/goblin"
-        android:icon="@drawable/goblin"
+        android:icon="@drawable/goblin_icon"
         android:title="@string/monster_goblin"
         android:onClick="onMenuItemClick"
         />
 
     <item
         android:id="@+id/eye"
-        android:icon="@drawable/eye_sprite"
+        android:icon="@drawable/eye_icon"
         android:title="@string/monster_eye"
         android:onClick="onMenuItemClick"
         />
@@ -19,21 +19,21 @@
 
     <item
         android:id="@+id/devil"
-        android:icon="@drawable/devil_sprite"
+        android:icon="@drawable/devil_icon"
         android:title="@string/monster_devil"
         android:onClick="onMenuItemClick"
         android:visible = "true"/>
 
     <item
         android:id="@+id/skeleton"
-        android:icon="@drawable/skeleton_sprite"
+        android:icon="@drawable/skeleton_icon"
         android:title="@string/monster_skeleton"
         android:onClick="onMenuItemClick"
         android:visible = "true"/>
 
     <item
         android:id="@+id/eagle"
-        android:icon="@drawable/eagle_sprite"
+        android:icon="@drawable/eagle_icon"
         android:title="@string/monster_eagle"
         android:onClick="onMenuItemClick"
         android:visible = "true"/>

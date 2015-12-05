@@ -28,7 +28,7 @@ public class ReadFile {
         ListLevel.add("Map2.txt");
         ListLevel.add("Map3.txt");
 
-        String [][] map = new String[40][22];
+        String [][] map = new String[45][33];
         Log.d(TAG, "n: " + map);
         try{
             AssetManager assetManager = ApplicationContextProvider.getContext().getAssets();

@@ -11,21 +11,21 @@
 
     <item
         android:id="@+id/dwarf"
-        android:icon="@drawable/dwarf_sprite"
+        android:icon="@drawable/dwarf_icon"
         android:title="@string/monster_dwarf"
         android:onClick="onMenuItemClick"
         android:visible = "true"/>
 
     <item
         android:id="@+id/devil2"
-        android:icon="@drawable/devil2_sprite"
+        android:icon="@drawable/devil2_icon"
         android:title="@string/monster_devil2"
         android:onClick="onMenuItemClick"
         android:visible = "true"/>
 
     <item
         android:id="@+id/golem"
-        android:icon="@drawable/golem_sprite"
+        android:icon="@drawable/golem_icon"
         android:title="@string/monster_golem"
         android:onClick="onMenuItemClick"
         android:visible = "true"/>
