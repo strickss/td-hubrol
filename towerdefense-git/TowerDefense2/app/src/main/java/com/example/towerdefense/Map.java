@@ -39,13 +39,13 @@ public class Map {
     }
 
     public void draw(Canvas canvas) {
+        for(int j=0; j<mapList.size();j++){
+            mapList.get(j).draw(canvas);
+        }
         for(int i=0; i < path.getPathList().get(0).size(); i=i+1){
             path.getPathList().get(0).get(i).draw(canvas);
             //Log.d(TAG, "i :" + i);
             path.getPathList().get(1).get(i).draw(canvas);
-        }
-        for(int j=0; j<mapList.size();j++){
-            mapList.get(j).draw(canvas);
         }
     }
 
@@ -59,10 +59,10 @@ public class Map {
                     Log.d(TAG, "EndZone X : "+ endzoneX + "EndZone y : " + endzoneY);
                 }
                 if (mapMatrix[x][y].equals("P")) {
-                     mapList.add(new Path(getBlockSizeX() * x, getBlockSizeY() * y, context));
+                     mapList.add(new Path(getBlockSizeX() * x, getBlockSizeY() * y, context, getBlockSizeX(), getBlockSizeY()));
                 }
                 if (mapMatrix[x][y].equals("A")) {
-                    mapList.add(new Grass(getBlockSizeX() * x, getBlockSizeY() * y, context));
+                    //mapList.add(new Grass(getBlockSizeX() * x, getBlockSizeY() * y, context));
                 }
 
             }

@@ -23,6 +23,7 @@ import java.util.List;
 public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     private static final String TAG = MainGamePanel.class.getSimpleName();
+    private final Paint paint_canvas;
     private Player player1;
     private MainThread thread;
     //final ImageButton imageButton;
@@ -44,6 +45,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         // adding the callback (this) to the surface holder to intercept events
         getHolder().addCallback(this); //  sets the current class (MainGamePanel) as the handler for the events happening on the actual surface
         map = new Map(context, 0);
+
+        paint_canvas = new Paint();
+        paint_canvas.setARGB(255, 10, 160, 50);
 
         // create tower and load bitmap
         this.player1 = new Player(50,10,20);
@@ -171,7 +175,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     }
 
     protected void render(Canvas canvas) {
-        canvas.drawColor(Color.GREEN);
+        canvas.drawPaint(paint_canvas);
         map.draw(canvas);
         //goblin.draw(canvas);
 
@@ -243,7 +247,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                     if (towers.get(i).canFire()) {
                         towers.get(i).fire();
                         //Log.d(TAG, "1 missile created");
-                        shots.add(new Missile((int)towers.get(i).getX(), (int)towers.get(i).getY(), getContext(), enemies.get(j)));
+                        towers.get(i).shot(shots, getContext(), enemies.get(j));
                     }
                 }
             }

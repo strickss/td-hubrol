@@ -99,7 +99,7 @@ public class Enemy extends Elements{
                 this.setY(this.path.get(this.increment).getY());
                 this.increment++;
                 this.setDx(0); this.setDy(0);
-                Log.d(TAG, "OK !" + "x :" + this.getX() + ", y :" + this.getY());
+                //Log.d(TAG, "OK !" + "x :" + this.getX() + ", y :" + this.getY());
             }
         } catch (Exception e) {
             this.setX(map.getEndZoneX());
