@@ -60,8 +60,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private BluetoothChatService mChatService = null;
     private StringBuffer mOutStringBuffer;
     static final int PICK_DEVICE_REQUEST = 1;  // The request code
-
     private View view;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -139,10 +139,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     };
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
     @Override
     protected void onDestroy() {
         Log.d(TAG, "Destroying...");
