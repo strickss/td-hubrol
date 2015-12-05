@@ -24,6 +24,8 @@ public class Map {
     private Context context;
     private double endzoneX;
     private double endzoneY;
+    private ArrayList<Integer> buildingList;
+    ArrayList<Integer> pos;
 
     public Map(Context context, int lvl) {
         mapSizeX = 2500;
@@ -34,7 +36,10 @@ public class Map {
         path = new PathList(mapMatrix, this, context);
         rand = new Random();
         mapList = new ArrayList<>();
-        CreateMapList(context);
+        buildingList = new ArrayList();
+        pos = new ArrayList<>();
+        pos.add(-1);
+        pos.add(-1);
         CreateMapList(context);
     }
 
@@ -61,8 +66,10 @@ public class Map {
                 if (mapMatrix[x][y].equals("P")) {
                      mapList.add(new Path(getBlockSizeX() * x, getBlockSizeY() * y, context, getBlockSizeX(), getBlockSizeY()));
                 }
-                if (mapMatrix[x][y].equals("A")) {
-                    //mapList.add(new Grass(getBlockSizeX() * x, getBlockSizeY() * y, context));
+                if (mapMatrix[x][y].equals("B")) {
+                    mapList.add(new BuildingZone(getBlockSizeX() * x, getBlockSizeY() * y, context, getBlockSizeX(), getBlockSizeY()));
+                    buildingList.add(getBlockSizeX() * x);
+                    buildingList.add(getBlockSizeY() * y);
                 }
             }
         }
@@ -81,5 +88,19 @@ public class Map {
        }else{
            return path.getPathList().get(1);
        }
+    }
+
+    public ArrayList BuildingZone(float x, float y) {
+        for (int m=0; m<buildingList.size(); m=m+2){
+            if (buildingList.get(m)>(x-getBlockSizeX()/2) && buildingList.get(m)<(x+getBlockSizeX()/2) && buildingList.get(m+1)>(y-getBlockSizeY()) && buildingList.get(m+1)<(x+getBlockSizeX()) ){
+                pos.set(0,buildingList.get(m));
+                pos.set(1,buildingList.get(m+1));
+                return pos;
+            }
+
+        }
+        pos.set(0,-1);
+        pos.set(1,-1);
+        return pos;
     }
 }

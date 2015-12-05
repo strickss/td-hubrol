@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -37,6 +39,8 @@ public class Enemy extends Elements{
     private int dy;
     private int dx;
     private int increment;
+    private SoundPool sp;
+    private int spId;
     protected int cost;
     protected int value;
 
@@ -65,6 +69,7 @@ public class Enemy extends Elements{
         this.frameTicker = 0l;
         this.dx = 1;
         this.dy = 0;
+
     }
 
     protected void damaged(int damage){
@@ -143,6 +148,8 @@ public class Enemy extends Elements{
         // where to draw the sprite
         Rect destRect = new Rect((int) this.getX() - this.width/2, (int) this.getY() - height, (int) this.getX() + width/2, (int) this.getY());
         canvas.drawBitmap(bitmap, sourceRect, destRect, null);
+
+        //Log.d(TAG, "x :" + x + ", y :" + y);
         //drawSpriteSelector(canvas);
     }
 
