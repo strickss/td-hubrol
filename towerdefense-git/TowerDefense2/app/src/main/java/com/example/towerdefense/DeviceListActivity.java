@@ -62,6 +62,8 @@ public class DeviceListActivity extends Activity {
         // Set result CANCELED in case the user backs out
         setResult(Activity.RESULT_CANCELED);
 
+        IntentFilter filter1 = new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
+        this.registerReceiver(mReceiver, filter1);
 
         // Initialize the button to perform device discovery
         Button scanButton = (Button) findViewById(R.id.button_scan);
@@ -71,6 +73,9 @@ public class DeviceListActivity extends Activity {
                 v.setVisibility(View.GONE);
             }
         });
+
+        mBtAdapter = BluetoothAdapter.getDefaultAdapter();
+        ensureDiscoverable();
 
         // Initialize array adapters. One for already paired devices and
         // one for newly discovered devices
@@ -127,7 +132,13 @@ public class DeviceListActivity extends Activity {
         this.unregisterReceiver(mReceiver);
     }
 
-
+    private void ensureDiscoverable() {
+        if (mBtAdapter.getScanMode() != BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
+            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+            startActivity(discoverableIntent);
+        }
+    }
 
     /**
      * Start device discover with the BluetoothAdapter
@@ -150,6 +161,7 @@ public class DeviceListActivity extends Activity {
         // Request discover from BluetoothAdapter
         mBtAdapter.startDiscovery();
     }
+
 
     /**
      * The on-click listener for all devices in the ListViews
@@ -199,7 +211,10 @@ public class DeviceListActivity extends Activity {
                     String noDevices = getResources().getText(R.string.none_found).toString();
                     mNewDevicesArrayAdapter.add(noDevices);
                 }
+            } else if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
+                finish(); //Device is now connected
             }
+
         }
     };
 
