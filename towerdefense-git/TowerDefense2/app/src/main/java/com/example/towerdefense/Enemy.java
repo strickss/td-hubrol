@@ -142,6 +142,7 @@ public class Enemy extends Elements{
         // where to draw the sprite
         Rect destRect = new Rect((int) this.getX() - this.width/2, (int) this.getY() - height/2, (int) this.getX() + width/2, (int) this.getY() + height/2);
         canvas.drawBitmap(bitmap, sourceRect, destRect, null);
+        Log.d(TAG, "x :" + x + ", y :" + y);
         //drawSpriteSelector(canvas);
     }
 

@@ -100,9 +100,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                     for (int i = 0; i < buttons.size(); i++) {
                         //if ((event.getX() < buttons.get(i).getX() + buttons.get(i).getBitmap().getWidth()) && (event.getX() > buttons.get(i).getX() - buttons.get(i).getBitmap().getWidth())) {
                         //if ((event.getY() < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight()) && (event.getY() > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight())) {
-                        if ((event.getX() < buttons.get(i).getX() + buttons.get(i).getBitmap().getWidth() / 2) && (event.getX() > buttons.get(i).getX() - buttons.get(i).getBitmap().getWidth() / 2)) {
-                            if ((event.getY() < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight() / 2) && (event.getY() > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight() / 2)) {
-                                buttons.get(i).getEvent(event, towers, getContext());
+                        if (((event.getX() - canvasX) < buttons.get(i).getX() + buttons.get(i).getBitmap().getWidth() / 2) && ((event.getX() - canvasX) > buttons.get(i).getX() - buttons.get(i).getBitmap().getWidth() / 2)) {
+                            if (((event.getY() - canvasY) < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight() / 2) && ((event.getY() - canvasY) > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight() / 2)) {
+                                buttons.get(i).getEvent(towers, getContext());
                             }
                         }
                     }
@@ -141,10 +141,10 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private void towerOnClickEvent(MotionEvent event) {
         boolean create = true;
         for (int i = 0; i < towers.size(); i++) {
-            towers.get(i).handleActionDown((int) event.getX(), (int) event.getY());
+            towers.get(i).handleActionDown((int) (event.getX() - canvasX), (int) (event.getY()- canvasY));
             if (towers.get(i).isTouched()) {
                 create = false;
-                towerUpgrade(event, i);
+                towerUpgrade(i);
                 //towers.get(i).info();
             }
             if (!create) {
@@ -156,15 +156,15 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
-    private void towerUpgrade(MotionEvent event, int towerIndex) {
+    private void towerUpgrade(int towerIndex) {
         buttons.add(new Buttons_tower_upgrade((int) towers.get(towerIndex).getX(),(int) towers.get(towerIndex).getY() - 200, getContext(), towerIndex));
         buttons.add(new Buttons_tower_stop((int) towers.get(towerIndex).getX(), (int) towers.get(towerIndex).getY(), getContext()));
         buttons.add(new Buttons_tower_delete((int) towers.get(towerIndex).getX(), (int) towers.get(towerIndex).getY() + 200, getContext(), towerIndex));
     }
 
     private void towerCreation(final MotionEvent event) {
-        buttons.add(new Buttons_tower_creation((int) event.getX(), (int) event.getY() - 200, getContext()));
-        buttons.add(new Buttons_tower_stop((int) event.getX(), (int) event.getY(), getContext()));
+        buttons.add(new Buttons_tower_creation((int) (event.getX() - canvasX), (int) (event.getY() - canvasY - 200), getContext()));
+        buttons.add(new Buttons_tower_stop((int) (event.getX() - canvasX), (int) (event.getY() - canvasY), getContext()));
     }
 
     protected void render(Canvas canvas) {
@@ -225,6 +225,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             }else if(enemies.get(j).getX() == map.getEndZoneX() && enemies.get(j).getY() == map.getEndZoneY()){
                 enemies.remove(j);
                 player1.looseLife();
+                Log.d(TAG, "OK !");
             }
         }
     }
@@ -270,7 +271,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         if (canvas != null && fps != null) {
             Paint paint = new Paint();
             paint.setARGB(255, 255, 255, 255);
-            canvas.drawText(fps, this.getWidth() - 100, 20, paint);
+            canvas.drawText(fps, this.getWidth() - 100- canvasX, 20 - canvasY, paint);
         }
     }
 

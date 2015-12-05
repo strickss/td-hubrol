@@ -17,6 +17,6 @@ public class Buttons_tower_stop extends Buttons{
         super(x,y, BitmapFactory.decodeResource(context.getResources(), R.drawable.stop_button));
     }
 
-    public void getEvent(MotionEvent event, List<Towers> towers, Context context) {
+    public void getEvent(List<Towers> towers, Context context) {
     }
 }
