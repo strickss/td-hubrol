@@ -1,9 +1,6 @@
 package com.example.towerdefense;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -21,30 +18,16 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
-import android.widget.ListView;
+
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
-<<<<<<< HEAD
-
-import org.w3c.dom.Text;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-=======
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.nio.Buffer;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.ArrayList;
-import java.util.Set;
 
->>>>>>> origin/master
 
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
@@ -53,15 +36,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private static final int REQUEST_CONNECT_DEVICE_INSECURE = 2;
     private static final int REQUEST_ENABLE_BT = 3;
     private String mConnectedDeviceName = null;
-    private ArrayAdapter<String> mArrayAdapter;
-    private ArrayAdapter<String> mArrayAdapter2;
-    private BluetoothChatService mBluetoothChatService;
-    private BluetoothSocket mBTSocket;
     private MainGamePanel gamePanel;
-<<<<<<< HEAD
     private Handler mHandler_menu;
-=======
->>>>>>> origin/master
     private TextView textGold;
     private TextView textYourIncome;
     private TextView textOppIncome;
@@ -115,15 +91,11 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         textOppIncome = (TextView) findViewById(R.id.oppIncomeValue);
         textYourLife = (TextView) findViewById(R.id.yourLifeValue);
         textOppLife = (TextView) findViewById(R.id.oppLifeValue);
-        //text_monsters = Arrays.asList(findViewById(R.id.goblin),findViewById(R.id.eye),findViewById(R.id.devil),findViewById(R.id.eagle),findViewById(R.id.skeleton),findViewById(R.id.dwarf),findViewById(R.id.devil2),findViewById(R.id.golem),findViewById(R.id.robot),findViewById(R.id.gryphon),findViewById(R.id.fairy),findViewById(R.id.dark_vador),findViewById(R.id.blue_dragon),findViewById(R.id.pikachu),findViewById(R.id.spider),findViewById(R.id.unicorn),findViewById(R.id.wolf));
-        //monster_creationButtons = new ArrayList<creationButton>(Arrays.asList(new creationButton(1000), new creationButton(2000),new creationButton(3000),new creationButton(4000),new creationButton(5000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000)));
+        text_monsters = Arrays.asList(findViewById(R.id.goblin), findViewById(R.id.eye), findViewById(R.id.devil), findViewById(R.id.eagle), findViewById(R.id.skeleton), findViewById(R.id.dwarf), findViewById(R.id.devil2), findViewById(R.id.golem), findViewById(R.id.robot), findViewById(R.id.gryphon), findViewById(R.id.fairy), findViewById(R.id.dark_vador), findViewById(R.id.blue_dragon), findViewById(R.id.pikachu), findViewById(R.id.spider), findViewById(R.id.unicorn), findViewById(R.id.wolf));
+        monster_creationButtons = new ArrayList<creationButton>(Arrays.asList(new creationButton(1000), new creationButton(5000),new creationButton(10000),new creationButton(15000),new creationButton(20000),new creationButton(25000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000)));
         updateMenu = true;
-<<<<<<< HEAD
         mHandler_menu = new Handler();
         mHandler_menu.post(mUpdate);
-=======
-
->>>>>>> origin/master
     }
 
     private Runnable mUpdate = new Runnable() {
@@ -138,13 +110,11 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             textYourLife.setText("" + txtYourLife);
             int txtOppLife = gamePanel.getPlayer().getLife() + 1;
             textOppLife.setText("" + txtOppLife);
-            //for (int i=0; i < text_monsters.size(); i++){
-            //    monster_creationButtons.get(i).update(a);
-            //    ((TextView) text_monsters.get(i)).setText("" + monster_creationButtons.get(i).getNumber());
-            //}
+            for (int i=0; i < monster_creationButtons.size(); i++){
+                monster_creationButtons.get(i).update();
+            }
 
             mHandler_menu.postDelayed(this, 100);
-
             /*
             if (updateMenu) {
                 if (System.currentTimeMillis() - a > 10000) {
@@ -155,23 +125,13 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                     }
                     updateMenu = false;
                 }
-
-
             }
-
-
-
             */
-
         }
 
     };
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
     @Override
     protected void onDestroy() {
         Log.d(TAG, "Destroying...");
@@ -238,7 +198,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         }
     }
 
-
     private void sendMessage(String message) {
         // Check that we're actually connected before trying anything
         if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
@@ -257,16 +216,13 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         }
     }
 
-
-
-
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.goblin:
-                //gamePanel.create(1);
+                gamePanel.create(1);
                 showPopup1(view);
-                sendMessage("1");
+                //sendMessage("1");
                 return true;
             case R.id.eye:
                 gamePanel.create(2);
@@ -359,6 +315,11 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             e.printStackTrace();
         }
         popup.show();
+        popup.getMenu().findItem(R.id.goblin).setTitle("(10 / +1) : " + monster_creationButtons.get(0).getNumber());
+        popup.getMenu().findItem(R.id.eye).setTitle("(10 / +1) : " + monster_creationButtons.get(1).getNumber());
+        popup.getMenu().findItem(R.id.devil).setTitle("(10 / +1) : " + monster_creationButtons.get(2).getNumber());
+        popup.getMenu().findItem(R.id.skeleton).setTitle("(10 / +1) : " + monster_creationButtons.get(3).getNumber());
+        popup.getMenu().findItem(R.id.eagle).setTitle("(10 / +1) : " + monster_creationButtons.get(4).getNumber());
     }
 
     public void showPopup2(View v) {
@@ -505,9 +466,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         // Attempt to connect to the device
         mChatService.connect(device, secure);
     }
-
-
-
 
     public Activity getActivity() {
         return this;
