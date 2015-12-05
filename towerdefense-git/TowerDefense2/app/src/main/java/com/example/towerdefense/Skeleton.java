@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Skeleton extends Enemy {
 
     public Skeleton(Context context, ArrayList<Elements> path) {
-        super(BitmapFactory.decodeResource(context.getResources(), R.drawable.skeleton_sprite), 5, 2, 2, path);
+        super(BitmapFactory.decodeResource(context.getResources(), R.drawable.skeleton_sprite), 100, 2, 2, path);
         this.value = 4;
         this.cost = 40;
         this.frameNr = 3; //framecount

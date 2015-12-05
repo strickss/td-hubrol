@@ -9,5 +9,7 @@ import android.graphics.BitmapFactory;
 public class Grass extends Elements {
     public Grass(double x, double y, Context context) {
         super(x, y, BitmapFactory.decodeResource(context.getResources(), R.drawable.grass));
+        this.width = 70;
+        this.height = 70;
     }
 }

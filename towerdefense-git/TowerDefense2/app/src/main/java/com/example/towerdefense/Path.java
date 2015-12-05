@@ -12,7 +12,9 @@ import java.util.ArrayList;
  * Created by Hugo on 24/11/2015.
  */
 public class Path extends Elements{
-    public Path(double x, double y, Context context){
+    public Path(double x, double y, Context context, int blockSizeX, int blockSizeY){
         super(x, y, BitmapFactory.decodeResource(context.getResources(), R.drawable.path));
+        this.width = 2*blockSizeX;
+        this.height = blockSizeY;
     }
 }
