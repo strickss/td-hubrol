@@ -1,7 +1,7 @@
 package com.example.towerdefense;
 
+import android.app.ActionBar;
 import android.app.Activity;
-<<<<<<< HEAD
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -9,11 +9,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-=======
->>>>>>> origin/master
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -30,27 +31,25 @@ import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-<<<<<<< HEAD
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Set;
-=======
->>>>>>> origin/master
 
 
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private final static int REQUEST_ENABLE_BT = 1;
+    private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
+    private static final int REQUEST_CONNECT_DEVICE_INSECURE = 2;
+    private static final int REQUEST_ENABLE_BT = 3;
+    private String mConnectedDeviceName = null;
     private ArrayAdapter<String> mArrayAdapter;
-<<<<<<< HEAD
     private ArrayAdapter<String> mArrayAdapter2;
     private ListView newDevicesListView;
     private BluetoothChatService mBluetoothChatService;
     private BluetoothSocket mBTSocket;
-
-=======
     private MainGamePanel gamePanel;
-    private Handler mHandler;
     private TextView textGold;
     private TextView textYourIncome;
     private TextView textOppIncome;
@@ -60,12 +59,16 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private long a = System.currentTimeMillis();
     private boolean updateMenu;
     private PopupMenu popup;
->>>>>>> origin/master
+    private BluetoothAdapter mBluetoothAdapter = null;
+    private BluetoothChatService mChatService = null;
+    private StringBuffer mOutStringBuffer;
+    static final int PICK_DEVICE_REQUEST = 1;  // The request code
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        // requesting to turn the title OFF
+        // requesting to turn the title OFF;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         // making it full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -77,11 +80,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
 
         Log.d(TAG, "View added");
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> origin/master
         final ImageButton imageButton1 = (ImageButton) findViewById(R.id.button_1);
         final ImageButton imageButton2 = (ImageButton) findViewById(R.id.button_2);
         final ImageButton imageButton3 = (ImageButton) findViewById(R.id.button_3);
@@ -89,103 +87,30 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         this.chronometer = (Chronometer) findViewById(R.id.chronometer);
         chronometer.start();
 
-<<<<<<< HEAD
-        final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (mBluetoothAdapter == null) {
-            // Device does not support Bluetooth
-            int duration = Toast.LENGTH_SHORT;
-            Toast.makeText(this, "No Bluetooth on this handset", duration).show();
-
-        }
-
-        mBluetoothChatService = new BluetoothChatService(this, mBluetoothAdapter);
-
-
-        final Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-        // If there are paired devices
-=======
-     /*   BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (mBluetoothAdapter == null) {
-            // Device does not support Bluetooth
-        }
-        try {
-            if (!mBluetoothAdapter.isEnabled()) {
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-            }
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> refs/remotes/origin/master
->>>>>>> refs/remotes/origin/Tower_creation
-            Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-            // If there are paired devices
-            if (pairedDevices.size() > 0) {
-                // Loop through paired devices
-                for (BluetoothDevice device : pairedDevices) {
-                    // Add the name and address to an array adapter to show in a ListView
-                    mArrayAdapter = new ArrayAdapter<>(this, R.layout.arrays);
-                    //ListView newDevicesListView = (ListView) findViewById(R.id.array);
-                    //newDevicesListView.setAdapter(mArrayAdapter);
-                    //newDevicesListView.setOnItemClickListener(mDeviceClickListener);
-                    mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
-                }
-            }
-        } catch (Exception e) {
-        }
-        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-
-        // If there are paired devices
-
->>>>>>> origin/master
-        if (pairedDevices.size() > 0) {
-
-            mArrayAdapter = new ArrayAdapter<>(this, R.layout.arrays);
-            final ArrayList<BluetoothDevice> mArrayDevices = new ArrayList<>();
-            // Loop through paired devices
-            for (BluetoothDevice device : pairedDevices) {
-                // Add the name and address to an array adapter to show in a ListView
-<<<<<<< HEAD
-
-                mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
-                mArrayDevices.add(device);
-
-=======
-                mArrayAdapter = new ArrayAdapter<>(this, R.layout.arrays);
-                //ListView newDevicesListView = (ListView) findViewById(R.id.array);
-                //newDevicesListView.setAdapter(mArrayAdapter);
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> refs/remotes/origin/master
->>>>>>> refs/remotes/origin/Tower_creation
-            }
-        }*/
-
         textGold = (TextView) findViewById(R.id.gold);
         textYourIncome = (TextView) findViewById(R.id.yourIncomeValue);
         textOppIncome = (TextView) findViewById(R.id.oppIncomeValue);
         textYourLife = (TextView) findViewById(R.id.yourLifeValue);
         textOppLife = (TextView) findViewById(R.id.oppLifeValue);
         updateMenu = true;
-        mHandler = new Handler();
-        mHandler.post(mUpdate);
+
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        // If the adapter is null, then Bluetooth is not supported
+        if (mBluetoothAdapter == null) {
+            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            this.finish();
+        }
     }
 
     private Runnable mUpdate = new Runnable() {
         public void run() {
             int txtGold = gamePanel.getPlayer().getGold();
-            textGold.setText(""+txtGold);
+            textGold.setText("" + txtGold);
             int txtYourIncome = gamePanel.getPlayer().getIncome();
-            textYourIncome.setText(""+txtYourIncome);
-            int txtOppIncome = gamePanel.getPlayer().getIncome() +1;
-            textOppIncome.setText(""+txtOppIncome);
+            textYourIncome.setText("" + txtYourIncome);
+            int txtOppIncome = gamePanel.getPlayer().getIncome() + 1;
+            textOppIncome.setText("" + txtOppIncome);
             int txtYourLife = gamePanel.getPlayer().getLife();
             textYourLife.setText("" + txtYourLife);
             int txtOppLife = gamePanel.getPlayer().getLife() + 1;
@@ -197,83 +122,25 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                     try {
                         popup.dismiss();
                         popUpMenuUpdate();
-                    } catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                     updateMenu = false;
                 }
->>>>>>> origin/master
-            }
-            ListView newDevicesListView = (ListView) findViewById(R.id.array);
-            newDevicesListView.setAdapter(mArrayAdapter);
-
-            AdapterView.OnItemClickListener mDeviceClickListener = new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    BluetoothDevice device = mArrayDevices.get(position);
-                    mBluetoothChatService.start();
-                    mBTSocket = mBluetoothChatService.connect(device);
-                    mBluetoothChatService.connected(mBTSocket, device);
-
-                }
-            };
-            newDevicesListView.setOnItemClickListener(mDeviceClickListener);
-
-        }
-
-        if (mBluetoothAdapter.isDiscovering()) {
-            mBluetoothAdapter.cancelDiscovery();
-        }
-<<<<<<< HEAD
-
-
-
-        // Create a BroadcastReceiver for ACTION_FOUND
-        mArrayAdapter2 = new ArrayAdapter<>(this, R.layout.bluetooth_model);
-
-        final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-            public void onReceive(Context context, Intent intent) {
-                String action = intent.getAction();
-
-                // When discovery finds a device
-                if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                    // Get the BluetoothDevice object from the Intent
-                    BluetoothDevice device2 = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                    // Add the name and address to an array adapter to show in a ListView
-
-                    mArrayAdapter2.add(device2.getName() + "\n" + device2.getAddress());
-
-                }
-                ListView newDevicesListView2 = (ListView) findViewById(R.id.array2);
-                newDevicesListView2.setAdapter(mArrayAdapter2);
-
 
             }
-        };
 
-        // Register the BroadcastReceiver
-        mBluetoothAdapter.startDiscovery();
-        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        registerReceiver(mReceiver, filter); // Don't forget to unregister during onDestroy
-
-
-        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-        startActivity(discoverableIntent);// Make the device discoverable to others
-
-
-
-
-
-
-
-
-    }
-=======
+        }
     };
->>>>>>> origin/master
+
+
 
     @Override
     protected void onDestroy() {
         Log.d(TAG, "Destroying...");
         super.onDestroy();
+        if (mChatService != null) {
+            mChatService.stop();
+        }
     }
 
     @Override
@@ -281,6 +148,77 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         Log.d(TAG, "Stopping...");
         super.onStop();
     }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        //requests that bluetooth is enabled if it is not
+        if (!mBluetoothAdapter.isEnabled()) {
+            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+            // Otherwise, setup the chat session
+        } else if (mChatService == null) {
+            setupCom();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Performing this check in onResume() covers the case in which BT was
+        // not enabled during onStart(), so we were paused to enable it...
+        // onResume() will be called when ACTION_REQUEST_ENABLE activity returns.
+        if (mChatService != null) {
+            // Only if the state is STATE_NONE, do we know that we haven't started already
+            if (mChatService.getState() == BluetoothChatService.STATE_NONE) {
+                // Start the Bluetooth chat services
+                mChatService.start();
+            }
+        }
+    }
+
+    private void setupCom() {
+        Log.d(TAG, "setupCom()");
+        ensureDiscoverable();
+
+        // Initialize the BluetoothChatService to perform bluetooth connections
+        mChatService = new BluetoothChatService(this, mHandler);
+        Intent deviceIntent = new Intent(this, DeviceListActivity.class);
+        startActivityForResult(deviceIntent,PICK_DEVICE_REQUEST);
+
+        // Initialize the buffer for outgoing messages
+        mOutStringBuffer = new StringBuffer("");
+    }
+
+    private void ensureDiscoverable() {
+        if (mBluetoothAdapter.getScanMode() !=
+                BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
+            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+            startActivity(discoverableIntent);
+        }
+    }
+
+
+    private void sendMessage(String message) {
+        // Check that we're actually connected before trying anything
+        if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
+            Toast.makeText(this, R.string.not_connected, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Check that there's actually something to send
+        if (message.length() > 0) {
+            // Get the message bytes and tell the BluetoothChatService to write
+            byte[] send = message.getBytes();
+            mChatService.write(send);
+
+            // Reset out string buffer to zero and clear the edit text field
+            mOutStringBuffer.setLength(0);
+        }
+    }
+
 
     public void showPopup(View v) {
         popup = new PopupMenu(this, v);
@@ -310,6 +248,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             case R.id.goblin:
                 gamePanel.create(1);
                 popUpMenuUpdate();
+                String message = "hahahahahah";
+                sendMessage(message);
                 return true;
             case R.id.robot:
                 gamePanel.create(2);
@@ -325,4 +265,97 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         showPopup(findViewById(R.id.button_1));
     }
 
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case Constants.MESSAGE_STATE_CHANGE:
+                    switch (msg.arg1) {
+                        case BluetoothChatService.STATE_CONNECTED:
+                            //setStatus(getString(R.string.title_connected_to, mConnectedDeviceName));
+                            break;
+                        case BluetoothChatService.STATE_CONNECTING:
+                            //setStatus(R.string.title_connecting);
+                            break;
+                        case BluetoothChatService.STATE_LISTEN:
+                        case BluetoothChatService.STATE_NONE:
+                            //setStatus(R.string.title_not_connected);
+                            break;
+                    }
+                    break;
+                case Constants.MESSAGE_WRITE:
+                    byte[] writeBuf = (byte[]) msg.obj;
+                    // construct a string from the buffer
+                    String writeMessage = new String(writeBuf);
+                    break;
+                case Constants.MESSAGE_READ:
+                    byte[] readBuf = (byte[]) msg.obj;
+                    // construct a string from the valid bytes in the buffer
+                    String readMessage = new String(readBuf, 0, msg.arg1);
+                    Log.d(TAG, readMessage);
+                    break;
+                case Constants.MESSAGE_DEVICE_NAME:
+                    // save the connected device's name
+                    mConnectedDeviceName = msg.getData().getString(Constants.DEVICE_NAME);
+                    if (null != this) {
+                        Toast.makeText(getActivity(), "Connected to " + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case Constants.MESSAGE_TOAST:
+                    if (null != this) {
+                        Toast.makeText(getActivity(), msg.getData().getString(Constants.TOAST),Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+            }
+        }
+    };
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_CONNECT_DEVICE_SECURE:
+                // When DeviceListActivity returns with a device to connect
+                if (resultCode == Activity.RESULT_OK) {
+                    connectDevice(data, true);
+                }
+                break;
+            case REQUEST_CONNECT_DEVICE_INSECURE:
+                // When DeviceListActivity returns with a device to connect
+                if (resultCode == Activity.RESULT_OK) {
+                    connectDevice(data, false);
+                }
+                break;
+            case REQUEST_ENABLE_BT:
+                // When the request to enable Bluetooth returns
+                if (resultCode == Activity.RESULT_OK) {
+                    // Bluetooth is now enabled, so set up a chat session
+                    setupCom();
+                } else {
+                    // User did not enable Bluetooth or an error occurred
+                    Log.d(TAG, "BT not enabled");
+                    Toast.makeText(getActivity(), R.string.bt_not_enabled_leaving,
+                            Toast.LENGTH_SHORT).show();
+                    getActivity().finish();
+                }
+        }
+    }
+
+    private void connectDevice(Intent data, boolean secure) {
+        // Get the device MAC address
+        String address = data.getExtras()
+                .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+        // Get the BluetoothDevice object
+        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
+        // Attempt to connect to the device
+        mChatService.connect(device, secure);
+    }
+
+
+
+
+    public Activity getActivity() {
+        return this;
+    }
+
 }
+
+
