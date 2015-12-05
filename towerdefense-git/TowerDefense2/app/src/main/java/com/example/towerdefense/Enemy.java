@@ -98,7 +98,8 @@ public class Enemy extends Elements{
                 this.setX(this.path.get(this.increment).getX());
                 this.setY(this.path.get(this.increment).getY());
                 this.increment++;
-                //Log.d(TAG, "OK !");
+                this.setDx(0); this.setDy(0);
+                Log.d(TAG, "OK !" + "x :" + this.getX() + ", y :" + this.getY());
             }
         } catch (Exception e) {
             this.setX(map.getEndZoneX());
@@ -142,7 +143,6 @@ public class Enemy extends Elements{
         // where to draw the sprite
         Rect destRect = new Rect((int) this.getX() - this.width/2, (int) this.getY() - height/2, (int) this.getX() + width/2, (int) this.getY() + height/2);
         canvas.drawBitmap(bitmap, sourceRect, destRect, null);
-        Log.d(TAG, "x :" + x + ", y :" + y);
         //drawSpriteSelector(canvas);
     }
 

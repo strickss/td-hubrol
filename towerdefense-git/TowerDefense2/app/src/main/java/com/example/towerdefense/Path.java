@@ -14,5 +14,7 @@ import java.util.ArrayList;
 public class Path extends Elements{
     public Path(double x, double y, Context context){
         super(x, y, BitmapFactory.decodeResource(context.getResources(), R.drawable.path));
+        this.width = 200;
+        this.height = 200;
     }
 }

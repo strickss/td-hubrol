@@ -123,7 +123,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
             if (Math.abs(event.getX()-x1)>map.getBlockSizeX()/2 && Math.abs(event.getY()-y1)>map.getBlockSizeY()/2) {
                 thread.setCanvasMoved(true);
-                if((canvasX + event.getX() - x1) < 0 && (map.getMapsizeX() - getWidth()) > Math.abs(canvasX + event.getX() - x1)) {
+                if((canvasX + event.getX() - x1) <= 0 && (map.getMapsizeX() - getWidth()) > Math.abs(canvasX + event.getX() - x1)) {
                     canvasX = canvasX + (event.getX() - x1);
                 }
                 if((canvasY + event.getY() - y1) < 0 && (map.getMapsizeY() - getHeight()) > Math.abs(canvasY + event.getY() - y1)){
@@ -228,7 +228,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             }else if(enemies.get(j).getX() == map.getEndZoneX() && enemies.get(j).getY() == map.getEndZoneY()){
                 enemies.remove(j);
                 player1.looseLife();
-                Log.d(TAG, "OK !");
             }
         }
     }
