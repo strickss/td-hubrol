@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -31,6 +32,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private List<Shot> shots;
     private List<Enemy> enemies;
     private Map map;
+    private MediaPlayer mediaPlayer;
     private String avgFps; //the fps to be displayed
     private Gryphon gryphon;
     private float x1,y1;
@@ -44,7 +46,8 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         // adding the callback (this) to the surface holder to intercept events
         getHolder().addCallback(this); //  sets the current class (MainGamePanel) as the handler for the events happening on the actual surface
         map = new Map(context, 0);
-
+        MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.song);
+        mediaPlayer.start();
         // create tower and load bitmap
         this.player1 = new Player(50,10,20);
 
