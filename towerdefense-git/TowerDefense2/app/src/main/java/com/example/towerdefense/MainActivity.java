@@ -56,19 +56,12 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private long a = System.currentTimeMillis();
     private boolean updateMenu;
     private PopupMenu popup;
-<<<<<<< HEAD
-    private SoundPool sp;
-    private int spId;
-    private View view;
-
-=======
     private BluetoothAdapter mBluetoothAdapter = null;
     private BluetoothChatService mChatService = null;
     private StringBuffer mOutStringBuffer;
     static final int PICK_DEVICE_REQUEST = 1;  // The request code
-
     private View view;
->>>>>>> refs/remotes/origin/master
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -146,10 +139,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     };
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
     @Override
     protected void onDestroy() {
         Log.d(TAG, "Destroying...");
