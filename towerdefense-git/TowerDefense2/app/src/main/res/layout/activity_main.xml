@@ -145,30 +145,30 @@
 
         <ImageButton
             android:id="@+id/button_1"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="70dp"
-            android:src="@drawable/button_icon1"
+            android:src="@drawable/monster_normal"
             android:onClick="showPopup1"/>
 
         <ImageButton
             android:id="@+id/button_2"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="70dp"
-            android:src="@drawable/button_icon1"
+            android:src="@drawable/monster_armored"
             android:onClick="showPopup2"/>
 
         <ImageButton
             android:id="@+id/button_3"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="70dp"
-            android:src="@drawable/button_icon1"
+            android:src="@drawable/monster_magic"
             android:onClick="showPopup3"/>
 
         <ImageButton
             android:id="@+id/button_4"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="70dp"
-            android:src="@drawable/button_icon1"
+            android:src="@drawable/monster_fast"
             android:onClick="showPopup4"/>
 
     </LinearLayout>

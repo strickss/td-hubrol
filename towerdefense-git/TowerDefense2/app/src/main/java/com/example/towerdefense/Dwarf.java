@@ -18,8 +18,8 @@ public class Dwarf extends Enemy{
         this.spriteWidth = bitmap.getWidth() / 3;
         this.spriteHeight = bitmap.getHeight() / 4;
         this.sourceRect = new Rect(0, 0, spriteWidth, spriteHeight);
-        this.width = 200;
-        this.height = 100;
+        this.width = 100;
+        this.height = 80;
         this.framePeriod = 1000 / 5; // 1000/fps
         this.speed = 3;
     }
