@@ -4,12 +4,13 @@ import android.graphics.Canvas;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Hugo on 17/11/2015.
  */
 public class Map {
-    private final Path path;
+    private final PathList path;
     private int StartingGold;
     private int StartingIncome;
     private String[][] mapMatrix;
@@ -19,41 +20,64 @@ public class Map {
     private final int mapSizeY;
     private final int blockSizeX;
     private final int blockSizeY;
-    private ArrayList<ArrayList<Integer>> pathList;
+    private Random rand;
+    private Context context;
+    private double endzoneX;
+    private double endzoneY;
 
     public Map(Context context, int lvl) {
-        mapSizeX = 2000;
-        mapSizeY = 500;
+        mapSizeX = 2500;
+        mapSizeY = 1000;
         mapMatrix = ReadFile.getmap(lvl);
         blockSizeX = mapSizeX / mapMatrix.length;
         blockSizeY = mapSizeY / mapMatrix[0].length;
-        path = new Path(mapMatrix, this, context);
-        CreateMapList(mapMatrix);
+        path = new PathList(mapMatrix, this, context);
+        rand = new Random();
+        mapList = new ArrayList<>();
+        CreateMapList(context);
+        CreateMapList(context);
     }
 
     public void draw(Canvas canvas) {
-        for(int i=0; i < path.getPathList().get(0).size(); i=i+2){
-            path.draw(canvas, path.getPathList().get(0).get(i), path.getPathList().get(0).get(i+1));
+        for(int i=0; i < path.getPathList().get(0).size()-1; i=i+1){
+            path.getPathList().get(0).get(i).draw(canvas);
+            //Log.d(TAG, "i :" + i);
+            path.getPathList().get(1).get(i).draw(canvas);
         }
+        for(int j=0; j<mapList.size();j++){
+            mapList.get(j).draw(canvas);
+        }
+    }
+
+    private void CreateMapList(Context context) {
         for (int x = 0; x < mapMatrix.length; x++) {
             for (int y = 0; y < mapMatrix[0].length; y++) {
-                if (mapMatrix[x][y].equals("P")) {
-                    path.draw(canvas, blockSizeX*x, blockSizeY*y);
+                if (mapMatrix[x][y].equals("Z")) {
+                    mapList.add(new EndZone(getBlockSizeX() * x, getBlockSizeY() * y, context));
+                    endzoneX = getBlockSizeX() * x;
+                    endzoneY = getBlockSizeY() * y;
+                    Log.d(TAG, "EndZone X : "+ endzoneX + "EndZone y : " + endzoneY);
                 }
+                if (mapMatrix[x][y].equals("P")) {
+                     mapList.add(new Path(getBlockSizeX() * x, getBlockSizeY() * y, context));
+                }
+
             }
         }
     }
 
-    private void CreateMapList(String[][] mapMatrix) {
-    }
-
-    public int getBlockSizeX() {
-        return blockSizeX;
-    }
-
+    public int getBlockSizeX() {return blockSizeX; }
     public int getBlockSizeY() {return blockSizeY; }
+    public double getEndZoneX() {return endzoneX; }
+    public double getEndZoneY() {return endzoneY; }
+    public double getMapsizeX() {return mapSizeX; }
+    public double getMapsizeY() {return mapSizeY; }
 
-    public ArrayList<Integer> getPath() {
-        return path.getPathList().get(0);
+    public ArrayList<Elements> getLogicPath() {
+       if(rand.nextDouble()<0.5) {
+           return path.getPathList().get(0);
+       }else{
+           return path.getPathList().get(1);
+       }
     }
 }

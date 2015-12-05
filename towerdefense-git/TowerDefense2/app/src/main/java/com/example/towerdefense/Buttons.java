@@ -17,7 +17,7 @@ public class Buttons extends Elements{
     }
 
 
-    public void getEvent(MotionEvent event, List<Towers> towers, Context context) {
+    public void getEvent(List<Towers> towers, Context context) {
     }
 
     public int getType() {

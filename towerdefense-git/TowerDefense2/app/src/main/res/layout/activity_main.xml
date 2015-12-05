@@ -28,6 +28,7 @@
             android:src="@drawable/coins"/>
 
         <TextView
+            android:id="@+id/gold"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="4dp"
@@ -48,6 +49,7 @@
             </TextView>
 
         <TextView
+            android:id="@+id/yourIncomeValue"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="8dp"
@@ -62,17 +64,18 @@
             android:layout_height="match_parent"
             android:paddingLeft="8dp"
             android:textColor="@color/white"
-            android:text="@string/OppIncome"
+            android:text="@string/oppIncome"
             android:textSize="20dp"
             android:layout_marginTop="3dp">
             </TextView>
 
         <TextView
+            android:id="@+id/oppIncomeValue"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="8dp"
             android:textColor="@color/white"
-            android:text="@string/OppIncomeValue"
+            android:text="@string/oppIncomeValue"
             android:textSize="20dp"
             android:layout_marginTop="3dp">
             </TextView>
@@ -88,6 +91,7 @@
         </TextView>
 
         <TextView
+            android:id="@+id/yourLifeValue"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="8dp"
@@ -114,6 +118,7 @@
         </TextView>
 
         <TextView
+            android:id="@+id/oppLifeValue"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="8dp"
@@ -128,9 +133,6 @@
             android:layout_height="26dp"
             android:layout_marginTop="2dp"
             android:src="@drawable/heart"/>
-
-
-
 
     </LinearLayout>
 
