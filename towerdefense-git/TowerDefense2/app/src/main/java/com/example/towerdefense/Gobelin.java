@@ -15,18 +15,13 @@ public class Gobelin extends Enemy {
         super(BitmapFactory.decodeResource(context.getResources(), R.drawable.goblin), 2, 1, 1, path);
         this.value=1;
         this.cost = 10;
-        this.frameNr = 1; //framecount
-        this.spriteWidth = bitmap.getWidth() / 1;
-        this.spriteHeight = bitmap.getHeight() / 1;
+        this.frameNr = 3; //framecount
+        this.spriteWidth = bitmap.getWidth() / 3;
+        this.spriteHeight = bitmap.getHeight() / 4;
         this.sourceRect = new Rect(0, 0, spriteWidth, spriteHeight);
-        this.width = 100;
-        this.height = 150;
-        this.framePeriod = 1000 / 5; // 1000/fps
+        this.width = 80;
+        this.height = 100;
+        this.framePeriod = 1000 / 7; // 1000/fps
         this.speed = 2;
-    }
-
-    public void update(long gameTime){
-        this.setX((int) (this.getX() + this.getDx()*this.getSpeed()));
-        this.setY((int) (this.getY() + this.getDy()*this.getSpeed()));
     }
 }

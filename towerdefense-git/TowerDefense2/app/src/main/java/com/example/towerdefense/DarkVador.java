@@ -19,8 +19,8 @@ public class DarkVador extends Enemy {
         this.spriteWidth = bitmap.getWidth() / 4;
         this.spriteHeight = bitmap.getHeight() / 4;
         this.sourceRect = new Rect(0, 0, spriteWidth, spriteHeight);
-        this.width = bitmap.getWidth() / 2;
-        this.height = bitmap.getHeight() / 2;
+        this.width = 120;
+        this.height = 120;
         this.framePeriod = 1000 / 5; // 1000/fps
         this.speed = 3;
     }
