@@ -2,11 +2,15 @@ package com.example.towerdefense;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 
 /**
  * Created by Brieuc on 10-11-15.
  */
 public class Elements {
+    private final Rect sourceRect;
+    protected int width;
+    protected int height;
     protected double x;
     protected double y;
     protected Bitmap bitmap;
@@ -14,6 +18,9 @@ public class Elements {
         this.x = x;
         this.y = y;
         this.bitmap = bitmap;
+        this.sourceRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        this.width = bitmap.getWidth();
+        this.height = bitmap.getHeight();
     }
 
     protected double getX(){
@@ -41,7 +48,8 @@ public class Elements {
     }
 
     public void draw(Canvas canvas){
-        canvas.drawBitmap(bitmap, (int) x- (bitmap.getWidth()/2),(int) y -(bitmap.getHeight()/2), null);
+        Rect destRect = new Rect((int) this.getX() - this.width/2, (int) this.getY() - height/2, (int) this.getX() + width/2, (int) this.getY() + height/2);
+        canvas.drawBitmap(bitmap, sourceRect, destRect, null);
     }
 
 

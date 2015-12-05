@@ -1,7 +1,10 @@
 package com.example.towerdefense;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
+
+import java.util.List;
 
 /**
  * Created by Brieuc on 21-11-15.
@@ -62,5 +65,8 @@ public class Towers extends Elements{
 
     public int getRange() {
         return range;
+    }
+
+    public void shot(List<Shot> shots, Context context, Enemy enemy) {
     }
 }

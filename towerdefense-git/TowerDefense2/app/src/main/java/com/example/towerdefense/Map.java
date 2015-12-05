@@ -27,7 +27,7 @@ public class Map {
 
     public Map(Context context, int lvl) {
         mapSizeX = 2500;
-        mapSizeY = 1000;
+        mapSizeY = 2000;
         mapMatrix = ReadFile.getmap(lvl);
         blockSizeX = mapSizeX / mapMatrix.length;
         blockSizeY = mapSizeY / mapMatrix[0].length;
@@ -39,13 +39,13 @@ public class Map {
     }
 
     public void draw(Canvas canvas) {
-        for(int i=0; i < path.getPathList().get(0).size()-1; i=i+1){
+        for(int j=0; j<mapList.size();j++){
+            mapList.get(j).draw(canvas);
+        }
+        for(int i=0; i < path.getPathList().get(0).size(); i=i+1){
             path.getPathList().get(0).get(i).draw(canvas);
             //Log.d(TAG, "i :" + i);
             path.getPathList().get(1).get(i).draw(canvas);
-        }
-        for(int j=0; j<mapList.size();j++){
-            mapList.get(j).draw(canvas);
         }
     }
 
@@ -59,8 +59,14 @@ public class Map {
                     Log.d(TAG, "EndZone X : "+ endzoneX + "EndZone y : " + endzoneY);
                 }
                 if (mapMatrix[x][y].equals("P")) {
-                     mapList.add(new Path(getBlockSizeX() * x, getBlockSizeY() * y, context));
+                     mapList.add(new Path(getBlockSizeX() * x, getBlockSizeY() * y, context, getBlockSizeX(), getBlockSizeY()));
                 }
+<<<<<<< HEAD
+                if (mapMatrix[x][y].equals("A")) {
+                    //mapList.add(new Grass(getBlockSizeX() * x, getBlockSizeY() * y, context));
+                }
+=======
+>>>>>>> origin/master
 
             }
         }

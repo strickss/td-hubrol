@@ -31,11 +31,16 @@ import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+<<<<<<< HEAD
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Set;
 
+=======
+import java.util.ArrayList;
+import java.util.Set;
+>>>>>>> origin/master
 
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
@@ -49,6 +54,10 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private ListView newDevicesListView;
     private BluetoothChatService mBluetoothChatService;
     private BluetoothSocket mBTSocket;
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
     private MainGamePanel gamePanel;
     private TextView textGold;
     private TextView textYourIncome;
@@ -59,10 +68,13 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private long a = System.currentTimeMillis();
     private boolean updateMenu;
     private PopupMenu popup;
+<<<<<<< HEAD
     private BluetoothAdapter mBluetoothAdapter = null;
     private BluetoothChatService mChatService = null;
     private StringBuffer mOutStringBuffer;
     static final int PICK_DEVICE_REQUEST = 1;  // The request code
+=======
+>>>>>>> origin/master
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,7 +91,10 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         gamePanel = (MainGamePanel) findViewById(R.id.GamePanel);
 
         Log.d(TAG, "View added");
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
         final ImageButton imageButton1 = (ImageButton) findViewById(R.id.button_1);
         final ImageButton imageButton2 = (ImageButton) findViewById(R.id.button_2);
         final ImageButton imageButton3 = (ImageButton) findViewById(R.id.button_3);
@@ -87,6 +102,16 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         this.chronometer = (Chronometer) findViewById(R.id.chronometer);
         chronometer.start();
 
+<<<<<<< HEAD
+=======
+        final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter == null) {
+            // Device does not support Bluetooth
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(this, "No Bluetooth on this handset", duration).show();
+
+        }
+>>>>>>> origin/master
         textGold = (TextView) findViewById(R.id.gold);
         textYourIncome = (TextView) findViewById(R.id.yourIncomeValue);
         textOppIncome = (TextView) findViewById(R.id.oppIncomeValue);
@@ -126,6 +151,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                     }
                     updateMenu = false;
                 }
+<<<<<<< HEAD
 
             }
 
@@ -218,6 +244,11 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             mOutStringBuffer.setLength(0);
         }
     }
+=======
+            }
+        }
+    };
+>>>>>>> origin/master
 
 
     public void showPopup(View v) {
@@ -255,6 +286,72 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 gamePanel.create(2);
                 popUpMenuUpdate();
                 return true;
+            /*
+            case R.id.blue_dragon:
+                gamePanel.create(1);
+                popUpMenuUpdate();
+                return true;
+            case R.id.dark_vador:
+                gamePanel.create(2);
+                popUpMenuUpdate();
+                return true;
+            case R.id.devil:
+                gamePanel.create(1);
+                popUpMenuUpdate();
+                return true;
+            case R.id.devil2:
+                gamePanel.create(2);
+                popUpMenuUpdate();
+                return true;
+            case R.id.dwarf:
+                gamePanel.create(1);
+                popUpMenuUpdate();
+                return true;
+            case R.id.eagle:
+                gamePanel.create(2);
+                popUpMenuUpdate();
+                return true;
+            case R.id.eye:
+                gamePanel.create(1);
+                popUpMenuUpdate();
+                return true;
+            case R.id.fairy:
+                gamePanel.create(2);
+                popUpMenuUpdate();
+                return true;
+            case R.id.golem:
+                gamePanel.create(1);
+                popUpMenuUpdate();
+                return true;
+            case R.id.gryphon:
+                gamePanel.create(2);
+                popUpMenuUpdate();
+                return true;
+            case R.id.pikachu:
+                gamePanel.create(1);
+                popUpMenuUpdate();
+                return true;
+            case R.id.skeleton:
+                gamePanel.create(2);
+                popUpMenuUpdate();
+                return true;
+            case R.id.spider:
+                gamePanel.create(1);
+                popUpMenuUpdate();
+                return true;
+            case R.id.unicorn:
+                gamePanel.create(2);
+                popUpMenuUpdate();
+                return true;
+            case R.id.wolf:
+                gamePanel.create(1);
+                popUpMenuUpdate();
+                return true;
+            case R.id.squirrel:
+                gamePanel.create(2);
+                popUpMenuUpdate();
+                return true;
+                */
 
             default:
                 return false;

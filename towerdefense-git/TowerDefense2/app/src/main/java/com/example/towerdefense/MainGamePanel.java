@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -23,6 +24,7 @@ import java.util.List;
 public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     private static final String TAG = MainGamePanel.class.getSimpleName();
+    private final Paint paint_canvas;
     private Player player1;
     private MainThread thread;
     //final ImageButton imageButton;
@@ -31,6 +33,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private List<Shot> shots;
     private List<Enemy> enemies;
     private Map map;
+    private MediaPlayer mediaPlayer;
     private String avgFps; //the fps to be displayed
     private Gryphon gryphon;
     private float x1,y1;
@@ -44,7 +47,15 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         // adding the callback (this) to the surface holder to intercept events
         getHolder().addCallback(this); //  sets the current class (MainGamePanel) as the handler for the events happening on the actual surface
         map = new Map(context, 0);
+<<<<<<< HEAD
 
+        paint_canvas = new Paint();
+        paint_canvas.setARGB(255, 10, 160, 50);
+
+=======
+        MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.song);
+        mediaPlayer.start();
+>>>>>>> origin/master
         // create tower and load bitmap
         this.player1 = new Player(50,10,20);
 
@@ -123,7 +134,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
             if (Math.abs(event.getX()-x1)>map.getBlockSizeX()/2 && Math.abs(event.getY()-y1)>map.getBlockSizeY()/2) {
                 thread.setCanvasMoved(true);
-                if((canvasX + event.getX() - x1) < 0 && (map.getMapsizeX() - getWidth()) > Math.abs(canvasX + event.getX() - x1)) {
+                if((canvasX + event.getX() - x1) <= 0 && (map.getMapsizeX() - getWidth()) > Math.abs(canvasX + event.getX() - x1)) {
                     canvasX = canvasX + (event.getX() - x1);
                 }
                 if((canvasY + event.getY() - y1) < 0 && (map.getMapsizeY() - getHeight()) > Math.abs(canvasY + event.getY() - y1)){
@@ -171,7 +182,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     }
 
     protected void render(Canvas canvas) {
-        canvas.drawColor(Color.GREEN);
+        canvas.drawPaint(paint_canvas);
         map.draw(canvas);
         //goblin.draw(canvas);
 
@@ -228,7 +239,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             }else if(enemies.get(j).getX() == map.getEndZoneX() && enemies.get(j).getY() == map.getEndZoneY()){
                 enemies.remove(j);
                 player1.looseLife();
-                Log.d(TAG, "OK !");
             }
         }
     }
@@ -244,7 +254,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                     if (towers.get(i).canFire()) {
                         towers.get(i).fire();
                         //Log.d(TAG, "1 missile created");
-                        shots.add(new Missile((int)towers.get(i).getX(), (int)towers.get(i).getY(), getContext(), enemies.get(j)));
+                        towers.get(i).shot(shots, getContext(), enemies.get(j));
                     }
                 }
             }
