@@ -61,13 +61,9 @@ public class Map {
                 if (mapMatrix[x][y].equals("P")) {
                      mapList.add(new Path(getBlockSizeX() * x, getBlockSizeY() * y, context, getBlockSizeX(), getBlockSizeY()));
                 }
-<<<<<<< HEAD
                 if (mapMatrix[x][y].equals("A")) {
                     //mapList.add(new Grass(getBlockSizeX() * x, getBlockSizeY() * y, context));
                 }
-=======
->>>>>>> origin/master
-
             }
         }
     }
