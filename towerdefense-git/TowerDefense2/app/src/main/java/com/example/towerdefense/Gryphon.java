@@ -27,7 +27,7 @@ public class Gryphon extends Enemy {
         this.sourceRect = new Rect(0, 0, spriteWidth, spriteHeight);
         this.width = 200;
         this.height = 200;
-        this.framePeriod = 1000 / 5; // 1000/fps
+        this.framePeriod = 1000 / 7; // 1000/fps
         this.speed = 2;
     }
 }

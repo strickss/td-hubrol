@@ -19,8 +19,13 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
@@ -33,7 +38,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private BluetoothSocket mBTSocket;
 
     private MainGamePanel gamePanel;
-    private Handler mHandler;
+    private Handler mHandler_menu;
     private TextView textGold;
     private TextView textYourIncome;
     private TextView textOppIncome;
@@ -44,6 +49,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private boolean updateMenu;
     private PopupMenu popup;
     private View view;
+    private List<View> text_monsters;
+    private ArrayList<creationButton> monster_creationButtons;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,9 +85,11 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         textOppIncome = (TextView) findViewById(R.id.oppIncomeValue);
         textYourLife = (TextView) findViewById(R.id.yourLifeValue);
         textOppLife = (TextView) findViewById(R.id.oppLifeValue);
+        text_monsters = Arrays.asList(findViewById(R.id.goblin),findViewById(R.id.eye),findViewById(R.id.devil),findViewById(R.id.eagle),findViewById(R.id.skeleton),findViewById(R.id.dwarf),findViewById(R.id.devil2),findViewById(R.id.golem),findViewById(R.id.robot),findViewById(R.id.gryphon),findViewById(R.id.fairy),findViewById(R.id.dark_vador),findViewById(R.id.blue_dragon),findViewById(R.id.pikachu),findViewById(R.id.spider),findViewById(R.id.unicorn),findViewById(R.id.wolf));
+        monster_creationButtons = new ArrayList<creationButton>(Arrays.asList(new creationButton(1000), new creationButton(2000),new creationButton(3000),new creationButton(4000),new creationButton(5000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000)));
         updateMenu = true;
-        mHandler = new Handler();
-        mHandler.post(mUpdate);
+        mHandler_menu = new Handler();
+        mHandler_menu.post(mUpdate);
     }
 
     private Runnable mUpdate = new Runnable() {
@@ -95,7 +104,12 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             textYourLife.setText("" + txtYourLife);
             int txtOppLife = gamePanel.getPlayer().getLife() + 1;
             textOppLife.setText("" + txtOppLife);
-            mHandler.postDelayed(this, 100);
+            for (int i=0; i < text_monsters.size(); i++){
+                monster_creationButtons.get(i).update(a);
+                ((TextView) text_monsters.get(i)).setText("" + monster_creationButtons.get(i).getNumber());
+            }
+
+            mHandler_menu.postDelayed(this, 100);
 
             /*
             if (updateMenu) {
@@ -211,9 +225,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.monsters_normal, popup.getMenu());
         try {
-            if (System.currentTimeMillis() - a > 10000) {
-                popup.getMenu().findItem(R.id.robot).setVisible(true);
-            }
             Field field = popup.getClass().getDeclaredField("mPopup");
             field.setAccessible(true);
             Object menuPopupHelper = field.get(popup);
@@ -234,9 +245,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.monsters_armored, popup.getMenu());
         try {
-            if (System.currentTimeMillis() - a > 10000) {
-                popup.getMenu().findItem(R.id.robot).setVisible(true);
-            }
             Field field = popup.getClass().getDeclaredField("mPopup");
             field.setAccessible(true);
             Object menuPopupHelper = field.get(popup);
@@ -257,9 +265,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.monsters_magic, popup.getMenu());
         try {
-            if (System.currentTimeMillis() - a > 10000) {
-                popup.getMenu().findItem(R.id.robot).setVisible(true);
-            }
             Field field = popup.getClass().getDeclaredField("mPopup");
             field.setAccessible(true);
             Object menuPopupHelper = field.get(popup);
@@ -280,9 +285,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.monsters_fast, popup.getMenu());
         try {
-            if (System.currentTimeMillis() - a > 10000) {
-                popup.getMenu().findItem(R.id.robot).setVisible(true);
-            }
             Field field = popup.getClass().getDeclaredField("mPopup");
             field.setAccessible(true);
             Object menuPopupHelper = field.get(popup);
