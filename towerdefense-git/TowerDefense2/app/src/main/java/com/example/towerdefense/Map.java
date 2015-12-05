@@ -26,8 +26,8 @@ public class Map {
     private double endzoneY;
 
     public Map(Context context, int lvl) {
-        mapSizeX = 2000;
-        mapSizeY = 500;
+        mapSizeX = 2500;
+        mapSizeY = 1000;
         mapMatrix = ReadFile.getmap(lvl);
         blockSizeX = mapSizeX / mapMatrix.length;
         blockSizeY = mapSizeY / mapMatrix[0].length;
@@ -65,13 +65,12 @@ public class Map {
         }
     }
 
-    public int getBlockSizeX() {
-        return blockSizeX;
-    }
-
+    public int getBlockSizeX() {return blockSizeX; }
     public int getBlockSizeY() {return blockSizeY; }
     public double getEndZoneX() {return endzoneX; }
     public double getEndZoneY() {return endzoneY; }
+    public double getMapsizeX() {return mapSizeX; }
+    public double getMapsizeY() {return mapSizeY; }
 
     public ArrayList<Elements> getLogicPath() {
        if(rand.nextDouble()<0.5) {
