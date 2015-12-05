@@ -16,6 +16,7 @@ public class Shot extends Elements {
     private final double targetY;
     private final int dirX;
     private final int dirY;
+    protected int bitmapAngle;
     private double vx;
     private double vy;
 
@@ -23,7 +24,7 @@ public class Shot extends Elements {
     public Shot(double x, double y, Bitmap bitmap, Enemy enemy, double shot_speed) {
         super(x, y, bitmap);
         double a = shot_speed*shot_speed - enemy.getDx()*enemy.getSpeed()* enemy.getDx()*enemy.getSpeed() - enemy.getDy()*enemy.getSpeed()* enemy.getDy()*enemy.getSpeed();
-        double b = 2*(enemy.getDx()*enemy.getSpeed()*(x- enemy.getX()) + enemy.getDy()*enemy.getSpeed()*(y- enemy.getDy()));
+        double b = 2*(enemy.getDx()*enemy.getSpeed()*(x- enemy.getX()) + enemy.getDy()*enemy.getSpeed()*(y- enemy.getY()));
         double c = -((x - enemy.getX())*(x - enemy.getX()) + (y - enemy.getY())*(y - enemy.getY()));
         double delta = b*b - 4*a*c;
         double dt = (-b + Math.sqrt(delta))/2/a; // Number of updates for the missile to reach the monster
@@ -46,12 +47,16 @@ public class Shot extends Elements {
         this.vx = ((this.targetX - x)/(Math.sqrt((this.targetX - x)*(this.targetX - x) + (this.targetY - y)*(this.targetY - y)))*shot_speed);
         this.vy = ((this.targetY - y)/(Math.sqrt((this.targetX - x)*(this.targetX - x) + (this.targetY - y)*(this.targetY - y)))*shot_speed);
 
-        /*
         Matrix matrix = new Matrix();
-        int rotation = (int) ( Math.atan((targetY - y) / ( targetX - x))*180/Math.PI) ;
-        matrix.setRotate(rotation + 180, this.getBitmap().getWidth()/2, this.getBitmap().getHeight()/2);
+        int rotation = (int) (Math.atan((targetY - y) / ( targetX - x))*180/Math.PI) ;
+        if (targetX - x < 0) { //Monster at the left
+            matrix.setRotate(rotation + bitmapAngle, this.getBitmap().getWidth() / 2, this.getBitmap().getHeight() / 2);
+        } else { //Monster at the right
+            matrix.setRotate(rotation + bitmapAngle + 180, this.getBitmap().getWidth() / 2, this.getBitmap().getHeight() / 2);
+            matrix.preScale(1, -1); //Flip the bitmap
+        }
+
         this.setBitmap(Bitmap.createBitmap(bitmap, 0, 0, this.getBitmap().getWidth(), this.getBitmap().getHeight(), matrix, true));
-        */
     }
 
     public void update() {
