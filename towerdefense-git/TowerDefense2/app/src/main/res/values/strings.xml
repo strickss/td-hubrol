@@ -3,10 +3,14 @@
 
     <string name="gold">28</string>
     <string name="action_settings">Settings</string>
+<<<<<<< HEAD
     <string name="monster1"> Goblin 1</string>
     <string name="monster2"> Troll 1 </string>
     <string name="monster3"> Goblin 2</string>
     <string name="not_connected">You are not connected to a device</string>
+=======
+
+>>>>>>> origin/master
     <string name="exemple">Coucou gobelin</string>
     <string name="yourIncome"> Your income : </string>
     <string name="yourIncomeValue"> 32 </string>
@@ -35,5 +39,26 @@
     <string name="insecure_connect">Connect a device - Insecure</string>
     <string name="discoverable">Make discoverable</string>
 
+
+    <string name="monster_goblin"> Goblin </string>
+    <string name="monster_eye"> Eye </string>
+    <string name="monster_devil"> Devil </string>
+    <string name="monster_skeleton">  Skeleton </string>
+    <string name="monster_eagle"> Eagle </string>
+
+    <string name="monster_dwarf"> Dwarf</string>
+    <string name="monster_robot"> Robot </string>
+    <string name="monster_devil2"> Devilllls </string>
+    <string name="monster_golem"> Golem </string>
+
+    <string name="monster_gryphon"> Gryphon </string>
+    <string name="monster_fairy"> Fairy </string>
+    <string name="monster_dark_vador"> Dark Vador </string>
+    <string name="monster_blue_dragon"> Blue dragon </string>
+
+    <string name="monster_pikachu"> Pikachu </string>
+    <string name="monster_spider"> Spider </string>
+    <string name="monster_unicorn"> Unicorn </string>
+    <string name="monster_wolf"> Wolf </string>
 
 </resources>
