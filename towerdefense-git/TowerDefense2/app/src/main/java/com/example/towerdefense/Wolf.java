@@ -19,9 +19,9 @@ public class Wolf extends Enemy {
         this.spriteWidth = bitmap.getWidth() / 3;
         this.spriteHeight = bitmap.getHeight() / 4;
         this.sourceRect = new Rect(0, 0, spriteWidth, spriteHeight);
-        this.width = 200;
-        this.height = 200;
-        this.framePeriod = 1000 / 5; // 1000/fps
+        this.width = 180;
+        this.height = 180;
+        this.framePeriod = 1000 / 7; // 1000/fps
         this.speed = 3;
     }
 }

@@ -19,8 +19,8 @@ public class Spider extends Enemy{
         this.spriteWidth = bitmap.getWidth() / 4;
         this.spriteHeight = bitmap.getHeight() / 4;
         this.sourceRect = new Rect(0, 0, spriteWidth, spriteHeight);
-        this.width = 200;
-        this.height = 200;
+        this.width = 100;
+        this.height = 100;
         this.framePeriod = 1000 / 5; // 1000/fps
         this.speed = 3;
     }

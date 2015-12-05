@@ -4,28 +4,28 @@
 
     <item
         android:id="@+id/pikachu"
-        android:icon="@drawable/pikachu_sprite"
+        android:icon="@drawable/pikachu_icon"
         android:title="@string/monster_pikachu"
         android:onClick="onMenuItemClick"
         android:visible = "true"/>
 
     <item
         android:id="@+id/spider"
-        android:icon="@drawable/spider_sprite"
+        android:icon="@drawable/spider_icon"
         android:title="@string/monster_spider"
         android:onClick="onMenuItemClick"
         android:visible = "true"/>
 
     <item
         android:id="@+id/unicorn"
-        android:icon="@drawable/unicorn_sprite"
+        android:icon="@drawable/unicorn_icon"
         android:title="@string/monster_unicorn"
         android:onClick="onMenuItemClick"
         android:visible = "true"/>
 
     <item
         android:id="@+id/wolf"
-        android:icon="@drawable/wolf_sprite"
+        android:icon="@drawable/wolf_icon"
         android:title="@string/monster_wolf"
         android:onClick="onMenuItemClick"
         android:visible = "true"/>
