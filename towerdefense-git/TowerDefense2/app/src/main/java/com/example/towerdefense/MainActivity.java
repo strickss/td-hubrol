@@ -33,7 +33,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private ArrayAdapter<String> mArrayAdapter2;
     private BluetoothChatService mBluetoothChatService;
     private BluetoothSocket mBTSocket;
-
     private MainGamePanel gamePanel;
     private Handler mHandler;
     private TextView textGold;
@@ -45,13 +44,10 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private long a = System.currentTimeMillis();
     private boolean updateMenu;
     private PopupMenu popup;
-<<<<<<< HEAD
     private SoundPool sp;
     private int spId;
-
-=======
     private View view;
->>>>>>> refs/remotes/origin/master
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
