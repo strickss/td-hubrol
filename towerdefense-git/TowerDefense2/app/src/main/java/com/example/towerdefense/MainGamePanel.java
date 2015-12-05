@@ -48,16 +48,22 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         getHolder().addCallback(this); //  sets the current class (MainGamePanel) as the handler for the events happening on the actual surface
         map = new Map(context, 0);
 <<<<<<< HEAD
+        mediaPlayer = MediaPlayer.create(context, R.raw.song);
+
 
         paint_canvas = new Paint();
         paint_canvas.setARGB(255, 10, 160, 50);
 
-=======
         MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.song);
+=======
+        paint_canvas = new Paint();
+        paint_canvas.setARGB(255, 10, 160, 50);
+
+        mediaPlayer = MediaPlayer.create(context, R.raw.song);
+>>>>>>> refs/remotes/origin/master
         mediaPlayer.start();
->>>>>>> origin/master
         // create tower and load bitmap
-        this.player1 = new Player(50,10,20);
+        this.player1 = new Player(5000,10,20);
 
         towers = new ArrayList<Towers>();
         buttons = new ArrayList<Buttons>();
@@ -65,9 +71,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         enemies = new ArrayList<Enemy>();
 
         //enemies.add(new Gryphon(context, map.getLogicPath()));
-        enemies.add(new Skeleton(context, map.getLogicPath()));
-        //goblin = new Gobelin(150,0, context, 1, 1, 1);
-
+        //enemies.add(new Skeleton(context, map.getLogicPath()));
 
         //create the game loop thread
         thread = new MainThread(getHolder(), this);
@@ -294,7 +298,55 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                 CreateMonster(new Gobelin(getContext(), map.getLogicPath()));
                 return;
             case 2 :
+                CreateMonster(new Eye(getContext(),map.getLogicPath()));
+                return;
+            case 3:
+                CreateMonster(new Devil(getContext(), map.getLogicPath()));
+                return;
+            case 4 :
+                CreateMonster(new Eagle(getContext(),map.getLogicPath()));
+                return;
+            case 5:
+                CreateMonster(new Skeleton(getContext(), map.getLogicPath()));
+                return;
+
+            case 6:
+                CreateMonster(new Dwarf(getContext(), map.getLogicPath()));
+                return;
+            case 7 :
+                CreateMonster(new Devil2(getContext(),map.getLogicPath()));
+                return;
+            case 8:
+                CreateMonster(new Golem(getContext(), map.getLogicPath()));
+                return;
+            case 9 :
                 CreateMonster(new Robot(getContext(),map.getLogicPath()));
+                return;
+
+            case 10:
+                CreateMonster(new Gryphon(getContext(), map.getLogicPath()));
+                return;
+            case 11:
+                CreateMonster(new Fairy(getContext(),map.getLogicPath()));
+                return;
+            case 12:
+                CreateMonster(new DarkVador(getContext(), map.getLogicPath()));
+                return;
+            case 13 :
+                CreateMonster(new BlueDragon(getContext(),map.getLogicPath()));
+                return;
+
+            case 14:
+                CreateMonster(new Pikachu(getContext(), map.getLogicPath()));
+                return;
+            case 15:
+                CreateMonster(new Spider(getContext(),map.getLogicPath()));
+                return;
+            case 16:
+                CreateMonster(new Unicorn(getContext(), map.getLogicPath()));
+                return;
+            case 17:
+                CreateMonster(new Wolf(getContext(),map.getLogicPath()));
                 return;
             default:
                 return;

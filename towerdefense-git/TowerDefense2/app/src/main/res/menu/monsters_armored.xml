@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/robot"
+        android:icon="@drawable/robot_icon"
+        android:title="@string/monster_robot"
+        android:onClick="onMenuItemClick"
+        android:visible = "true"/>
+
+    <item
+        android:id="@+id/dwarf"
+        android:icon="@drawable/dwarf_sprite"
+        android:title="@string/monster_dwarf"
+        android:onClick="onMenuItemClick"
+        android:visible = "true"/>
+
+    <item
+        android:id="@+id/devil2"
+        android:icon="@drawable/devil2_sprite"
+        android:title="@string/monster_devil2"
+        android:onClick="onMenuItemClick"
+        android:visible = "true"/>
+
+    <item
+        android:id="@+id/golem"
+        android:icon="@drawable/golem_sprite"
+        android:title="@string/monster_golem"
+        android:onClick="onMenuItemClick"
+        android:visible = "true"/>
+
+</menu>

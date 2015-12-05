@@ -1,13 +1,10 @@
 package com.example.towerdefense;
 
 import android.app.Activity;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -16,20 +13,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupMenu;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Set;
 
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
@@ -37,7 +31,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private final static int REQUEST_ENABLE_BT = 1;
     private ArrayAdapter<String> mArrayAdapter;
     private ArrayAdapter<String> mArrayAdapter2;
-    private ListView newDevicesListView;
     private BluetoothChatService mBluetoothChatService;
     private BluetoothSocket mBTSocket;
 
@@ -52,6 +45,13 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private long a = System.currentTimeMillis();
     private boolean updateMenu;
     private PopupMenu popup;
+<<<<<<< HEAD
+    private SoundPool sp;
+    private int spId;
+
+=======
+    private View view;
+>>>>>>> refs/remotes/origin/master
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,11 +62,12 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // set our MainGamePanel as the View
         //setContentView(new MainGamePanel(this));
-
         setContentView(R.layout.activity_main);
         gamePanel = (MainGamePanel) findViewById(R.id.GamePanel);
-
+        sp = new SoundPool(5, AudioManager.STREAM_MUSIC,1);
+        spId = sp.load(gamePanel.getContext(),R.raw.test,1);
         Log.d(TAG, "View added");
+
         final ImageButton imageButton1 = (ImageButton) findViewById(R.id.button_1);
         final ImageButton imageButton2 = (ImageButton) findViewById(R.id.button_2);
         final ImageButton imageButton3 = (ImageButton) findViewById(R.id.button_3);
@@ -81,6 +82,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             Toast.makeText(this, "No Bluetooth on this handset", duration).show();
 
         }
+
         textGold = (TextView) findViewById(R.id.gold);
         textYourIncome = (TextView) findViewById(R.id.yourIncomeValue);
         textOppIncome = (TextView) findViewById(R.id.oppIncomeValue);
@@ -105,18 +107,26 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             textOppLife.setText("" + txtOppLife);
             mHandler.postDelayed(this, 100);
 
+            /*
             if (updateMenu) {
                 if (System.currentTimeMillis() - a > 10000) {
                     try {
                         popup.dismiss();
-                        popUpMenuUpdate();
+                        showPopup1(view);
                     } catch (Exception e) {
                     }
                     updateMenu = false;
                 }
             }
+<<<<<<< HEAD
+
+=======
+            */
+>>>>>>> refs/remotes/origin/master
         }
+
     };
+
 
     @Override
     protected void onDestroy() {
@@ -130,11 +140,98 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         super.onStop();
     }
 
-    public void showPopup(View v) {
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.goblin:
+                sp.play(spId, 1, 1, 0, 0, 1);
+                gamePanel.create(1);
+                showPopup1(view);
+                return true;
+<<<<<<< HEAD
+            case R.id.robot:
+                sp.play(spId, 1, 1, 0, 0, 1);
+=======
+            case R.id.eye:
+>>>>>>> refs/remotes/origin/master
+                gamePanel.create(2);
+                showPopup1(view);
+                return true;
+            case R.id.devil:
+                gamePanel.create(3);
+                showPopup1(view);
+                return true;
+            case R.id.eagle:
+                gamePanel.create(4);
+                showPopup1(view);
+                return true;
+            case R.id.skeleton:
+                gamePanel.create(5);
+                showPopup1(view);
+                return true;
+
+            case R.id.dwarf:
+                gamePanel.create(6);
+                showPopup2(view);
+                return true;
+            case R.id.devil2:
+                gamePanel.create(7);
+                showPopup2(view);
+                return true;
+            case R.id.golem:
+                gamePanel.create(8);
+                showPopup2(view);
+                return true;
+            case R.id.robot:
+                gamePanel.create(9);
+                showPopup2(view);
+                return true;
+
+            case R.id.gryphon:
+                gamePanel.create(10);
+                showPopup3(view);
+                return true;
+            case R.id.fairy:
+                gamePanel.create(11);
+                showPopup3(view);
+                return true;
+            case R.id.dark_vador:
+                gamePanel.create(12);
+                showPopup3(view);
+                return true;
+            case R.id.blue_dragon:
+                gamePanel.create(13);
+                showPopup3(view);
+                return true;
+
+            case R.id.pikachu:
+                gamePanel.create(14);
+                showPopup4(view);
+                return true;
+            case R.id.spider:
+                gamePanel.create(15);
+                showPopup4(view);
+                return true;
+            case R.id.unicorn:
+                gamePanel.create(16);
+                showPopup4(view);
+                return true;
+            case R.id.wolf:
+                gamePanel.create(17);
+                showPopup4(view);
+                return true;
+
+            default:
+                return false;
+        }
+    }
+
+    public void showPopup1(View v) {
+        view = v;
         popup = new PopupMenu(this, v);
         popup.setOnMenuItemClickListener(this);
         MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.monsters, popup.getMenu());
+        inflater.inflate(R.menu.monsters_normal, popup.getMenu());
         try {
             if (System.currentTimeMillis() - a > 10000) {
                 popup.getMenu().findItem(R.id.robot).setVisible(true);
@@ -152,91 +249,73 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         popup.show();
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.goblin:
-                gamePanel.create(1);
-                popUpMenuUpdate();
-                return true;
-            case R.id.robot:
-                gamePanel.create(2);
-                popUpMenuUpdate();
-                return true;
-            /*
-            case R.id.blue_dragon:
-                gamePanel.create(1);
-                popUpMenuUpdate();
-                return true;
-            case R.id.dark_vador:
-                gamePanel.create(2);
-                popUpMenuUpdate();
-                return true;
-            case R.id.devil:
-                gamePanel.create(1);
-                popUpMenuUpdate();
-                return true;
-            case R.id.devil2:
-                gamePanel.create(2);
-                popUpMenuUpdate();
-                return true;
-            case R.id.dwarf:
-                gamePanel.create(1);
-                popUpMenuUpdate();
-                return true;
-            case R.id.eagle:
-                gamePanel.create(2);
-                popUpMenuUpdate();
-                return true;
-            case R.id.eye:
-                gamePanel.create(1);
-                popUpMenuUpdate();
-                return true;
-            case R.id.fairy:
-                gamePanel.create(2);
-                popUpMenuUpdate();
-                return true;
-            case R.id.golem:
-                gamePanel.create(1);
-                popUpMenuUpdate();
-                return true;
-            case R.id.gryphon:
-                gamePanel.create(2);
-                popUpMenuUpdate();
-                return true;
-            case R.id.pikachu:
-                gamePanel.create(1);
-                popUpMenuUpdate();
-                return true;
-            case R.id.skeleton:
-                gamePanel.create(2);
-                popUpMenuUpdate();
-                return true;
-            case R.id.spider:
-                gamePanel.create(1);
-                popUpMenuUpdate();
-                return true;
-            case R.id.unicorn:
-                gamePanel.create(2);
-                popUpMenuUpdate();
-                return true;
-            case R.id.wolf:
-                gamePanel.create(1);
-                popUpMenuUpdate();
-                return true;
-            case R.id.squirrel:
-                gamePanel.create(2);
-                popUpMenuUpdate();
-                return true;
-                */
-
-            default:
-                return false;
+    public void showPopup2(View v) {
+        view = v;
+        popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.monsters_armored, popup.getMenu());
+        try {
+            if (System.currentTimeMillis() - a > 10000) {
+                popup.getMenu().findItem(R.id.robot).setVisible(true);
+            }
+            Field field = popup.getClass().getDeclaredField("mPopup");
+            field.setAccessible(true);
+            Object menuPopupHelper = field.get(popup);
+            Class<?> cls = Class.forName("com.android.internal.view.menu.MenuPopupHelper");
+            Method method = cls.getDeclaredMethod("setForceShowIcon", boolean.class);
+            method.setAccessible(true);
+            method.invoke(menuPopupHelper, true);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        popup.show();
     }
 
-    public void popUpMenuUpdate(){
-        showPopup(findViewById(R.id.button_1));
+    public void showPopup3(View v) {
+        view = v;
+        popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.monsters_magic, popup.getMenu());
+        try {
+            if (System.currentTimeMillis() - a > 10000) {
+                popup.getMenu().findItem(R.id.robot).setVisible(true);
+            }
+            Field field = popup.getClass().getDeclaredField("mPopup");
+            field.setAccessible(true);
+            Object menuPopupHelper = field.get(popup);
+            Class<?> cls = Class.forName("com.android.internal.view.menu.MenuPopupHelper");
+            Method method = cls.getDeclaredMethod("setForceShowIcon", boolean.class);
+            method.setAccessible(true);
+            method.invoke(menuPopupHelper, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        popup.show();
+    }
+
+    public void showPopup4(View v) {
+        view = v;
+        popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.monsters_fast, popup.getMenu());
+        try {
+            if (System.currentTimeMillis() - a > 10000) {
+                popup.getMenu().findItem(R.id.robot).setVisible(true);
+            }
+            Field field = popup.getClass().getDeclaredField("mPopup");
+            field.setAccessible(true);
+            Object menuPopupHelper = field.get(popup);
+            Class<?> cls = Class.forName("com.android.internal.view.menu.MenuPopupHelper");
+            Method method = cls.getDeclaredMethod("setForceShowIcon", boolean.class);
+            method.setAccessible(true);
+            method.invoke(menuPopupHelper, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        popup.show();
     }
 
 }

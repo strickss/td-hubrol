@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/pikachu"
+        android:icon="@drawable/pikachu_sprite"
+        android:title="@string/monster_pikachu"
+        android:onClick="onMenuItemClick"
+        android:visible = "true"/>
+
+    <item
+        android:id="@+id/spider"
+        android:icon="@drawable/spider_sprite"
+        android:title="@string/monster_spider"
+        android:onClick="onMenuItemClick"
+        android:visible = "true"/>
+
+    <item
+        android:id="@+id/unicorn"
+        android:icon="@drawable/unicorn_sprite"
+        android:title="@string/monster_unicorn"
+        android:onClick="onMenuItemClick"
+        android:visible = "true"/>
+
+    <item
+        android:id="@+id/wolf"
+        android:icon="@drawable/wolf_sprite"
+        android:title="@string/monster_wolf"
+        android:onClick="onMenuItemClick"
+        android:visible = "true"/>
+
+</menu>
