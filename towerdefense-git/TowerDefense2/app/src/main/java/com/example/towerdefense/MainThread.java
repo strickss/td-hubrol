@@ -38,7 +38,6 @@ public class MainThread extends Thread {
     private double averageFps = 0.0;// the average FPS since the game started
     private Canvas canvas;
     private boolean canvasMoved=false;
-    private float xCanvas, yCanvas;
 
     public MainThread(SurfaceHolder surfaceHolder, MainGamePanel gamePanel){
         super();
@@ -66,14 +65,11 @@ public class MainThread extends Thread {
             // try locking the canvas for exclusive pixel editing on the surface
             try { //try to get hold of it
                 canvas = this.surfaceHolder.lockCanvas();
-                xCanvas =gamePanel.getCanvasX();
-                yCanvas =gamePanel.getCanvasY();
-                canvas.translate(xCanvas, yCanvas);
+                //canvas.translate(1000,100);
+                canvas.translate(gamePanel.getCanvasX(), gamePanel.getCanvasY());
                 synchronized (surfaceHolder) {
                     // update game state
                     // draws the canvas on the panel
-                    this.gamePanel.update(); //we trigger the panel’s onDraw event to which we pass the obtained canvas
-                    this.gamePanel.render(canvas);
                     framesSkipped = 0; //resetting the frames skipped
                     this.gamePanel.update(); // update game state
                     this.gamePanel.render(canvas); // draws the canvas on the panel

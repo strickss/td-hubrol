@@ -1,33 +1,22 @@
 package com.example.towerdefense;
 
 import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Set;
 
 
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
@@ -58,8 +47,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         //setContentView(new MainGamePanel(this));
         setContentView(R.layout.activity_main);
         gamePanel = (MainGamePanel) findViewById(R.id.GamePanel);
-        //updateTextViewGold(1);
-
 
         Log.d(TAG, "View added");
 
@@ -79,7 +66,14 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             }
+<<<<<<< HEAD
+=======
 
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
+>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/Tower_creation
             Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
             // If there are paired devices
             if (pairedDevices.size() > 0) {
@@ -106,7 +100,14 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 mArrayAdapter = new ArrayAdapter<>(this, R.layout.arrays);
                 //ListView newDevicesListView = (ListView) findViewById(R.id.array);
                 //newDevicesListView.setAdapter(mArrayAdapter);
+<<<<<<< HEAD
+=======
 
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
+>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/Tower_creation
             }
         }*/
 
@@ -165,7 +166,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         inflater.inflate(R.menu.monsters, popup.getMenu());
         try {
             if (System.currentTimeMillis() - a > 10000) {
-                popup.getMenu().findItem(R.id.monster2).setVisible(true);
+                popup.getMenu().findItem(R.id.robot).setVisible(true);
             }
             Field field = popup.getClass().getDeclaredField("mPopup");
             field.setAccessible(true);
@@ -183,17 +184,17 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.monster1:
-                gamePanel.CreateMonster(1);
+            case R.id.goblin:
+                gamePanel.create(1);
                 popUpMenuUpdate();
                 return true;
-            case R.id.monster2:
-                gamePanel.CreateMonster(2);
+            case R.id.robot:
+                gamePanel.create(2);
                 popUpMenuUpdate();
                 return true;
+
             default:
                 return false;
-
         }
     }
 
