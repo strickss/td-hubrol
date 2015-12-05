@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <item
-        android:id="@+id/monster1"
+        android:id="@+id/goblin"
         android:icon="@drawable/goblin"
         android:title="@string/monster1"
         android:onClick="onMenuItemClick"
         />
 
-
-
     <item
-        android:id="@+id/monster2"
-        android:icon="@drawable/goblin"
+        android:id="@+id/robot"
+        android:icon="@drawable/robot_sprite"
         android:title="@string/monster2"
-        android:onClick="onMenuItemClick"/>
-
+        android:onClick="onMenuItemClick"
+        android:visible = "false"/>
 
 </menu>

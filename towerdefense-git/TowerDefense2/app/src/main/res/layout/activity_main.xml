@@ -28,6 +28,7 @@
             android:src="@drawable/coins"/>
 
         <TextView
+            android:id="@+id/gold"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="4dp"
@@ -48,6 +49,7 @@
             </TextView>
 
         <TextView
+            android:id="@+id/yourIncomeValue"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="8dp"
@@ -62,17 +64,18 @@
             android:layout_height="match_parent"
             android:paddingLeft="8dp"
             android:textColor="@color/white"
-            android:text="@string/OppIncome"
+            android:text="@string/oppIncome"
             android:textSize="20dp"
             android:layout_marginTop="3dp">
             </TextView>
 
         <TextView
+            android:id="@+id/oppIncomeValue"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="8dp"
             android:textColor="@color/white"
-            android:text="@string/OppIncomeValue"
+            android:text="@string/oppIncomeValue"
             android:textSize="20dp"
             android:layout_marginTop="3dp">
             </TextView>
@@ -88,6 +91,7 @@
         </TextView>
 
         <TextView
+            android:id="@+id/yourLifeValue"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="8dp"
@@ -114,6 +118,7 @@
         </TextView>
 
         <TextView
+            android:id="@+id/oppLifeValue"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="8dp"
@@ -128,9 +133,6 @@
             android:layout_height="26dp"
             android:layout_marginTop="2dp"
             android:src="@drawable/heart"/>
-
-
-
 
     </LinearLayout>
 
@@ -172,10 +174,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/bandeau_haut"
         android:layout_above="@id/bandeau_bas">
+
 
         <com.example.towerdefense.MainGamePanel
             android:id="@+id/GamePanel"
@@ -185,4 +188,39 @@
     </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/paired_devices">
+
+        <ListView
+            android:id="@+id/array"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            ></ListView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/paired_devices">
+
+        <ListView
+            android:id="@+id/array2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            ></ListView>
+
+    </LinearLayout>
+
+
+
 </RelativeLayout>
+
+

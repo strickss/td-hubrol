@@ -1,9 +1,12 @@
 package com.example.towerdefense;
 
 import android.graphics.Canvas;
+import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
+import android.widget.TextView;
 
+import java.text.CollationElementIterator;
 import java.text.DecimalFormat;
 
 /**
@@ -33,6 +36,8 @@ public class MainThread extends Thread {
     private double fpsStore[];// the last FPS values
     private long statsCount = 0;// the number of times the stat has been read
     private double averageFps = 0.0;// the average FPS since the game started
+    private Canvas canvas;
+    private boolean canvasMoved=false;
 
     public MainThread(SurfaceHolder surfaceHolder, MainGamePanel gamePanel){
         super();
@@ -46,7 +51,7 @@ public class MainThread extends Thread {
 
     @Override
     public void run() {
-        Canvas canvas; //declare the canvas on which we will draw our image. The canvas is the surface’s bitmap onto which we can draw and we can edit its pixels
+        //Canvas canvas; //declare the canvas on which we will draw our image. The canvas is the surface’s bitmap onto which we can draw and we can edit its pixels
         Log.d(TAG, "Starting game loop");
         initTimingElements();
         long timeDiff; //the time it took for the cycle to execute
@@ -55,17 +60,16 @@ public class MainThread extends Thread {
         long beginTime =0;
         long endTime;
 
-
         while (running) {
             canvas = null;
             // try locking the canvas for exclusive pixel editing on the surface
             try { //try to get hold of it
                 canvas = this.surfaceHolder.lockCanvas();
+                //canvas.translate(1000,100);
+                canvas.translate(gamePanel.getCanvasX(), gamePanel.getCanvasY());
                 synchronized (surfaceHolder) {
                     // update game state
                     // draws the canvas on the panel
-                    this.gamePanel.update(); //we trigger the panel’s onDraw event to which we pass the obtained canvas
-                    this.gamePanel.render(canvas);
                     framesSkipped = 0; //resetting the frames skipped
                     this.gamePanel.update(); // update game state
                     this.gamePanel.render(canvas); // draws the canvas on the panel
@@ -101,6 +105,7 @@ public class MainThread extends Thread {
                 // in case of an exception the surface is not left in
                 // an inconsistent state
                 if (canvas != null) {
+
                     surfaceHolder.unlockCanvasAndPost(canvas);
                 }
             } // end finally
@@ -163,4 +168,11 @@ public class MainThread extends Thread {
         Log.d(TAG + ".initTimingElements()", "Timing elements for stats initialised");
     }
 
+    public Canvas getCanvas() {
+        return canvas;
+    }
+    public void setCanvasMoved(boolean bool){
+        canvasMoved = bool;
+    }
+    public boolean getCanvasMoved(){return canvasMoved;}
 }

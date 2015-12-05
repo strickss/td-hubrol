@@ -7,29 +7,28 @@ import android.graphics.Canvas;
  * Created by Brieuc on 10-11-15.
  */
 public class Elements {
-    private int x;
-    private int y;
-    private Bitmap bitmap;
-
-    public Elements(int x, int y,Bitmap bitmap){
+    protected double x;
+    protected double y;
+    protected Bitmap bitmap;
+    public Elements(double x, double y,Bitmap bitmap){
         this.x = x;
         this.y = y;
         this.bitmap = bitmap;
     }
 
-    protected int getX(){
+    protected double getX(){
         return this.x;
     }
 
-    protected void setX(int x){
+    protected void setX(double x){
         this.x = x;
     }
 
-    protected int getY(){
+    protected double getY(){
         return this.y;
     }
 
-    protected void setY(int y){
+    protected void setY(double y){
         this.y = y;
     }
 
@@ -42,7 +41,7 @@ public class Elements {
     }
 
     public void draw(Canvas canvas){
-        canvas.drawBitmap(bitmap, x- (bitmap.getWidth()/2), y -(bitmap.getHeight()/2), null);
+        canvas.drawBitmap(bitmap, (int) x- (bitmap.getWidth()/2),(int) y -(bitmap.getHeight()/2), null);
     }
 
 

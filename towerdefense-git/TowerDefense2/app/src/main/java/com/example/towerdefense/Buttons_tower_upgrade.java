@@ -18,8 +18,8 @@ public class Buttons_tower_upgrade extends Buttons {
         this.towerIndex = towerIndex;
     }
 
-    public void getEvent(MotionEvent event, List<Towers> towers, Context context) {
-        towers.add(new Tower2(towers.get(towerIndex).getX(), towers.get(towerIndex).getY(), context));
+    public void getEvent(List<Towers> towers, Context context) {
+        towers.add(new Tower2((int) towers.get(towerIndex).getX(), (int) towers.get(towerIndex).getY(), context));
         towers.remove(towerIndex);
     }
 

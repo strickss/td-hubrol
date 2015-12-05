@@ -1,11 +1,14 @@
 package com.example.towerdefense;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 /**
  * Created by Brieuc on 21-11-15.
  */
 public class Towers extends Elements{
+    private static final String TAG = MainGamePanel.class.getSimpleName();
+
     private long lastFired;
     private boolean touched;
     private int attack;
@@ -26,7 +29,7 @@ public class Towers extends Elements{
 
     public void handleActionDown(int eventX, int eventY) {
         if (eventX >= (this.getX()-this.getBitmap().getWidth()/2) && (eventX <= (this.getX()+this.getBitmap().getWidth()/2))){
-            if (eventY >= (this.getY() - this.getBitmap().getHeight() / 2) && (this.getY() <= (this.getY() + this.getBitmap().getHeight() / 2))) {
+            if ((eventY >= (this.getY() - this.getBitmap().getHeight()/2)) && (eventY <= (this.getY() + this.getBitmap().getHeight()/2))) {
                 //tower is touched
                 setTouched(true);
             } else {

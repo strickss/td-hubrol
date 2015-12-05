@@ -1,88 +1,83 @@
 package com.example.towerdefense;
+import android.content.Context;
+import android.graphics.Canvas;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Hugo on 17/11/2015.
  */
 public class Map {
+    private final PathList path;
     private int StartingGold;
     private int StartingIncome;
-    private int[][] mapMatrix;
-    private int blockSizeX;
-    private int blockSizeY;
-    private int mapSizeX;
-    private int mapSizeY;
+    private String[][] mapMatrix;
     private ArrayList<Elements> mapList;
-    private ArrayList<Integer> path;
-    private int node;
     private static final String TAG = Map.class.getSimpleName();
+    private final int mapSizeX;
+    private final int mapSizeY;
+    private final int blockSizeX;
+    private final int blockSizeY;
+    private Random rand;
+    private Context context;
+    private double endzoneX;
+    private double endzoneY;
 
-    public Map(int lvl){
-        node = 5;
-        path = new ArrayList();
-        for(int i=0; i<node; i++){
-            path.add(null);
-            path.add(null);
-        }
-        Log.d(TAG, "PATH" + path);
+    public Map(Context context, int lvl) {
+        mapSizeX = 2500;
+        mapSizeY = 1000;
         mapMatrix = ReadFile.getmap(lvl);
-        Log.d(TAG, "LENGTH: " + mapMatrix.length + " LENGTH2: " + mapMatrix[0].length);
-        Log.d(TAG, "MAP: " + mapMatrix[0]);
-        mapSizeX=2000;
-        mapSizeY=500;
-        blockSizeX = mapSizeX/mapMatrix.length;
-        blockSizeY = mapSizeY/mapMatrix[0].length;
-        CreateMapList(mapMatrix);
-
-        //createPath();
+        blockSizeX = mapSizeX / mapMatrix.length;
+        blockSizeY = mapSizeY / mapMatrix[0].length;
+        path = new PathList(mapMatrix, this, context);
+        rand = new Random();
+        mapList = new ArrayList<>();
+        CreateMapList(context);
+        CreateMapList(context);
     }
 
-    private void CreateMapList(int[][] mapMatrix) {
+    public void draw(Canvas canvas) {
+        for(int i=0; i < path.getPathList().get(0).size()-1; i=i+1){
+            path.getPathList().get(0).get(i).draw(canvas);
+            //Log.d(TAG, "i :" + i);
+            path.getPathList().get(1).get(i).draw(canvas);
+        }
+        for(int j=0; j<mapList.size();j++){
+            mapList.get(j).draw(canvas);
+        }
+    }
+
+    private void CreateMapList(Context context) {
         for (int x = 0; x < mapMatrix.length; x++) {
             for (int y = 0; y < mapMatrix[0].length; y++) {
-                if (mapMatrix[x][y] == 1) {
-                    path.set(0, blockSizeX * x);
-                    path.set(1, blockSizeY * y);
-                    Log.d(TAG, "PATH" + path);
+                if (mapMatrix[x][y].equals("Z")) {
+                    mapList.add(new EndZone(getBlockSizeX() * x, getBlockSizeY() * y, context));
+                    endzoneX = getBlockSizeX() * x;
+                    endzoneY = getBlockSizeY() * y;
+                    Log.d(TAG, "EndZone X : "+ endzoneX + "EndZone y : " + endzoneY);
                 }
-                if (mapMatrix[x][y] == 2) {
-                    path.set(2, blockSizeX * x);
-                    path.set(3, blockSizeY * y);
-                    Log.d(TAG, "PATH" + path);
+                if (mapMatrix[x][y].equals("P")) {
+                     mapList.add(new Path(getBlockSizeX() * x, getBlockSizeY() * y, context));
                 }
-                if (mapMatrix[x][y] == 3) {
-                    path.set(4, blockSizeX * x);
-                    path.set(5, blockSizeY * y);
-                    Log.d(TAG, "PATH" + path);
-                }
-                if (mapMatrix[x][y] == 4) {
-                    path.set(6, blockSizeX * x);
-                    path.set(7, blockSizeY * y);
-                    Log.d(TAG, "PATH" + path);
-                }
-                if (mapMatrix[x][y] == 5) {
-                    path.set(8, blockSizeX * x);
-                    path.set(9, blockSizeY * y);
-                    Log.d(TAG, "PATH" + path);
-                }
+
             }
         }
     }
 
+    public int getBlockSizeX() {return blockSizeX; }
+    public int getBlockSizeY() {return blockSizeY; }
+    public double getEndZoneX() {return endzoneX; }
+    public double getEndZoneY() {return endzoneY; }
+    public double getMapsizeX() {return mapSizeX; }
+    public double getMapsizeY() {return mapSizeY; }
 
-    private void createPath(){
-        ArrayList<Integer> node1 =  new ArrayList<Integer>();
-        node1.add(180);
-        node1.add(1000);
-        ArrayList<Integer> node2 =  new ArrayList<Integer>();
-        node2.add(1000);
-        node2.add(1000);
-
-    }
-
-    public ArrayList<Integer> getPath() {
-        return path;
+    public ArrayList<Elements> getLogicPath() {
+       if(rand.nextDouble()<0.5) {
+           return path.getPathList().get(0);
+       }else{
+           return path.getPathList().get(1);
+       }
     }
 }
