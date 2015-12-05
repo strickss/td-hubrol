@@ -304,11 +304,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         return this.player1;
     }
 
-    public float getCanvasX() {
-        return canvasX;
-    }
+    public float getCanvasX() {return canvasX;}
 
-    public float getCanvasY() {
-        return canvasY;
-    }
+    public float getCanvasY() {return canvasY;}
 }
