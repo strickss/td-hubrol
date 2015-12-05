@@ -20,8 +20,6 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.FileDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -45,13 +43,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private long a = System.currentTimeMillis();
     private boolean updateMenu;
     private PopupMenu popup;
-<<<<<<< HEAD
-    private SoundPool sp;
-    private int spId;
-
-=======
     private View view;
->>>>>>> refs/remotes/origin/master
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,8 +56,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         //setContentView(new MainGamePanel(this));
         setContentView(R.layout.activity_main);
         gamePanel = (MainGamePanel) findViewById(R.id.GamePanel);
-        sp = new SoundPool(5, AudioManager.STREAM_MUSIC,1);
-        spId = sp.load(gamePanel.getContext(),R.raw.test,1);
         Log.d(TAG, "View added");
 
         final ImageButton imageButton1 = (ImageButton) findViewById(R.id.button_1);
@@ -118,11 +108,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                     updateMenu = false;
                 }
             }
-<<<<<<< HEAD
-
-=======
             */
->>>>>>> refs/remotes/origin/master
+
         }
 
     };
@@ -144,16 +131,10 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.goblin:
-                sp.play(spId, 1, 1, 0, 0, 1);
                 gamePanel.create(1);
                 showPopup1(view);
                 return true;
-<<<<<<< HEAD
-            case R.id.robot:
-                sp.play(spId, 1, 1, 0, 0, 1);
-=======
             case R.id.eye:
->>>>>>> refs/remotes/origin/master
                 gamePanel.create(2);
                 showPopup1(view);
                 return true;

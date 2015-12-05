@@ -9,7 +9,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -37,6 +39,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private String avgFps; //the fps to be displayed
     private Gryphon gryphon;
     private float x1,y1;
+    private SoundPool sp;
+    private int spId;
+    ArrayList<Integer> buildingZone;
 
     private long a =System.currentTimeMillis();
     private float canvasX =0;
@@ -47,21 +52,12 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         // adding the callback (this) to the surface holder to intercept events
         getHolder().addCallback(this); //  sets the current class (MainGamePanel) as the handler for the events happening on the actual surface
         map = new Map(context, 0);
-<<<<<<< HEAD
-        mediaPlayer = MediaPlayer.create(context, R.raw.song);
-
-
         paint_canvas = new Paint();
         paint_canvas.setARGB(255, 10, 160, 50);
-
-        MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.song);
-=======
-        paint_canvas = new Paint();
-        paint_canvas.setARGB(255, 10, 160, 50);
-
         mediaPlayer = MediaPlayer.create(context, R.raw.song);
->>>>>>> refs/remotes/origin/master
+        mediaPlayer.setLooping(true);
         mediaPlayer.start();
+        sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
         // create tower and load bitmap
         this.player1 = new Player(5000,10,20);
 
@@ -123,6 +119,8 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                     }
                     buttons = new ArrayList<Buttons>();
                 } else {
+                    buildingZone = map.BuildingZone(event.getX(),event.getY());
+                    Log.d(TAG, "BZ: x=" + buildingZone.get(0) + ",y=" + buildingZone.get(1));
                     // check if in the lower part of the screen we exit
                     if (event.getY() > getHeight() - 50) {
                         thread.setRunning(false);
@@ -131,7 +129,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                         Log.d(TAG, "Coords: x=" + event.getX() + ",y=" + event.getY());
                     }
                     // delegating event handling to the towers
-                    towerOnClickEvent(event);
+                    if(buildingZone.get(0) > 0) {
+                        towerOnClickEvent(event);
+                    }
                 }
             }
         }
@@ -159,7 +159,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private void towerOnClickEvent(MotionEvent event) {
         boolean create = true;
         for (int i = 0; i < towers.size(); i++) {
-            towers.get(i).handleActionDown((int) (event.getX() - canvasX), (int) (event.getY()- canvasY));
+            towers.get(i).handleActionDown(buildingZone.get(0), buildingZone.get(1));
             if (towers.get(i).isTouched()) {
                 create = false;
                 towerUpgrade(i);
@@ -296,6 +296,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         switch (i){
             case 1:
                 CreateMonster(new Gobelin(getContext(), map.getLogicPath()));
+                sp.play(sp.load(getContext(), R.raw.goblin,1),1,1,0,0,1);
                 return;
             case 2 :
                 CreateMonster(new Eye(getContext(),map.getLogicPath()));
@@ -309,7 +310,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             case 5:
                 CreateMonster(new Skeleton(getContext(), map.getLogicPath()));
                 return;
-
             case 6:
                 CreateMonster(new Dwarf(getContext(), map.getLogicPath()));
                 return;
@@ -322,7 +322,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             case 9 :
                 CreateMonster(new Robot(getContext(),map.getLogicPath()));
                 return;
-
             case 10:
                 CreateMonster(new Gryphon(getContext(), map.getLogicPath()));
                 return;
@@ -335,7 +334,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             case 13 :
                 CreateMonster(new BlueDragon(getContext(),map.getLogicPath()));
                 return;
-
             case 14:
                 CreateMonster(new Pikachu(getContext(), map.getLogicPath()));
                 return;
