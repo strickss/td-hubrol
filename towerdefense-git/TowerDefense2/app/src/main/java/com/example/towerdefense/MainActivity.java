@@ -87,7 +87,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         chronometer.start();
 
 
-        final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
             // Device does not support Bluetooth
             int duration = Toast.LENGTH_SHORT;
@@ -227,35 +227,15 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     }
 
 
-    public void showPopup(View v) {
-        popup = new PopupMenu(this, v);
-        popup.setOnMenuItemClickListener(this);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.monsters, popup.getMenu());
-        try {
-            if (System.currentTimeMillis() - a > 10000) {
-                popup.getMenu().findItem(R.id.robot).setVisible(true);
-            }
-            Field field = popup.getClass().getDeclaredField("mPopup");
-            field.setAccessible(true);
-            Object menuPopupHelper = field.get(popup);
-            Class<?> cls = Class.forName("com.android.internal.view.menu.MenuPopupHelper");
-            Method method = cls.getDeclaredMethod("setForceShowIcon", boolean.class);
-            method.setAccessible(true);
-            method.invoke(menuPopupHelper, true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        popup.show();
-    }
 
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.goblin:
-                gamePanel.create(1);
+                //gamePanel.create(1);
                 showPopup1(view);
+                sendMessage("1");
                 return true;
             case R.id.eye:
                 gamePanel.create(2);
@@ -449,7 +429,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                     byte[] readBuf = (byte[]) msg.obj;
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
-                    Log.d(TAG, readMessage);
+                    int i = new Integer(readMessage);
+                    gamePanel.create(i);
                     break;
                 case Constants.MESSAGE_DEVICE_NAME:
                     // save the connected device's name
