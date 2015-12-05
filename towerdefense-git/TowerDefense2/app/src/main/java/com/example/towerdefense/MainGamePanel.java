@@ -53,10 +53,10 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         shots = new ArrayList<Shot>();
         enemies = new ArrayList<Enemy>();
 
-        enemies.add(new Gobelin(150, 0, context, 10, 1, 1, map.getLogicPath()));
+        //enemies.add(new Gryphon(context, map.getLogicPath()));
+        enemies.add(new Skeleton(context, map.getLogicPath()));
         //goblin = new Gobelin(150,0, context, 1, 1, 1);
 
-        gryphon = new Gryphon( 600, 600, context, 0, 0);
 
         //create the game loop thread
         thread = new MainThread(getHolder(), this);
@@ -123,9 +123,11 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
             if (Math.abs(event.getX()-x1)>map.getBlockSizeX()/2 && Math.abs(event.getY()-y1)>map.getBlockSizeY()/2) {
                 thread.setCanvasMoved(true);
-                thread.getCanvas().translate(event.getX() - x1, event.getY() - y1);
+                //thread.getCanvas().translate(event.getX() - x1, event.getY() - y1);
                 canvasX = canvasX + (event.getX() - x1);
                 canvasY = canvasY + (event.getY() - y1);
+                x1 = event.getX();
+                y1 = event.getY();
             }
         }
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -156,8 +158,8 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     private void towerUpgrade(MotionEvent event, int towerIndex) {
         buttons.add(new Buttons_tower_upgrade((int) towers.get(towerIndex).getX(),(int) towers.get(towerIndex).getY() - 200, getContext(), towerIndex));
-        buttons.add(new Buttons_tower_stop((int)towers.get(towerIndex).getX(),(int) towers.get(towerIndex).getY(), getContext()));
-        buttons.add(new Buttons_tower_delete((int)towers.get(towerIndex).getX(), (int)towers.get(towerIndex).getY() + 200, getContext(), towerIndex));
+        buttons.add(new Buttons_tower_stop((int) towers.get(towerIndex).getX(), (int) towers.get(towerIndex).getY(), getContext()));
+        buttons.add(new Buttons_tower_delete((int) towers.get(towerIndex).getX(), (int) towers.get(towerIndex).getY() + 200, getContext(), towerIndex));
     }
 
     private void towerCreation(final MotionEvent event) {
@@ -169,7 +171,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         canvas.drawColor(Color.GREEN);
         map.draw(canvas);
         //goblin.draw(canvas);
-        gryphon.draw(canvas);
 
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).draw(canvas);
@@ -207,13 +208,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             player1.getFunding();
             a = System.currentTimeMillis();
         }
-        gryphon.update(System.currentTimeMillis());
+
         for (int i = 0; i < enemies.size(); i++) {
-            enemies.get(i).gobUpdate(map);
-        }
-        if (System.currentTimeMillis() - a > 10000){
-            gryphon.setDx(0);
-            gryphon.setDy(0);
+            enemies.get(i).enemyUpdate(map, System.currentTimeMillis());
         }
         missileUpdate();
         missileCreation();
@@ -277,26 +274,27 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
-    public void CreateMonster(int i) {
-        if (i ==1) {
-            if (player1.getGold() > 10){
-                enemies.add(new Gobelin(150, 0, getContext(), 1, 1, 1, map.getLogicPath()));
-                player1.cost(10);
-                player1.increaseIncome(1);
-            } else {
-                Toast toast = Toast.makeText(getContext(), "Not enough gold !", Toast.LENGTH_SHORT);
-                toast.show();
-            }
+    public void create(int i){
+        switch (i){
+            case 1:
+                CreateMonster(new Gobelin(getContext(), map.getLogicPath()));
+                return;
+            case 2 :
+                CreateMonster(new Robot(getContext(),map.getLogicPath()));
+                return;
+            default:
+                return;
         }
-        if (i ==2) {
-            if (player1.getGold() > 20){
-                enemies.add(new Gobelin(180, 0, getContext() , 10, 1, 1, map.getLogicPath()));
-                player1.cost(20);
-                player1.increaseIncome(2);
-            } else {
-                Toast toast = Toast.makeText(getContext(), "Not enough gold !", Toast.LENGTH_SHORT);
-                toast.show();
-            }
+    }
+
+    public void CreateMonster(Enemy enemy) {
+        if (player1.getGold() >= enemy.getCost()) {
+            enemies.add(enemy);
+            player1.cost(enemy.getCost());
+            player1.increaseIncome(enemy.getValue());
+        } else {
+            Toast toast = Toast.makeText(getContext(), "Not enough gold !", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 

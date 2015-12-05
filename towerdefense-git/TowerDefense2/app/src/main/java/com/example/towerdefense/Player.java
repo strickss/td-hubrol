@@ -1,5 +1,7 @@
 package com.example.towerdefense;
 
+import android.widget.Toast;
+
 /**
  * Created by Brieuc on 24-11-15.
  */
@@ -45,4 +47,5 @@ public class Player {
     public void getFunding() {
         this.gold = this.gold + this.income;
     }
+
 }
