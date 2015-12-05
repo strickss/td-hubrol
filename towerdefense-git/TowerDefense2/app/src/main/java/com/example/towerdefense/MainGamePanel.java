@@ -47,19 +47,14 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         // adding the callback (this) to the surface holder to intercept events
         getHolder().addCallback(this); //  sets the current class (MainGamePanel) as the handler for the events happening on the actual surface
         map = new Map(context, 0);
-<<<<<<< HEAD
         mediaPlayer = MediaPlayer.create(context, R.raw.song);
-=======
-<<<<<<< HEAD
+
 
         paint_canvas = new Paint();
         paint_canvas.setARGB(255, 10, 160, 50);
 
-=======
         MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.song);
->>>>>>> refs/remotes/origin/master
         mediaPlayer.start();
->>>>>>> origin/master
         // create tower and load bitmap
         this.player1 = new Player(50,10,20);
 

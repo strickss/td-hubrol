@@ -1,10 +1,8 @@
 package com.example.towerdefense;
 
 import android.app.Activity;
-<<<<<<< HEAD
 import android.media.AudioManager;
 import android.media.SoundPool;
-=======
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -12,7 +10,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
->>>>>>> refs/remotes/origin/master
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -34,13 +31,8 @@ import android.widget.Toast;
 import java.io.FileDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-<<<<<<< HEAD
-
-
-=======
 import java.util.ArrayList;
 import java.util.Set;
->>>>>>> refs/remotes/origin/master
 
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
@@ -49,11 +41,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private ArrayAdapter<String> mArrayAdapter;
     private ArrayAdapter<String> mArrayAdapter2;
     private BluetoothChatService mBluetoothChatService;
-<<<<<<< HEAD
-=======
     private BluetoothSocket mBTSocket;
 
->>>>>>> refs/remotes/origin/master
     private MainGamePanel gamePanel;
     private Handler mHandler;
     private TextView textGold;
@@ -65,11 +54,9 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private long a = System.currentTimeMillis();
     private boolean updateMenu;
     private PopupMenu popup;
-<<<<<<< HEAD
     private SoundPool sp;
     private int spId;
-=======
->>>>>>> refs/remotes/origin/master
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,13 +72,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         sp = new SoundPool(5, AudioManager.STREAM_MUSIC,1);
         spId = sp.load(gamePanel.getContext(),R.raw.test,1);
         Log.d(TAG, "View added");
-<<<<<<< HEAD
 
-
-
-
-=======
->>>>>>> refs/remotes/origin/master
         final ImageButton imageButton1 = (ImageButton) findViewById(R.id.button_1);
         final ImageButton imageButton2 = (ImageButton) findViewById(R.id.button_2);
         final ImageButton imageButton3 = (ImageButton) findViewById(R.id.button_3);
@@ -99,9 +80,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         this.chronometer = (Chronometer) findViewById(R.id.chronometer);
         chronometer.start();
 
-<<<<<<< HEAD
-
-=======
         final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
             // Device does not support Bluetooth
@@ -109,7 +87,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             Toast.makeText(this, "No Bluetooth on this handset", duration).show();
 
         }
->>>>>>> refs/remotes/origin/master
+
         textGold = (TextView) findViewById(R.id.gold);
         textYourIncome = (TextView) findViewById(R.id.yourIncomeValue);
         textOppIncome = (TextView) findViewById(R.id.oppIncomeValue);
@@ -144,16 +122,11 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                     updateMenu = false;
                 }
             }
-<<<<<<< HEAD
 
         }
 
     };
 
-=======
-        }
-    };
->>>>>>> refs/remotes/origin/master
 
     @Override
     protected void onDestroy() {
