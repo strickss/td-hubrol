@@ -3,8 +3,11 @@ package com.example.towerdefense;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -20,10 +24,13 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Set;
 
 
@@ -32,6 +39,11 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private static final String TAG = MainActivity.class.getSimpleName();
     private final static int REQUEST_ENABLE_BT = 1;
     private ArrayAdapter<String> mArrayAdapter;
+    private ArrayAdapter<String> mArrayAdapter2;
+    private ListView newDevicesListView;
+    private BluetoothChatService mBluetoothChatService;
+    private BluetoothSocket mBTSocket;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,10 +54,12 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // set our MainGamePanel as the View
         //setContentView(new MainGamePanel(this));
+
         setContentView(R.layout.activity_main);
 
 
         Log.d(TAG, "View added");
+
 
 
         final ImageButton imageButton1 = (ImageButton) findViewById(R.id.button_1);
@@ -55,31 +69,93 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         final Chronometer chronometer = (Chronometer)  findViewById(R.id.chronometer);
         chronometer.start();
 
-        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
             // Device does not support Bluetooth
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(this, "No Bluetooth on this handset", duration).show();
+
         }
 
-        if (!mBluetoothAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        }
+        mBluetoothChatService = new BluetoothChatService(this, mBluetoothAdapter);
 
-        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-// If there are paired devices
+
+        final Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+        // If there are paired devices
         if (pairedDevices.size() > 0) {
+
+            mArrayAdapter = new ArrayAdapter<>(this, R.layout.arrays);
+            final ArrayList<BluetoothDevice> mArrayDevices = new ArrayList<>();
             // Loop through paired devices
             for (BluetoothDevice device : pairedDevices) {
                 // Add the name and address to an array adapter to show in a ListView
-                mArrayAdapter = new ArrayAdapter<>(this, R.layout.arrays);
-                //ListView newDevicesListView = (ListView) findViewById(R.id.array);
-                //newDevicesListView.setAdapter(mArrayAdapter);
 
-
-                //newDevicesListView.setOnItemClickListener(mDeviceClickListener);
                 mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+                mArrayDevices.add(device);
+
             }
+            ListView newDevicesListView = (ListView) findViewById(R.id.array);
+            newDevicesListView.setAdapter(mArrayAdapter);
+
+            AdapterView.OnItemClickListener mDeviceClickListener = new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    BluetoothDevice device = mArrayDevices.get(position);
+                    mBluetoothChatService.start();
+                    mBTSocket = mBluetoothChatService.connect(device);
+                    mBluetoothChatService.connected(mBTSocket, device);
+
+                }
+            };
+            newDevicesListView.setOnItemClickListener(mDeviceClickListener);
+
         }
+
+        if (mBluetoothAdapter.isDiscovering()) {
+            mBluetoothAdapter.cancelDiscovery();
+        }
+
+
+
+        // Create a BroadcastReceiver for ACTION_FOUND
+        mArrayAdapter2 = new ArrayAdapter<>(this, R.layout.bluetooth_model);
+
+        final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+
+                // When discovery finds a device
+                if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                    // Get the BluetoothDevice object from the Intent
+                    BluetoothDevice device2 = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                    // Add the name and address to an array adapter to show in a ListView
+
+                    mArrayAdapter2.add(device2.getName() + "\n" + device2.getAddress());
+
+                }
+                ListView newDevicesListView2 = (ListView) findViewById(R.id.array2);
+                newDevicesListView2.setAdapter(mArrayAdapter2);
+
+
+            }
+        };
+
+        // Register the BroadcastReceiver
+        mBluetoothAdapter.startDiscovery();
+        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        registerReceiver(mReceiver, filter); // Don't forget to unregister during onDestroy
+
+
+        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+        startActivity(discoverableIntent);// Make the device discoverable to others
+
+
+
+
+
+
+
+
     }
 
     @Override
