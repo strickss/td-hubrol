@@ -355,13 +355,123 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     public void CreateMonster(Enemy enemy) {
         if (player1.getGold() >= enemy.getCost()) {
             enemies.add(enemy);
-            player1.cost(enemy.getCost());
-            player1.increaseIncome(enemy.getValue());
+
         } else {
             Toast toast = Toast.makeText(getContext(), "Not enough gold !", Toast.LENGTH_SHORT);
             toast.show();
         }
     }
+
+    public void PayMonsterType(int i){
+        switch (i){
+            case 1:
+                int cost1 = new Gobelin(getContext(),map.getLogicPath()).getCost();
+                int value1 = new Gobelin(getContext(),map.getLogicPath()).getCost();
+                player1.cost(cost1);
+                player1.increaseIncome(value1);
+                return;
+            case 2 :
+                int cost2 = new Eye(getContext(),map.getLogicPath()).getCost();
+                int value2 = new Eye(getContext(),map.getLogicPath()).getCost();
+                player1.cost(cost2);
+                player1.increaseIncome(value2);
+                return;
+            case 3:
+                int cost3 = new Devil(getContext(),map.getLogicPath()).getCost();
+                int value3 = new Devil(getContext(),map.getLogicPath()).getCost();
+                player1.cost(cost3);
+                player1.increaseIncome(value3);
+                return;
+            case 4 :
+                int cost4 = new Eagle(getContext(),map.getLogicPath()).getCost();
+                int value4 = new Eagle(getContext(),map.getLogicPath()).getCost();
+                player1.cost(cost4);
+                player1.increaseIncome(value4);
+                return;
+            case 5:
+                int cost5 = new Skeleton(getContext(),map.getLogicPath()).getCost();
+                int value5 = new Skeleton(getContext(),map.getLogicPath()).getCost();
+                player1.cost(cost5);
+                player1.increaseIncome(value5);
+                return;
+            case 6:
+                int cost6 = new Dwarf(getContext(),map.getLogicPath()).getCost();
+                int value6 = new Dwarf(getContext(),map.getLogicPath()).getCost();
+                player1.cost(cost6);
+                player1.increaseIncome(value6);
+                return;
+            case 7 :
+                int cost7 = new Devil2(getContext(),map.getLogicPath()).getCost();
+                int value7 = new Devil2(getContext(),map.getLogicPath()).getCost();
+                player1.cost(cost7);
+                player1.increaseIncome(value7);
+                return;
+            case 8:
+                int cost8 = new Golem(getContext(),map.getLogicPath()).getCost();
+                int value8 = new Golem(getContext(),map.getLogicPath()).getCost();
+                player1.cost(cost8);
+                player1.increaseIncome(value8);
+                return;
+            case 9 :
+                int cost9 = new Robot(getContext(),map.getLogicPath()).getCost();
+                int value9 = new Robot(getContext(),map.getLogicPath()).getCost();
+                player1.cost(cost9);
+                player1.increaseIncome(value9);
+                return;
+            case 10:
+                int cost10 = new Gryphon(getContext(),map.getLogicPath()).getCost();
+                int value10 = new Gryphon(getContext(),map.getLogicPath()).getCost();
+                player1.cost(cost10);
+                player1.increaseIncome(value10);
+                return;
+            case 11:
+                int cost11 = new Fairy(getContext(),map.getLogicPath()).getCost();
+                int value11 = new Fairy(getContext(),map.getLogicPath()).getCost();
+                player1.cost(cost11);
+                player1.increaseIncome(value11);
+                return;
+            case 12:
+                int cost12 = new DarkVador(getContext(),map.getLogicPath()).getCost();
+                int value12 = new DarkVador(getContext(),map.getLogicPath()).getCost();
+                player1.cost(cost12);
+                player1.increaseIncome(value12);
+                return;
+            case 13 :
+                int cost13 = new BlueDragon(getContext(),map.getLogicPath()).getCost();
+                int value13 = new BlueDragon(getContext(),map.getLogicPath()).getCost();
+                player1.cost(cost13);
+                player1.increaseIncome(value13);
+                return;
+            case 14:
+                int cost14 = new Pikachu(getContext(),map.getLogicPath()).getCost();
+                int value14 = new Pikachu(getContext(),map.getLogicPath()).getCost();
+                player1.cost(cost14);
+                player1.increaseIncome(value14);
+                return;
+            case 15:
+                int cost15 = new Spider(getContext(),map.getLogicPath()).getCost();
+                int value15 = new Spider(getContext(),map.getLogicPath()).getCost();
+                player1.cost(cost15);
+                player1.increaseIncome(value15);
+                return;
+            case 16:
+                int cost16 = new Unicorn(getContext(),map.getLogicPath()).getCost();
+                int value16 = new Unicorn(getContext(),map.getLogicPath()).getCost();
+                player1.cost(cost16);
+                player1.increaseIncome(value16);
+                return;
+            case 17:
+                int cost17 = new Wolf(getContext(),map.getLogicPath()).getCost();
+                int value17 = new Wolf(getContext(),map.getLogicPath()).getCost();
+                player1.cost(cost17);
+                player1.increaseIncome(value17);
+                return;
+            default:
+                return;
+        }
+    }
+
+
 
     public Player getPlayer() {
         return this.player1;
