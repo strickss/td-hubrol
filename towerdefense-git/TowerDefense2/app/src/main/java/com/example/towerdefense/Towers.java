@@ -10,24 +10,23 @@ import java.util.List;
  * Created by Brieuc on 21-11-15.
  */
 public class Towers extends Elements{
-    private static final String TAG = MainGamePanel.class.getSimpleName();
+    private static final String TAG = Towers.class.getSimpleName();
 
     private long lastFired;
     private boolean touched;
-    private int attack;
-    private int armorPen;
-    private int magicPen;
+    protected int penetration;
     private int range;
     private int recharge;
+    protected int damage_max;
+    protected int damage_min;
+    private int level;
 
-    public Towers(int x, int y, Bitmap bitmap,int attack, int range, int armorPen, int magicPen, int recharge) {
+    public Towers(int x, int y, Bitmap bitmap, int range, int recharge) {
         super(x, y, bitmap);
-        this.attack = attack;
         this.range = range;
-        this.armorPen = armorPen;
-        this.magicPen = magicPen;
         this.lastFired = 0;
         this.recharge = recharge; //tir toutes les recharge millisecondes
+        this.level = 1;
     }
 
     public void handleActionDown(int eventX, int eventY) {
@@ -68,5 +67,35 @@ public class Towers extends Elements{
     }
 
     public void shot(List<Shot> shots, Context context, Enemy enemy) {
+    }
+
+    public int getDamage(int i, Enemy enemy) {
+        int red;
+        if (i==1) {
+            red = enemy.getArmor() - this.getPen();
+        } else {
+            red = enemy.getRM() - this.getPen();
+        }
+        if (red >= 0){
+            return (int) ((damage_min + Math.random() * (damage_max - damage_min))*(red/100));
+        } else {
+            return (int) (damage_min + Math.random() * (damage_max - damage_min));
+        }
+    }
+
+    public int getPen() {
+        return penetration;
+    }
+
+    public void upgrade() {
+        this.damage_min = (int) Math.ceil(this.damage_min*1.1);
+        this.damage_max = (int) Math.ceil(this.damage_max*1.1);
+        this.range = (int) Math.ceil(this.range*1.1);
+        this.recharge = (int) Math.floor(this.recharge*0.9);
+        this.level ++;
+    }
+
+    public int getLevel() {
+        return level;
     }
 }

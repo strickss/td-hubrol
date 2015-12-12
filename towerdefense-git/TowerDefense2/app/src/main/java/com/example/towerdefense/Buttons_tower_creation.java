@@ -17,7 +17,7 @@ public class Buttons_tower_creation extends  Buttons{
         super(x, y, BitmapFactory.decodeResource(context.getResources(),R.drawable.play_now_green));
     }
 
-    public void getEvent(List<Towers> towers, Context context) {
+    public void getEvent(List<Towers> towers, Context context, Player player) {
         towers.add(new Tower((int)x,(int) y + 200,context));
     }
 
