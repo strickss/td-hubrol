@@ -35,12 +35,11 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private List<Shot> shots;
     private List<Enemy> enemies;
     private Map map;
-    private MediaPlayer mediaPlayer;
+    //private MediaPlayer mediaPlayer;
     private String avgFps; //the fps to be displayed
-    private Gryphon gryphon;
     private float x1,y1;
-    private SoundPool sp;
-    private int spId;
+    //private SoundPool sp;
+    //private int spId;
     ArrayList<Integer> buildingZone;
 
     private long a =System.currentTimeMillis();
@@ -54,14 +53,11 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         map = new Map(context, 0);
         paint_canvas = new Paint();
         paint_canvas.setARGB(255, 10, 160, 50);
-        mediaPlayer = MediaPlayer.create(context, R.raw.song);
-<<<<<<< HEAD
+        //mediaPlayer = MediaPlayer.create(context, R.raw.song);
         //mediaPlayer.start();
-=======
-        mediaPlayer.setLooping(true);
-        mediaPlayer.start();
-        sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
->>>>>>> origin/master
+        //mediaPlayer.setLooping(true);
+        //mediaPlayer.start();
+        //sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
         // create tower and load bitmap
         this.player1 = new Player(5000,10,20);
 
@@ -75,8 +71,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
         //create the game loop thread
         thread = new MainThread(getHolder(), this);
-
-        //imageButton = (ImageButton) findViewById(R.id.button_1);
 
         // make the GamePanel focusable so it can handle events
         setFocusable(true);
@@ -192,6 +186,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     protected void render(Canvas canvas) {
         canvas.drawPaint(paint_canvas);
         map.draw(canvas);
+        Log.d(TAG, "Launch");
         //goblin.draw(canvas);
 
         for (int i = 0; i < enemies.size(); i++) {
@@ -300,7 +295,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         switch (i){
             case 1:
                 CreateMonster(new Gobelin(getContext(), map.getLogicPath()));
-                sp.play(sp.load(getContext(), R.raw.goblin,1),1,1,0,0,1);
+                //sp.play(sp.load(getContext(), R.raw.goblin,1),1,1,0,0,1);
                 return;
             case 2 :
                 CreateMonster(new Eye(getContext(),map.getLogicPath()));

@@ -25,8 +25,6 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
-<<<<<<< HEAD
-
 import org.w3c.dom.Text;
 
 import java.lang.reflect.Field;
@@ -34,7 +32,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-=======
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.Buffer;
@@ -44,7 +41,6 @@ import java.util.Set;
 import java.util.ArrayList;
 import java.util.Set;
 
->>>>>>> origin/master
 
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
@@ -58,10 +54,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private BluetoothChatService mBluetoothChatService;
     private BluetoothSocket mBTSocket;
     private MainGamePanel gamePanel;
-<<<<<<< HEAD
     private Handler mHandler_menu;
-=======
->>>>>>> origin/master
     private TextView textGold;
     private TextView textYourIncome;
     private TextView textOppIncome;
@@ -77,8 +70,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     static final int PICK_DEVICE_REQUEST = 1;  // The request code
 
     private View view;
-    private List<View> text_monsters;
-    private ArrayList<creationButton> monster_creationButtons;
+    //private List<View> text_monsters;
+    //private ArrayList<creationButton> monster_creationButtons;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -118,13 +111,10 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         //text_monsters = Arrays.asList(findViewById(R.id.goblin),findViewById(R.id.eye),findViewById(R.id.devil),findViewById(R.id.eagle),findViewById(R.id.skeleton),findViewById(R.id.dwarf),findViewById(R.id.devil2),findViewById(R.id.golem),findViewById(R.id.robot),findViewById(R.id.gryphon),findViewById(R.id.fairy),findViewById(R.id.dark_vador),findViewById(R.id.blue_dragon),findViewById(R.id.pikachu),findViewById(R.id.spider),findViewById(R.id.unicorn),findViewById(R.id.wolf));
         //monster_creationButtons = new ArrayList<creationButton>(Arrays.asList(new creationButton(1000), new creationButton(2000),new creationButton(3000),new creationButton(4000),new creationButton(5000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000)));
         updateMenu = true;
-<<<<<<< HEAD
         mHandler_menu = new Handler();
         mHandler_menu.post(mUpdate);
-=======
-
->>>>>>> origin/master
     }
+
 
     private Runnable mUpdate = new Runnable() {
         public void run() {
@@ -155,23 +145,11 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                     }
                     updateMenu = false;
                 }
-
-
-            }
-
-
-
             */
 
         }
-
     };
 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
     @Override
     protected void onDestroy() {
         Log.d(TAG, "Destroying...");
@@ -269,70 +247,86 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 sendMessage("1");
                 return true;
             case R.id.eye:
-                gamePanel.create(2);
+                sendMessage("2");
+                //gamePanel.create(2);
                 showPopup1(view);
                 return true;
             case R.id.devil:
+                sendMessage("3");
                 gamePanel.create(3);
                 showPopup1(view);
                 return true;
             case R.id.eagle:
-                gamePanel.create(4);
+                sendMessage("4");
+                //gamePanel.create(4);
                 showPopup1(view);
                 return true;
             case R.id.skeleton:
-                gamePanel.create(5);
+                sendMessage("5");
+                //gamePanel.create(5);
                 showPopup1(view);
                 return true;
 
             case R.id.dwarf:
-                gamePanel.create(6);
+                sendMessage("6");
+                //gamePanel.create(6);
                 showPopup2(view);
                 return true;
             case R.id.devil2:
-                gamePanel.create(7);
+                sendMessage("7");
+                //gamePanel.create(7);
                 showPopup2(view);
                 return true;
             case R.id.golem:
-                gamePanel.create(8);
+                sendMessage("8");
+                //gamePanel.create(8);
                 showPopup2(view);
                 return true;
             case R.id.robot:
-                gamePanel.create(9);
+                sendMessage("9");
+                //gamePanel.create(9);
                 showPopup2(view);
                 return true;
 
             case R.id.gryphon:
-                gamePanel.create(10);
+                sendMessage("10");
+                //gamePanel.create(10);
                 showPopup3(view);
                 return true;
             case R.id.fairy:
-                gamePanel.create(11);
+                sendMessage("11");
+                //gamePanel.create(11);
                 showPopup3(view);
                 return true;
             case R.id.dark_vador:
-                gamePanel.create(12);
+                sendMessage("12");
+                //gamePanel.create(12);
                 showPopup3(view);
                 return true;
             case R.id.blue_dragon:
-                gamePanel.create(13);
+                sendMessage("13");
+                //gamePanel.create(13);
                 showPopup3(view);
                 return true;
 
             case R.id.pikachu:
-                gamePanel.create(14);
+                sendMessage("14");
+                //gamePanel.create(14);
                 showPopup4(view);
                 return true;
             case R.id.spider:
-                gamePanel.create(15);
+                sendMessage("15");
+                //gamePanel.create(15);
                 showPopup4(view);
                 return true;
             case R.id.unicorn:
-                gamePanel.create(16);
+                sendMessage("16");
+                //gamePanel.create(16);
                 showPopup4(view);
                 return true;
             case R.id.wolf:
-                gamePanel.create(17);
+                sendMessage("17");
+                //gamePanel.create(17);
                 showPopup4(view);
                 return true;
 
@@ -498,8 +492,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
 
     private void connectDevice(Intent data, boolean secure) {
         // Get the device MAC address
-        String address = data.getExtras()
-                .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+        String address = data.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
         // Get the BluetoothDevice object
         BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
         // Attempt to connect to the device
