@@ -37,10 +37,10 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private List<Enemy> enemies;
     private ArrayList<LifeBar> life_bars;
     private Map map;
-    private MediaPlayer mediaPlayer;
+    //private MediaPlayer mediaPlayer;
     private String avgFps; //the fps to be displayed
     private float x1,y1;
-    private SoundPool sp;
+    //private SoundPool sp;
     private int spId;
     ArrayList<Integer> buildingZone;
 
@@ -55,9 +55,16 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         map = new Map(context, 0);
         paint_canvas = new Paint();
         paint_canvas.setARGB(255, 10, 160, 50);
+<<<<<<< HEAD
         mediaPlayer = MediaPlayer.create(context, R.raw.song);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
+=======
+        //mediaPlayer = MediaPlayer.create(context, R.raw.song);
+        //mediaPlayer.start();
+        //mediaPlayer.setLooping(true);
+        //mediaPlayer.start();
+>>>>>>> refs/remotes/origin/master
         //sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
         // create tower and load bitmap
         this.player1 = new Player(5000,10,20);
@@ -306,7 +313,11 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         switch (i){
             case 1:
                 CreateMonster(new Gobelin(getContext(), map.getLogicPath()));
+<<<<<<< HEAD
                 //sp.play(b,1,1,0,0,1);
+=======
+                //sp.play(sp.load(getContext(), R.raw.goblin,1),1,1,0,0,1);
+>>>>>>> refs/remotes/origin/master
                 return;
             case 2 :
                 CreateMonster(new Eye(getContext(),map.getLogicPath()));
