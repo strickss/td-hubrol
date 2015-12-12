@@ -59,5 +59,8 @@
     <string name="monster_spider"> Spider </string>
     <string name="monster_unicorn"> Unicorn </string>
     <string name="monster_wolf"> Wolf </string>
+    <string name="title_activity_home_screen">HomeScreenActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

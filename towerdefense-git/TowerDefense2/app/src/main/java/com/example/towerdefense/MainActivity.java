@@ -115,6 +115,13 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             //    monster_creationButtons.get(i).update(a);
             //    ((TextView) text_monsters.get(i)).setText("" + monster_creationButtons.get(i).getNumber());
             //}
+<<<<<<< HEAD
+=======
+            //for (int i=0; i < text_monsters.size(); i++){
+            //    monster_creationButtons.get(i).update(a);
+            //    ((TextView) text_monsters.get(i)).setText("" + monster_creationButtons.get(i).getNumber());
+            //}
+>>>>>>> refs/remotes/origin/master
 
 
             mHandler_menu.postDelayed(this, 100);

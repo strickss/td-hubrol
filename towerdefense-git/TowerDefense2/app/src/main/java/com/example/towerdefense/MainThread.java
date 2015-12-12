@@ -84,7 +84,7 @@ public class MainThread extends Thread {
                         try {
                             // send the thread to sleep for a short period
                             // very useful for battery saving
-                            Thread.sleep(sleepTime);
+                            Thread.sleep(0);
                         } catch (InterruptedException e) {}
                     }
                     while (sleepTime < 0 && framesSkipped < MAX_FRAME_SKIPS) {
