@@ -19,7 +19,7 @@ public class Buttons_tower_delete extends  Buttons{
         this.towerIndex = towerIndex;
     }
 
-    public void getEvent(List<Towers> towers, Context context) {
+    public void getEvent(List<Towers> towers, Context context, Player player) {
         towers.remove(towerIndex);
     }
 }

@@ -12,12 +12,14 @@ import java.util.List;
  */
 public class Buttons extends Elements{
 
+    protected int cost;
+
     public Buttons(int x, int y, Bitmap bitmap) {
         super(x, y, bitmap);
     }
 
 
-    public void getEvent(List<Towers> towers, Context context) {
+    public void getEvent(List<Towers> towers, Context context, Player player) {
     }
 
     public int getType() {

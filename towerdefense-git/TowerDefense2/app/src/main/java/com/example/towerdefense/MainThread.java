@@ -57,7 +57,7 @@ public class MainThread extends Thread {
         long timeDiff; //the time it took for the cycle to execute
         int sleepTime=0; //ms to sleep (<0 if we're behind the update time)
         int framesSkipped; //number of frames being skipped
-        long beginTime =0;
+        long beginTime = System.currentTimeMillis();
         long endTime;
 
         while (running) {
@@ -68,8 +68,6 @@ public class MainThread extends Thread {
                 //canvas.translate(1000,100);
                 canvas.translate(gamePanel.getCanvasX(), gamePanel.getCanvasY());
                 synchronized (surfaceHolder) {
-                    // update game state
-                    // draws the canvas on the panel
                     framesSkipped = 0; //resetting the frames skipped
                     this.gamePanel.update(); // update game state
                     this.gamePanel.render(canvas); // draws the canvas on the panel
@@ -96,7 +94,7 @@ public class MainThread extends Thread {
                     }
                     if (framesSkipped >0){
                         //Log.d(TAG, "Skipped:" + framesSkipped);
-                        sleepTime = framesSkipped*FRAME_PERIOD;
+                        //sleepTime = framesSkipped*FRAME_PERIOD;
                     }
                     framesSkippedPerStatCycle += framesSkipped;//for statistics
                     storeStats();// calling the routine to store the gathered statistics

@@ -17,11 +17,12 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.graphics.Color.BLACK;
 
 public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -34,6 +35,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private List<Buttons> buttons;
     private List<Shot> shots;
     private List<Enemy> enemies;
+    private ArrayList<LifeBar> life_bars;
     private Map map;
     private MediaPlayer mediaPlayer;
     private String avgFps; //the fps to be displayed
@@ -54,13 +56,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         paint_canvas = new Paint();
         paint_canvas.setARGB(255, 10, 160, 50);
         mediaPlayer = MediaPlayer.create(context, R.raw.song);
-<<<<<<< HEAD
-=======
-        //mediaPlayer.start();
->>>>>>> refs/remotes/origin/master
         mediaPlayer.setLooping(true);
-        //mediaPlayer.start();
-        sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
+        mediaPlayer.start();
+        //sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
         // create tower and load bitmap
         this.player1 = new Player(5000,10,20);
 
@@ -68,16 +66,12 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         buttons = new ArrayList<Buttons>();
         shots = new ArrayList<Shot>();
         enemies = new ArrayList<Enemy>();
+        life_bars = new ArrayList<LifeBar>();
 
-        b = sp.load(getContext(), R.raw.goblin,1);
-
-        //enemies.add(new Gryphon(context, map.getLogicPath()));
-        //enemies.add(new Skeleton(context, map.getLogicPath()));
+        //b = sp.load(getContext(), R.raw.goblin,1);
 
         //create the game loop thread
         thread = new MainThread(getHolder(), this);
-
-        //imageButton = (ImageButton) findViewById(R.id.button_1);
 
         // make the GamePanel focusable so it can handle events
         setFocusable(true);
@@ -118,24 +112,24 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                         //if ((event.getY() < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight()) && (event.getY() > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight())) {
                         if (((event.getX() - canvasX) < buttons.get(i).getX() + buttons.get(i).getBitmap().getWidth() / 2) && ((event.getX() - canvasX) > buttons.get(i).getX() - buttons.get(i).getBitmap().getWidth() / 2)) {
                             if (((event.getY() - canvasY) < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight() / 2) && ((event.getY() - canvasY) > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight() / 2)) {
-                                buttons.get(i).getEvent(towers, getContext());
+                                buttons.get(i).getEvent(towers, getContext(), player1);
                             }
                         }
                     }
                     buttons = new ArrayList<Buttons>();
                 } else {
-                    buildingZone = map.BuildingZone(event.getX(),event.getY());
-                    Log.d(TAG, "BZ: x=" + buildingZone.get(0) + ",y=" + buildingZone.get(1));
+                    buildingZone = map.BuildingZone(event.getX() - canvasX,event.getY() - canvasY);
+                    //Log.d(TAG, "BZ: x=" + buildingZone.get(0) + ",y=" + buildingZone.get(1));
                     // check if in the lower part of the screen we exit
                     if (event.getY() > getHeight() - 50) {
                         thread.setRunning(false);
                         ((Activity) getContext()).finish();
                     } else {
-                        Log.d(TAG, "Coords: x=" + event.getX() + ",y=" + event.getY());
+                        //Log.d(TAG, "Coords: x=" + event.getX() + ",y=" + event.getY());
                     }
                     // delegating event handling to the towers
                     if(buildingZone.get(0) > 0) {
-                        towerOnClickEvent(event);
+                        towerOnClickEvent(buildingZone.get(0), buildingZone.get(1));
                     }
                 }
             }
@@ -161,10 +155,10 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         return true;
     }
 
-    private void towerOnClickEvent(MotionEvent event) {
+    private void towerOnClickEvent(long x, long y) {
         boolean create = true;
         for (int i = 0; i < towers.size(); i++) {
-            towers.get(i).handleActionDown(buildingZone.get(0), buildingZone.get(1));
+            towers.get(i).handleActionDown((int)x,(int) y);
             if (towers.get(i).isTouched()) {
                 create = false;
                 towerUpgrade(i);
@@ -175,7 +169,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             }
         }
         if (create) {
-            towerCreation(event);
+            towerCreation(x, y);
         }
     }
 
@@ -185,18 +179,23 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         buttons.add(new Buttons_tower_delete((int) towers.get(towerIndex).getX(), (int) towers.get(towerIndex).getY() + 200, getContext(), towerIndex));
     }
 
-    private void towerCreation(final MotionEvent event) {
-        buttons.add(new Buttons_tower_creation((int) (event.getX() - canvasX), (int) (event.getY() - canvasY - 200), getContext()));
-        buttons.add(new Buttons_tower_stop((int) (event.getX() - canvasX), (int) (event.getY() - canvasY), getContext()));
+    private void towerCreation(long x, long y) {
+        buttons.add(new Buttons_arcane_tower_creation((int) (x), (int) (y  - 200), getContext()));
+        buttons.add(new Buttons_mortar_tower_creation((int) (x - 200), (int) (y), getContext()));
+        buttons.add(new Buttons_archer_tower_creation((int) (x), (int) (y + 200), getContext()));
+        buttons.add(new Buttons_magma_tower_creation((int) (x + 200), (int) (y), getContext()));
+        buttons.add(new Buttons_tower_stop((int) (x), (int) (y), getContext()));
     }
 
     protected void render(Canvas canvas) {
         canvas.drawPaint(paint_canvas);
         map.draw(canvas);
-        //goblin.draw(canvas);
 
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).draw(canvas);
+        }
+        for (int i = 0; i < life_bars.size(); i++) {
+            life_bars.get(i).draw(canvas);
         }
 
         for (int i = 0; i < towers.size(); i++) {
@@ -222,7 +221,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         for (int i = 0; i < shots.size(); i++) {
             shots.get(i).draw(canvas);
         }
-
     }
 
 
@@ -235,6 +233,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).enemyUpdate(map, System.currentTimeMillis());
         }
+        for (int i = 0; i < life_bars.size(); i++) {
+            life_bars.get(i).update(enemies.get(i));
+        }
         missileUpdate();
         missileCreation();
         enemiesUpdate();
@@ -242,11 +243,13 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     private void enemiesUpdate() {
         for (int j = 0; j < enemies.size(); j++) {
-            if (enemies.get(j).getHp() ==0){
+            if (enemies.get(j).getHp() <=0){
                 player1.increaseGold(enemies.get(j).getValue());
                 enemies.remove(j);
+                life_bars.remove(j);
             }else if(enemies.get(j).getX() == map.getEndZoneX() && enemies.get(j).getY() == map.getEndZoneY()){
                 enemies.remove(j);
+                life_bars.remove(j);
                 player1.looseLife();
             }
         }
@@ -277,7 +280,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             if (shots.get(i).hasHit()){
                 for (int j = 0; j < enemies.size(); j++) {
                     if ((Math.abs(enemies.get(j).getX() - shots.get(i).getX()) < 10) && (Math.abs(enemies.get(j).getY() - shots.get(i).getY()) < 10)){
-                        enemies.get(j).damaged(1);
+                        int damage = shots.get(i).getDamage();
+                        enemies.get(j).damaged(damage);
+                        life_bars.get(j).damaged(damage);
                     }
                 }
                 shots.remove(i);
@@ -301,7 +306,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         switch (i){
             case 1:
                 CreateMonster(new Gobelin(getContext(), map.getLogicPath()));
-                sp.play(b,1,1,0,0,1);
+                //sp.play(b,1,1,0,0,1);
                 return;
             case 2 :
                 CreateMonster(new Eye(getContext(),map.getLogicPath()));
@@ -359,6 +364,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     public void CreateMonster(Enemy enemy) {
         if (player1.getGold() >= enemy.getCost()) {
             enemies.add(enemy);
+            life_bars.add(new LifeBar(enemy, getContext()));
             player1.cost(enemy.getCost());
             player1.increaseIncome(enemy.getValue());
         } else {
@@ -374,4 +380,5 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     public float getCanvasX() {return canvasX;}
 
     public float getCanvasY() {return canvasY;}
+
 }
