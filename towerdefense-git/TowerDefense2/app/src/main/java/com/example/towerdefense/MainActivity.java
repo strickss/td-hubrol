@@ -70,8 +70,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
 
     private View view;
     private Handler mHandler_menu;
-    private List<View> text_monsters;
-    private ArrayList<creationButton> monster_creationButtons;
+    //private List<View> text_monsters;
+    //private ArrayList<creationButton> monster_creationButtons;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -130,18 +130,15 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             textYourLife.setText("" + txtYourLife);
             int txtOppLife = gamePanel.getPlayer().getLife() + 1;
             textOppLife.setText("" + txtOppLife);
-<<<<<<< HEAD
 
-            for (int i=0; i < text_monsters.size(); i++){
-                monster_creationButtons.get(i).update(a);
-                ((TextView) text_monsters.get(i)).setText("" + monster_creationButtons.get(i).getNumber());
-            }
-=======
             //for (int i=0; i < text_monsters.size(); i++){
             //    monster_creationButtons.get(i).update(a);
             //    ((TextView) text_monsters.get(i)).setText("" + monster_creationButtons.get(i).getNumber());
             //}
->>>>>>> origin/master
+            //for (int i=0; i < text_monsters.size(); i++){
+            //    monster_creationButtons.get(i).update(a);
+            //    ((TextView) text_monsters.get(i)).setText("" + monster_creationButtons.get(i).getNumber());
+            //}
 
 
             mHandler_menu.postDelayed(this, 100);
