@@ -23,5 +23,12 @@ public class Magma_tower extends Towers{
         shots.add(new Fireball((int)x, (int) y, context, enemy, getDamage(1, enemy)));
     }
 
+    public void upgrade() {
+        this.damage_min = (int) Math.ceil(this.damage_min*1.15);
+        this.damage_max = (int) Math.ceil(this.damage_max*1.15);
+        this.range = (int) Math.ceil(this.range*1.10);
+        this.recharge = (int) Math.floor(this.recharge*0.80);
+        this.level ++;
+    }
 
 }

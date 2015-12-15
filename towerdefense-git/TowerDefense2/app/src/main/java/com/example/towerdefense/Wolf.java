@@ -23,5 +23,6 @@ public class Wolf extends Enemy {
         this.height = 180;
         this.framePeriod = 1000 / 7; // 1000/fps
         this.speed = 3;
+        this.type = 4;
     }
 }

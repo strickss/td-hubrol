@@ -3,40 +3,27 @@ package com.example.towerdefense;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
-import org.w3c.dom.Text;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.nio.Buffer;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.ArrayList;
-import java.util.Set;
 
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
@@ -94,6 +81,14 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         updateMenu = true;
         mHandler_menu = new Handler();
         mHandler_menu.post(mUpdate);
+
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter == null) {
+            // Device does not support Bluetooth
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(this, "No Bluetooth on this handset", duration).show();
+
+        }
     }
 
 
@@ -106,6 +101,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             txtYourIncome = txtYourIncome + 200;
             sendMessage("" + txtYourIncome);
             int txtOppIncome = gamePanel.getOpponent().getIncome();
+            Log.d(TAG,""+txtOppIncome);
             textOppIncome.setText("" + txtOppIncome);
             int txtYourLife = gamePanel.getPlayer().getLife();
             textYourLife.setText("" + txtYourLife);
@@ -155,7 +151,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         if (gamePanel.getPlayer().getGold() >= gamePanel.MonsterType(i).getCost()){
             gamePanel.getPlayer().cost(gamePanel.MonsterType(i).getCost());
             gamePanel.getPlayer().increaseIncome(gamePanel.MonsterType(i).getValue());
-            sendMessage(""+i);
+            //sendMessage(""+i);
+            gamePanel.create(i);
         } else {
             Toast toast = Toast.makeText(this, "Not enough gold !", Toast.LENGTH_SHORT);
             toast.show();
@@ -165,7 +162,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private void sendMessage(String message) {
         // Check that we're actually connected before trying anything
         if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
-            Toast.makeText(this, R.string.not_connected, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, R.string.not_connected, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -177,102 +174,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
 
             // Reset out string buffer to zero and clear the edit text field
             mOutStringBuffer.setLength(0);
-        }
-    }
-
-    //@Override
-    public boolean onMenuItemClick_t(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.goblin:
-                gamePanel.create(1);
-                showPopup1(view);
-                //sendMessage("1");
-                return true;
-            case R.id.eye:
-                gamePanel.create(2);
-                showPopup1(view);
-                //sendMessage("2");
-                return true;
-            case R.id.devil:
-                gamePanel.create(3);
-                showPopup1(view);
-                //sendMessage("3");
-                return true;
-            case R.id.eagle:
-                gamePanel.create(4);
-                showPopup1(view);
-                //sendMessage("4");
-                return true;
-            case R.id.skeleton:
-                gamePanel.create(5);
-                showPopup1(view);
-                //sendMessage("5");
-                return true;
-            case R.id.dwarf:
-                gamePanel.create(6);
-                showPopup2(view);
-                //sendMessage("6");
-                return true;
-            case R.id.devil2:
-                gamePanel.create(7);
-                showPopup2(view);
-                //sendMessage("7");
-                return true;
-            case R.id.golem:
-                gamePanel.create(8);
-                showPopup2(view);
-                //sendMessage("8");
-                return true;
-            case R.id.robot:
-                gamePanel.create(9);
-                showPopup2(view);
-                //sendMessage("9");
-                return true;
-
-            case R.id.gryphon:
-                gamePanel.create(10);
-                showPopup3(view);
-                //sendMessage("10");
-                return true;
-            case R.id.fairy:
-                gamePanel.create(11);
-                showPopup3(view);
-                //sendMessage("11");
-                return true;
-            case R.id.dark_vador:
-                gamePanel.create(12);
-                showPopup3(view);
-                //sendMessage("12");
-                return true;
-            case R.id.blue_dragon:
-                gamePanel.create(13);
-                showPopup3(view);
-                //sendMessage("13");
-                return true;
-
-            case R.id.pikachu:
-                gamePanel.create(14);
-                showPopup4(view);
-                //sendMessage("14");
-                return true;
-            case R.id.spider:
-                gamePanel.create(15);
-                showPopup4(view);
-                //sendMessage("15");
-                return true;
-            case R.id.unicorn:
-                gamePanel.create(16);
-                showPopup4(view);
-                //sendMessage("16");
-                return true;
-            case R.id.wolf:
-                gamePanel.create(17);
-                showPopup4(view);
-                //sendMessage("17");
-                return true;
-
-            default:
-                return false;
         }
     }
 
@@ -293,8 +194,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 showPopup1(view);
                 TrySendMessage(3);
                 return true;
-            case R.id.eagle:
-                //gamePanel.create(4);
+            case R.id.wolf:
+                //gamePanel.create(17);
                 showPopup1(view);
                 TrySendMessage(4);
                 return true;
@@ -309,8 +210,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 showPopup2(view);
                 TrySendMessage(6);
                 return true;
-            case R.id.devil2:
-                //gamePanel.create(7);
+            case R.id.charizard:
+                //gamePanel.create(16);
                 showPopup2(view);
                 TrySendMessage(7);
                 return true;
@@ -356,13 +257,13 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 showPopup4(view);
                 TrySendMessage(15);
                 return true;
-            case R.id.unicorn:
-                //gamePanel.create(16);
+            case R.id.devil2:
+                //gamePanel.create(7);
                 showPopup4(view);
                 TrySendMessage(16);
                 return true;
-            case R.id.wolf:
-                //gamePanel.create(17);
+            case R.id.eagle:
+                //gamePanel.create(4);
                 showPopup4(view);
                 TrySendMessage(17);
                 return true;
@@ -484,7 +385,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                         gamePanel.create(i);
                     } else if (i<200){
                         gamePanel.getOpponent().setLife(i-100);
-                    } else {
+                    } else if (i<10000){
                         gamePanel.getOpponent().setIncome(i-200);
                     }
                     break;
@@ -504,11 +405,82 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         }
     };
 
-
+    private void connectDevice(Intent data, boolean secure) {
+        // Get the device MAC address
+        String address = data.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+        // Get the BluetoothDevice object
+        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
+        // Attempt to connect to the device
+        mChatService.connect(device, secure);
+    }
 
     public Activity getActivity() {
         return this;
     }
+
+    public BluetoothAdapter getBluetoothAdapter(){
+        return mBluetoothAdapter;
+    }
+
+    public BluetoothChatService getBTChatService(){
+        return mChatService;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_CONNECT_DEVICE_SECURE:
+                // When DeviceListActivity returns with a device to connect
+                if (resultCode == Activity.RESULT_OK) {
+                    connectDevice(data, true);
+                }
+                break;
+            case REQUEST_CONNECT_DEVICE_INSECURE:
+                // When DeviceListActivity returns with a device to connect
+                if (resultCode == Activity.RESULT_OK) {
+                    connectDevice(data, false);
+                }
+                break;
+            case REQUEST_ENABLE_BT:
+                // When the request to enable Bluetooth returns
+                if (resultCode == Activity.RESULT_OK) {
+                    // Bluetooth is now enabled, so set up a chat session
+                    setupCom();
+                } else {
+                    // User did not enable Bluetooth or an error occurred
+                    Log.d(TAG, "BT not enabled");
+                    Toast.makeText(getActivity(), R.string.bt_not_enabled_leaving,
+                            Toast.LENGTH_SHORT).show();
+                    getActivity().finish();
+                }
+        }
+    }
+
+    private void setupCom() {
+        Log.d(TAG, "setupCom()");
+
+        // Initialize the BluetoothChatService to perform bluetooth connections
+        mChatService = new BluetoothChatService(this, mHandler);
+        Intent deviceIntent = new Intent(this, DeviceListActivity.class);
+        startActivityForResult(deviceIntent, PICK_DEVICE_REQUEST);
+
+        // Initialize the buffer for outgoing messages
+        mOutStringBuffer = new StringBuffer("");
+    }
+
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        //requests that bluetooth is enabled if it is not
+        if (!mBluetoothAdapter.isEnabled()) {
+            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+            // Otherwise, setup the chat session
+        } else if (mChatService == null) {
+            setupCom();
+        }
+    }
+
 
 }
 

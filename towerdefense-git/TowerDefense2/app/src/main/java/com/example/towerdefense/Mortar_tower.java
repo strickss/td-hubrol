@@ -23,5 +23,12 @@ public class Mortar_tower extends Towers{
         shots.add(new Missile((int)x, (int) y, context, enemy, getDamage(1, enemy)));
     }
 
+    public void upgrade() {
+        this.damage_min = (int) Math.ceil(this.damage_min*1.20);
+        this.damage_max = (int) Math.ceil(this.damage_max*1.40);
+        this.range = (int) Math.ceil(this.range*1.1);
+        this.recharge = (int) Math.floor(this.recharge*0.9);
+        this.level ++;
+    }
 
 }

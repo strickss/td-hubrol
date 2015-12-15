@@ -23,5 +23,6 @@ public class Eagle extends Enemy {
         this.height = 150;
         this.framePeriod = 1000 / 7; // 1000/fps
         this.speed = 3;
+        this.type = 17;
     }
 }

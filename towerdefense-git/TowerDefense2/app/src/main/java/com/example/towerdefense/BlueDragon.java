@@ -23,5 +23,6 @@ public class BlueDragon extends Enemy{
         this.height = 200;
         this.framePeriod = 1000 / 5; // 1000/fps
         this.speed = 3;
+        this.type = 13;
     }
 }

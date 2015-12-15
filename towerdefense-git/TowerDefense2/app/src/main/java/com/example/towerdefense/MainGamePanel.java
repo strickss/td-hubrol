@@ -12,20 +12,20 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     private static final String TAG = MainGamePanel.class.getSimpleName();
     private final Paint paint_canvas;
-    private int b;
+    private int[] sound_pop;
+    private int[] sound_death;
     private Player player;
     private Player opponent;
     private MainThread thread;
@@ -39,7 +39,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private String avgFps; //the fps to be displayed
     private float x1,y1;
     private SoundPool sp;
-    private int spId;
     ArrayList<Integer> buildingZone;
 
     private long a =System.currentTimeMillis();
@@ -54,14 +53,13 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         paint_canvas = new Paint();
         paint_canvas.setARGB(255, 10, 160, 50);
         mediaPlayer = MediaPlayer.create(context, R.raw.song);
-        mediaPlayer = MediaPlayer.create(context, R.raw.song);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
         sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
 
         //create tower and load bitmap
-        this.player = new Player(5000,10,1);
-        this.opponent = new Player(5000,10,1);
+        this.player = new Player(100,10,20);
+        this.opponent = new Player(100,10,20);
 
         towers = new ArrayList<Towers>();
         buttons = new ArrayList<Buttons>();
@@ -69,7 +67,41 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         enemies = new ArrayList<Enemy>();
         life_bars = new ArrayList<LifeBar>();
 
-        //b = sp.load(getContext(), R.raw.goblin,1);
+        /*sound_pop = {sp.load(getContext(), R.raw.gobelin_pop, 1),
+        sp.load(getContext(), R.raw.eye_pop, 1),
+        sp.load(getContext(), R.raw.devil_pop, 1),
+        sp.load(getContext(), R.raw.wolf_pop, 1),
+        sp.load(getContext(), R.raw.skeleton_pop, 1),
+        sp.load(getContext(), R.raw.dwarf_pop, 1),
+        sp.load(getContext(), R.raw.charizard_pop, 1),
+        sp.load(getContext(), R.raw.golem_pop, 1),
+        sp.load(getContext(), R.raw.robot_pop, 1),
+        sp.load(getContext(), R.raw.gryphon_pop, 1),
+        sp.load(getContext(), R.raw.fairy_pop, 1),
+        sp.load(getContext(), R.raw.darth_vader_pop, 1),
+        sp.load(getContext(), R.raw.blue_dragon_pop, 1),
+        sp.load(getContext(), R.raw.pikachu_pop, 1),
+        sp.load(getContext(), R.raw.spider_pop, 1),
+        sp.load(getContext(), R.raw.devil2_pop, 1),
+        sp.load(getContext(), R.raw.eagle_pop, 1)};*/
+
+        /*sound_death = {sp.load(getContext(), R.raw.gobelin_death, 1),
+        sp.load(getContext(), R.raw.eye_death, 1),
+        sp.load(getContext(), R.raw.devil_death, 1),
+        sp.load(getContext(), R.raw.wolf_death, 1),
+        sp.load(getContext(), R.raw.skeleton_death, 1),
+        sp.load(getContext(), R.raw.dwarf_death, 1),
+        sp.load(getContext(), R.raw.charizard_death, 1),
+        sp.load(getContext(), R.raw.golem_death, 1),
+        sp.load(getContext(), R.raw.robot_death, 1),
+        sp.load(getContext(), R.raw.gryphon_death, 1),
+        sp.load(getContext(), R.raw.fairy_death, 1),
+        sp.load(getContext(), R.raw.darth_vader_death, 1),
+        sp.load(getContext(), R.raw.blue_dragon_death, 1),
+        sp.load(getContext(), R.raw.pikachu_death, 1),
+        sp.load(getContext(), R.raw.spider_death, 1),
+        sp.load(getContext(), R.raw.devil2_death, 1),
+        sp.load(getContext(), R.raw.eagle_death, 1)};*/
 
         //create the game loop thread
         thread = new MainThread(getHolder(), this);
@@ -159,7 +191,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private void towerOnClickEvent(long x, long y) {
         boolean create = true;
         for (int i = 0; i < towers.size(); i++) {
-            towers.get(i).handleActionDown((int)x,(int) y);
+            towers.get(i).handleActionDown((int) x, (int) y);
             if (towers.get(i).isTouched()) {
                 create = false;
                 towerUpgrade(i);
@@ -259,6 +291,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         for (int j = 0; j < enemies.size(); j++) {
             if (enemies.get(j).getHp() <=0){
                 player.increaseGold(enemies.get(j).getValue());
+                //sp.play(sound_death[enemies.get(j).getType()],1,1,0,0,1);
                 enemies.remove(j);
                 life_bars.remove(j);
             }else if(enemies.get(j).getX() == map.getEndZoneX() && enemies.get(j).getY() == map.getEndZoneY()){
@@ -317,11 +350,11 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     }
 
     public void create(int i){
+        sp.play(sound_pop[i],1,1,0,0,1);
         switch (i){
             case 1:
                 CreateMonster(new Gobelin(getContext(), map.getLogicPath()));
-                //sp.play(sp.load(getContext(), R.raw.goblin,1),1,1,0,0,1);
-                sp.play(b,1,1,0,0,1);
+                //sp.play(sp.load(getContext(), R.raw.test,1),1,1,0,0,1);
                 return;
             case 2 :
                 CreateMonster(new Eye(getContext(),map.getLogicPath()));
@@ -330,7 +363,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                 CreateMonster(new Devil(getContext(), map.getLogicPath()));
                 return;
             case 4 :
-                CreateMonster(new Eagle(getContext(),map.getLogicPath()));
+                CreateMonster(new Wolf(getContext(),map.getLogicPath()));
                 return;
             case 5:
                 CreateMonster(new Skeleton(getContext(), map.getLogicPath()));
@@ -339,7 +372,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                 CreateMonster(new Dwarf(getContext(), map.getLogicPath()));
                 return;
             case 7 :
-                CreateMonster(new Devil2(getContext(),map.getLogicPath()));
+                CreateMonster(new Charizard(getContext(), map.getLogicPath()));
                 return;
             case 8:
                 CreateMonster(new Golem(getContext(), map.getLogicPath()));
@@ -366,10 +399,10 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                 CreateMonster(new Spider(getContext(),map.getLogicPath()));
                 return;
             case 16:
-                CreateMonster(new Unicorn(getContext(), map.getLogicPath()));
+                CreateMonster(new Devil2(getContext(),map.getLogicPath()));
                 return;
             case 17:
-                CreateMonster(new Wolf(getContext(),map.getLogicPath()));
+                CreateMonster(new Eagle(getContext(),map.getLogicPath()));
                 return;
             default:
                 return;
@@ -410,7 +443,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             case 15:
                 return new Spider(getContext(),map.getLogicPath());
             case 16:
-                return new Unicorn(getContext(), map.getLogicPath());
+                return new Charizard(getContext(), map.getLogicPath());
             case 17:
                 return new Wolf(getContext(),map.getLogicPath());
             default:

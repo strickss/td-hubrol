@@ -15,11 +15,11 @@ public class Towers extends Elements{
     private long lastFired;
     private boolean touched;
     protected int penetration;
-    private int range;
-    private int recharge;
+    protected int range;
+    protected int recharge;
     protected int damage_max;
     protected int damage_min;
-    private int level;
+    protected int level;
 
     public Towers(int x, int y, Bitmap bitmap, int range, int recharge) {
         super(x, y, bitmap);
@@ -72,14 +72,14 @@ public class Towers extends Elements{
     public int getDamage(int i, Enemy enemy) {
         int red;
         if (i==1) {
-            red = enemy.getArmor() - this.getPen();
+            red = 100 - this.getPen();
         } else {
-            red = enemy.getRM() - this.getPen();
+            red = 100 - this.getPen();
         }
         if (red >= 0){
-            return (int) ((damage_min + Math.random() * (damage_max - damage_min))*(red/100));
+            return (int) ((damage_min + Math.random() * (damage_max - damage_min))*(100 - enemy.getArmor()*(red/100))/100);
         } else {
-            return (int) (damage_min + Math.random() * (damage_max - damage_min));
+            return (int) ((damage_min + Math.random() * (damage_max - damage_min))*(100-enemy.getArmor())/100);
         }
     }
 
@@ -88,8 +88,8 @@ public class Towers extends Elements{
     }
 
     public void upgrade() {
-        this.damage_min = (int) Math.ceil(this.damage_min*1.1);
-        this.damage_max = (int) Math.ceil(this.damage_max*1.1);
+        this.damage_min = (int) Math.ceil(this.damage_min*1.20);
+        this.damage_max = (int) Math.ceil(this.damage_max*1.20);
         this.range = (int) Math.ceil(this.range*1.1);
         this.recharge = (int) Math.floor(this.recharge*0.9);
         this.level ++;

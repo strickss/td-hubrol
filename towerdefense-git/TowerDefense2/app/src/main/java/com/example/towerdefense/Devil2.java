@@ -23,5 +23,6 @@ public class Devil2 extends Enemy{
         this.height = 150;
         this.framePeriod = 1000 / 5; // 1000/fps
         this.speed = 2;
+        this.type = 16;
     }
 }

@@ -23,5 +23,6 @@ public class Golem extends Enemy {
         this.height = 170;
         this.framePeriod = 1000 / 5; // 1000/fps
         this.speed = 3;
+        this.type = 8;
     }
 }

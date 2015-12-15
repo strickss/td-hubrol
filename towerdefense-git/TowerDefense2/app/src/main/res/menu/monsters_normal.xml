@@ -32,9 +32,9 @@
         android:visible = "true"/>
 
     <item
-        android:id="@+id/eagle"
-        android:icon="@drawable/eagle_icon"
-        android:title="@string/monster_eagle"
+        android:id="@+id/wolf"
+        android:icon="@drawable/wolf_icon"
+        android:title="@string/monster_wolf"
         android:onClick="onMenuItemClick"
         android:visible = "true"/>
 

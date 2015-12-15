@@ -23,5 +23,6 @@ public class Gobelin extends Enemy {
         this.height = 100;
         this.framePeriod = 1000 / 7; // 1000/fps
         this.speed = 2;
+        this.type = 1;
     }
 }

@@ -7,9 +7,7 @@
     <string name="monster2"> Troll 1 </string>
     <string name="monster3"> Goblin 2</string>
     <string name="not_connected">You are not connected to a device</string>
-=======
 
->>>>>>> origin/master
     <string name="exemple">Coucou gobelin</string>
     <string name="yourIncome"> Your income : </string>
     <string name="yourIncomeValue"> 32 </string>
@@ -57,7 +55,7 @@
 
     <string name="monster_pikachu"> Pikachu </string>
     <string name="monster_spider"> Spider </string>
-    <string name="monster_unicorn"> Unicorn </string>
+    <string name="monster_charizard"> Charizard </string>
     <string name="monster_wolf"> Wolf </string>
     <string name="title_activity_home_screen">HomeScreenActivity</string>
 
