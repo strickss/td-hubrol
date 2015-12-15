@@ -25,9 +25,13 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     private static final String TAG = MainGamePanel.class.getSimpleName();
     private final Paint paint_canvas;
+    private final Player opponent;
     private int b;
     private Player player;
+<<<<<<< HEAD
     private Player opponent;
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
     private MainThread thread;
     private List<Towers> towers;
     private List<Buttons> buttons;
@@ -39,12 +43,16 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private String avgFps; //the fps to be displayed
     private float x1,y1;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
     private SoundPool sp;
 <<<<<<< HEAD
 =======
     //private int spId;
 >>>>>>> refs/remotes/origin/Tower_creation
     private int spId;
+<<<<<<< HEAD
 =======
     //private SoundPool sp;
     //private int spId;
@@ -52,6 +60,8 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private int spId;
 
 >>>>>>> origin/master
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
     ArrayList<Integer> buildingZone;
 
     private long a =System.currentTimeMillis();
@@ -67,16 +77,20 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         paint_canvas.setARGB(255, 10, 160, 50);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         mediaPlayer = MediaPlayer.create(context, R.raw.song);
         mediaPlayer = MediaPlayer.create(context, R.raw.song);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
         sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
 =======
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
         //sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
         mediaPlayer = MediaPlayer.create(context, R.raw.song);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
+<<<<<<< HEAD
 =======
         
         //mediaPlayer = MediaPlayer.create(context, R.raw.song);
@@ -101,6 +115,13 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         // create tower and load bitmap
         this.player = new Player(5000,10,1);
         this.opponent = new Player(5000,10,1);
+=======
+        sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
+
+        // create tower and load bitmap
+        this.player = new Player(100,10,20);
+        this.opponent = new Player(100,10,20);
+>>>>>>> refs/remotes/origin/Tower_creation
 
         towers = new ArrayList<Towers>();
         buttons = new ArrayList<Buttons>();
@@ -214,13 +235,13 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     }
 
     private void towerUpgrade(int towerIndex) {
-        buttons.add(new Buttons_tower_upgrade((int) towers.get(towerIndex).getX(),(int) towers.get(towerIndex).getY() - 200, getContext(), towerIndex));
+        buttons.add(new Buttons_tower_upgrade((int) towers.get(towerIndex).getX(), (int) towers.get(towerIndex).getY() - 200, getContext(), towerIndex));
         buttons.add(new Buttons_tower_stop((int) towers.get(towerIndex).getX(), (int) towers.get(towerIndex).getY(), getContext()));
         buttons.add(new Buttons_tower_delete((int) towers.get(towerIndex).getX(), (int) towers.get(towerIndex).getY() + 200, getContext(), towerIndex));
     }
 
     private void towerCreation(long x, long y) {
-        buttons.add(new Buttons_arcane_tower_creation((int) (x), (int) (y  - 200), getContext()));
+        buttons.add(new Buttons_arcane_tower_creation((int) (x), (int) (y - 200), getContext()));
         buttons.add(new Buttons_mortar_tower_creation((int) (x - 200), (int) (y), getContext()));
         buttons.add(new Buttons_archer_tower_creation((int) (x), (int) (y + 200), getContext()));
         buttons.add(new Buttons_magma_tower_creation((int) (x + 200), (int) (y), getContext()));
@@ -230,6 +251,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     protected void render(Canvas canvas) {
         canvas.drawPaint(paint_canvas);
         map.draw(canvas);
+<<<<<<< HEAD
 
         Log.d(TAG, "Launch");
         //goblin.draw(canvas);
@@ -240,6 +262,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 =======
 
 >>>>>>> origin/master
+=======
+        Log.d(TAG, "Launch");
+>>>>>>> refs/remotes/origin/Tower_creation
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).draw(canvas);
         }
@@ -267,6 +292,10 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         for (int i = 0; i < shots.size(); i++) {
             shots.get(i).draw(canvas);
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/Tower_creation
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).draw(canvas);
         }
@@ -274,6 +303,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
 
     public void update() {// check collision with right wall if heading right
+<<<<<<< HEAD
         if (player.getLife() <= 0){
             buttons.clear();
             buttons.add(new Defeat((int) (this.getWidth() / 2 - canvasX), (int) (this.getHeight() / 2 - canvasY - 100), getContext()));
@@ -287,6 +317,12 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                 player.getFunding();
                 a = System.currentTimeMillis();
             }
+=======
+        if (System.currentTimeMillis() - a > 10000){
+            player.getFunding();
+            a = System.currentTimeMillis();
+        }
+>>>>>>> refs/remotes/origin/Tower_creation
 
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.get(i).enemyUpdate(map, System.currentTimeMillis());
@@ -366,11 +402,13 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             case 1:
                 CreateMonster(new Gobelin(getContext(), map.getLogicPath()));
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //sp.play(sp.load(getContext(), R.raw.goblin,1),1,1,0,0,1);
                 sp.play(b,1,1,0,0,1);
-=======
-
                 //sp.play(sp.load(getContext(), R.raw.goblin,1),1,1,0,0,1);
+<<<<<<< HEAD
 
 
 
@@ -379,6 +417,8 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
 
 >>>>>>> origin/master
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 return;
             case 2 :
                 CreateMonster(new Eye(getContext(),map.getLogicPath()));
@@ -433,6 +473,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
+<<<<<<< HEAD
     public void CreateMonster(Enemy enemy) {
         if (opponent.getGold() >= enemy.getCost()) {
             enemies.add(enemy);
@@ -442,7 +483,52 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         } else {
             Toast toast = Toast.makeText(getContext(), "Not enough gold !", Toast.LENGTH_SHORT);
             toast.show();
+=======
+    public Enemy MonsterType(int i){
+        switch (i){
+            case 1:
+                return new Gobelin(getContext(), map.getLogicPath());
+            case 2 :
+                return new Eye(getContext(),map.getLogicPath());
+            case 3:
+                return new Devil(getContext(), map.getLogicPath());
+            case 4 :
+                return new Eagle(getContext(),map.getLogicPath());
+            case 5:
+                return new Skeleton(getContext(), map.getLogicPath());
+            case 6:
+                return new Dwarf(getContext(), map.getLogicPath());
+            case 7 :
+                return new Devil2(getContext(),map.getLogicPath());
+            case 8:
+                return new Golem(getContext(), map.getLogicPath());
+            case 9 :
+                return new Robot(getContext(),map.getLogicPath());
+            case 10:
+                return new Gryphon(getContext(), map.getLogicPath());
+            case 11:
+                return new Fairy(getContext(),map.getLogicPath());
+            case 12:
+                return new DarkVador(getContext(), map.getLogicPath());
+            case 13 :
+                return new BlueDragon(getContext(),map.getLogicPath());
+            case 14:
+                return new Pikachu(getContext(), map.getLogicPath());
+            case 15:
+                return new Spider(getContext(),map.getLogicPath());
+            case 16:
+                return new Unicorn(getContext(), map.getLogicPath());
+            case 17:
+                return new Wolf(getContext(),map.getLogicPath());
+            default:
+                return new Wolf(getContext(),map.getLogicPath());
+>>>>>>> refs/remotes/origin/Tower_creation
         }
+    }
+
+    public void CreateMonster(Enemy enemy){
+        enemies.add(enemy);
+        life_bars.add(new LifeBar(enemy, getContext()));
     }
 
     public Player getPlayer() {
@@ -456,6 +542,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     public Player getOpponent() {
         return opponent;
     }
+<<<<<<< HEAD
 
     public void setOpponentLife(int opponentLife) {
         this.opponent.setLife(opponentLife);
@@ -468,4 +555,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     public void setOpponentGold(int opponentGold) {
         this.opponent.setGold(opponentGold);
     }
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
 }

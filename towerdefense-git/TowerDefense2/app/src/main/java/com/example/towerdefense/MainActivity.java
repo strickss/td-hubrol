@@ -37,7 +37,10 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.Set;
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -46,6 +49,10 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private static final int REQUEST_ENABLE_BT = 3;
     private String mConnectedDeviceName = null;
     private MainGamePanel gamePanel;
+<<<<<<< HEAD
+=======
+    private Handler mHandler_menu;
+>>>>>>> refs/remotes/origin/Tower_creation
     private TextView textGold;
     private TextView textYourIncome;
     private TextView textOppIncome;
@@ -59,11 +66,13 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private BluetoothChatService mChatService = null;
     private StringBuffer mOutStringBuffer;
     static final int PICK_DEVICE_REQUEST = 1;  // The request code
-
     private View view;
+<<<<<<< HEAD
     private Handler mHandler_menu;
     private List<View> text_monsters;
     private ArrayList<creationButton> monster_creationButtons;
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,9 +95,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         this.chronometer = (Chronometer) findViewById(R.id.chronometer);
         chronometer.start();
 
-
-
-
         textGold = (TextView) findViewById(R.id.gold);
         textYourIncome = (TextView) findViewById(R.id.yourIncomeValue);
         textOppIncome = (TextView) findViewById(R.id.oppIncomeValue);
@@ -97,6 +103,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         updateMenu = true;
         mHandler_menu = new Handler();
         mHandler_menu.post(mUpdate);
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
@@ -115,6 +122,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
 =======
 >>>>>>> refs/remotes/origin/Tower_creation
 >>>>>>> origin/master
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
     }
 
 
@@ -124,6 +133,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             textGold.setText("" + txtGold);
             int txtYourIncome = gamePanel.getPlayer().getIncome();
             textYourIncome.setText("" + txtYourIncome);
+<<<<<<< HEAD
             txtYourIncome = txtYourIncome + 200;
             sendMessage("" + txtYourIncome);
             int txtOppIncome = gamePanel.getOpponent().getIncome();
@@ -135,6 +145,18 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             int txtOppLife = gamePanel.getOpponent().getLife();
             textOppLife.setText("" + txtOppLife);
 
+=======
+            txtYourIncome = txtYourIncome + 100;
+            sendMessage(""+txtYourIncome);
+            int txtOppIncome = gamePanel.getPlayer().getIncome() + 1;
+            textOppIncome.setText("" + txtOppIncome);
+            int txtYourLife = gamePanel.getPlayer().getLife();
+            textYourLife.setText("" + txtYourLife);
+            txtYourLife = txtYourLife + 20;
+            sendMessage(""+txtYourLife);
+            int txtOppLife = gamePanel.getOpponent().getLife();
+            textOppLife.setText("" + txtOppLife);
+>>>>>>> refs/remotes/origin/Tower_creation
             mHandler_menu.postDelayed(this, 100);
         }
     };
@@ -172,7 +194,16 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         }
     }
 
-
+    private void TrySendMessage(int i){
+        if (gamePanel.getPlayer().getGold() >= gamePanel.MonsterType(i).getCost()){
+            gamePanel.getPlayer().cost(gamePanel.MonsterType(i).getCost());
+            gamePanel.getPlayer().increaseIncome(gamePanel.MonsterType(i).getValue());
+            sendMessage(""+i);
+        } else {
+            Toast toast = Toast.makeText(this, "Not enough gold !", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
 
     private void sendMessage(String message) {
         // Check that we're actually connected before trying anything
@@ -201,6 +232,10 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 //sendMessage("1");
                 return true;
             case R.id.eye:
+<<<<<<< HEAD
+=======
+                sendMessage("2");
+>>>>>>> refs/remotes/origin/Tower_creation
                 gamePanel.create(2);
                 showPopup1(view);
                 //sendMessage("2");
@@ -294,90 +329,93 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             case R.id.goblin:
                 //gamePanel.create(1);
                 showPopup1(view);
-                sendMessage("1");
+                TrySendMessage(1);
                 return true;
             case R.id.eye:
                 //gamePanel.create(2);
                 showPopup1(view);
-                sendMessage("2");
+                TrySendMessage(2);
                 return true;
             case R.id.devil:
+<<<<<<< HEAD
                 //gamePanel.create(3);
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 showPopup1(view);
-                sendMessage("3");
+                TrySendMessage(3);
                 return true;
             case R.id.eagle:
                 //gamePanel.create(4);
                 showPopup1(view);
-                sendMessage("4");
+                TrySendMessage(4);
                 return true;
             case R.id.skeleton:
                 //gamePanel.create(5);
                 showPopup1(view);
-                sendMessage("5");
+                TrySendMessage(5);
                 return true;
 
             case R.id.dwarf:
                 //gamePanel.create(6);
                 showPopup2(view);
-                sendMessage("6");
+                TrySendMessage(6);
                 return true;
             case R.id.devil2:
                 //gamePanel.create(7);
                 showPopup2(view);
-                sendMessage("7");
+                TrySendMessage(7);
                 return true;
             case R.id.golem:
                 //gamePanel.create(8);
                 showPopup2(view);
-                sendMessage("8");
+                TrySendMessage(8);
                 return true;
             case R.id.robot:
                 //gamePanel.create(9);
                 showPopup2(view);
-                sendMessage("9");
+                TrySendMessage(9);
                 return true;
 
             case R.id.gryphon:
                 //gamePanel.create(10);
                 showPopup3(view);
-                sendMessage("10");
+                TrySendMessage(10);
                 return true;
             case R.id.fairy:
                 //gamePanel.create(11);
                 showPopup3(view);
-                sendMessage("11");
+                TrySendMessage(11);
                 return true;
             case R.id.dark_vador:
                 //gamePanel.create(12);
                 showPopup3(view);
-                sendMessage("12");
+                TrySendMessage(12);
                 return true;
             case R.id.blue_dragon:
                 //gamePanel.create(13);
                 showPopup3(view);
-                sendMessage("13");
+                TrySendMessage(13);
                 return true;
 
             case R.id.pikachu:
                 //gamePanel.create(14);
                 showPopup4(view);
-                sendMessage("14");
+                TrySendMessage(14);
                 return true;
             case R.id.spider:
                 //gamePanel.create(15);
                 showPopup4(view);
-                sendMessage("15");
+                TrySendMessage(15);
                 return true;
             case R.id.unicorn:
                 //gamePanel.create(16);
                 showPopup4(view);
-                sendMessage("16");
+                TrySendMessage(16);
                 return true;
             case R.id.wolf:
                 //gamePanel.create(17);
                 showPopup4(view);
-                sendMessage("17");
+                TrySendMessage(17);
                 return true;
 
             default:
@@ -493,6 +531,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     int i = new Integer(readMessage);
+<<<<<<< HEAD
                     if (i <100) {
                         gamePanel.create(i);
                     } else if (i<200){
@@ -501,6 +540,14 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                         gamePanel.setOpponentIncome(i-200);
                     } else {
                         gamePanel.setOpponentGold(i-10000);
+=======
+                    if (i<20) {
+                        gamePanel.create(i);
+                    } else if (i<100) {
+                        gamePanel.getOpponent().setLife(i-20);
+                    } else{
+                        gamePanel.getOpponent().setIncome(i-100);
+>>>>>>> refs/remotes/origin/Tower_creation
                     }
                     break;
                 case Constants.MESSAGE_DEVICE_NAME:
