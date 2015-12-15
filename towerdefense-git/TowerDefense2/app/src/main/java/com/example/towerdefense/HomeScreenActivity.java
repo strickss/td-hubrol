@@ -15,6 +15,7 @@ public class HomeScreenActivity extends Activity {
 
     private static final String TAG = HomeScreenActivity.class.getSimpleName();
     private static final int GAME_ON = 1;
+    private static final int REQUEST_ENABLE_BT = 3 ;
     public MainActivity mainActivity;
 
     @Override
@@ -31,8 +32,11 @@ public class HomeScreenActivity extends Activity {
 
 
     public void play_game(View v){
-        Intent intentGame = new Intent(this, MainActivity.class);
-        startActivityForResult(intentGame,GAME_ON);
+
+
+        Intent intentBT = new Intent(this, EnsureConnectActivity.class);
+        startActivity(intentBT);
+
     }
 
     public void show_history(View v){
