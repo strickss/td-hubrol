@@ -7,7 +7,6 @@ package com.example.towerdefense;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -22,14 +21,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.graphics.Color.BLACK;
-
 public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     private static final String TAG = MainGamePanel.class.getSimpleName();
     private final Paint paint_canvas;
     private int b;
-    private Player player1;
+    private Player player;
+    private Player opponent;
     private MainThread thread;
     private List<Towers> towers;
     private List<Buttons> buttons;
@@ -37,15 +35,11 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private List<Enemy> enemies;
     private ArrayList<LifeBar> life_bars;
     private Map map;
-    //private MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer;
     private String avgFps; //the fps to be displayed
     private float x1,y1;
-    //private SoundPool sp;
-<<<<<<< HEAD
-    //private int spId;
-=======
+    private SoundPool sp;
     private int spId;
->>>>>>> refs/remotes/origin/Tower_creation
     ArrayList<Integer> buildingZone;
 
     private long a =System.currentTimeMillis();
@@ -59,35 +53,14 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         map = new Map(context, 0);
         paint_canvas = new Paint();
         paint_canvas.setARGB(255, 10, 160, 50);
-<<<<<<< HEAD
-<<<<<<< HEAD
-        //mediaPlayer = MediaPlayer.create(context, R.raw.song);
-        //mediaPlayer.start();
-        //mediaPlayer.setLooping(true);
-        //mediaPlayer.start();
-        //sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
-=======
         mediaPlayer = MediaPlayer.create(context, R.raw.song);
-=======
->>>>>>> refs/remotes/origin/Tower_creation
-<<<<<<< HEAD
         mediaPlayer = MediaPlayer.create(context, R.raw.song);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
-=======
-        //mediaPlayer = MediaPlayer.create(context, R.raw.song);
-        //mediaPlayer.start();
-        //mediaPlayer.setLooping(true);
-        //mediaPlayer.start();
-<<<<<<< HEAD
         sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
->>>>>>> refs/remotes/origin/Tower_creation
-=======
->>>>>>> refs/remotes/origin/master
-        //sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
->>>>>>> refs/remotes/origin/Tower_creation
         // create tower and load bitmap
-        this.player1 = new Player(5000,10,20);
+        this.player = new Player(5000,10,1);
+        this.opponent = new Player(5000,10,1);
 
         towers = new ArrayList<Towers>();
         buttons = new ArrayList<Buttons>();
@@ -139,11 +112,11 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                         //if ((event.getY() < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight()) && (event.getY() > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight())) {
                         if (((event.getX() - canvasX) < buttons.get(i).getX() + buttons.get(i).getBitmap().getWidth() / 2) && ((event.getX() - canvasX) > buttons.get(i).getX() - buttons.get(i).getBitmap().getWidth() / 2)) {
                             if (((event.getY() - canvasY) < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight() / 2) && ((event.getY() - canvasY) > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight() / 2)) {
-                                buttons.get(i).getEvent(towers, getContext(), player1);
+                                buttons.get(i).getEvent(towers, getContext(), player);
                             }
                         }
                     }
-                    buttons = new ArrayList<Buttons>();
+                    buttons.clear();//buttons = new ArrayList<Buttons>();
                 } else {
                     buildingZone = map.BuildingZone(event.getX() - canvasX,event.getY() - canvasY);
                     //Log.d(TAG, "BZ: x=" + buildingZone.get(0) + ",y=" + buildingZone.get(1));
@@ -217,11 +190,8 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     protected void render(Canvas canvas) {
         canvas.drawPaint(paint_canvas);
         map.draw(canvas);
-<<<<<<< HEAD
         Log.d(TAG, "Launch");
         //goblin.draw(canvas);
-=======
->>>>>>> refs/remotes/origin/Tower_creation
 
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).draw(canvas);
@@ -232,9 +202,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
         for (int i = 0; i < towers.size(); i++) {
             towers.get(i).draw(canvas);
-        }
-        for (int i = 0; i < buttons.size(); i++) {
-            buttons.get(i).draw(canvas);
         }
         //canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.goblin),10,10,null);
         displayFps(canvas, avgFps);
@@ -253,36 +220,49 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         for (int i = 0; i < shots.size(); i++) {
             shots.get(i).draw(canvas);
         }
+        for (int i = 0; i < buttons.size(); i++) {
+            buttons.get(i).draw(canvas);
+        }
     }
 
 
     public void update() {// check collision with right wall if heading right
-        if (System.currentTimeMillis() - a > 10000){
-            player1.getFunding();
-            a = System.currentTimeMillis();
-        }
+        if (player.getLife() <= 0){
+            buttons.clear();
+            buttons.add(new Defeat((int) (this.getWidth() / 2 - canvasX), (int) (this.getHeight() / 2 - canvasY - 100), getContext()));
+            buttons.add(new Buttons_continue((int) (this.getWidth() / 2 - canvasX), (int) (this.getHeight() / 2 - canvasY + 400), getContext()));
+        } else if (opponent.getLife() <=0){
+            buttons.clear();
+            buttons.add(new Victory((int) (this.getWidth() / 2 - canvasX), (int) (this.getHeight() / 2 - canvasY - 100), getContext()));
+            buttons.add(new Buttons_continue((int) (this.getWidth() / 2 - canvasX), (int) (this.getHeight() / 2 - canvasY + 400), getContext()));
+        } else {
+            if (System.currentTimeMillis() - a > 10000) {
+                player.getFunding();
+                a = System.currentTimeMillis();
+            }
 
-        for (int i = 0; i < enemies.size(); i++) {
-            enemies.get(i).enemyUpdate(map, System.currentTimeMillis());
+            for (int i = 0; i < enemies.size(); i++) {
+                enemies.get(i).enemyUpdate(map, System.currentTimeMillis());
+            }
+            for (int i = 0; i < life_bars.size(); i++) {
+                life_bars.get(i).update(enemies.get(i));
+            }
+            missileUpdate();
+            missileCreation();
+            enemiesUpdate();
         }
-        for (int i = 0; i < life_bars.size(); i++) {
-            life_bars.get(i).update(enemies.get(i));
-        }
-        missileUpdate();
-        missileCreation();
-        enemiesUpdate();
-        }
+    }
 
     private void enemiesUpdate() {
         for (int j = 0; j < enemies.size(); j++) {
             if (enemies.get(j).getHp() <=0){
-                player1.increaseGold(enemies.get(j).getValue());
+                player.increaseGold(enemies.get(j).getValue());
                 enemies.remove(j);
                 life_bars.remove(j);
             }else if(enemies.get(j).getX() == map.getEndZoneX() && enemies.get(j).getY() == map.getEndZoneY()){
                 enemies.remove(j);
                 life_bars.remove(j);
-                player1.looseLife();
+                player.looseLife();
             }
         }
     }
@@ -338,18 +318,8 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         switch (i){
             case 1:
                 CreateMonster(new Gobelin(getContext(), map.getLogicPath()));
-<<<<<<< HEAD
-<<<<<<< HEAD
                 //sp.play(sp.load(getContext(), R.raw.goblin,1),1,1,0,0,1);
-=======
                 sp.play(b,1,1,0,0,1);
->>>>>>> refs/remotes/origin/Tower_creation
-=======
-                //sp.play(b,1,1,0,0,1);
-=======
-                //sp.play(sp.load(getContext(), R.raw.goblin,1),1,1,0,0,1);
->>>>>>> refs/remotes/origin/master
->>>>>>> refs/remotes/origin/Tower_creation
                 return;
             case 2 :
                 CreateMonster(new Eye(getContext(),map.getLogicPath()));
@@ -405,11 +375,11 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     }
 
     public void CreateMonster(Enemy enemy) {
-        if (player1.getGold() >= enemy.getCost()) {
+        if (opponent.getGold() >= enemy.getCost()) {
             enemies.add(enemy);
             life_bars.add(new LifeBar(enemy, getContext()));
-            player1.cost(enemy.getCost());
-            player1.increaseIncome(enemy.getValue());
+            opponent.cost(enemy.getCost());
+            opponent.increaseIncome(enemy.getValue());
         } else {
             Toast toast = Toast.makeText(getContext(), "Not enough gold !", Toast.LENGTH_SHORT);
             toast.show();
@@ -417,11 +387,26 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     }
 
     public Player getPlayer() {
-        return this.player1;
+        return this.player;
     }
 
     public float getCanvasX() {return canvasX;}
 
     public float getCanvasY() {return canvasY;}
 
+    public Player getOpponent() {
+        return opponent;
+    }
+
+    public void setOpponentLife(int opponentLife) {
+        this.opponent.setLife(opponentLife);
+    }
+
+    public void setOpponentIncome(int opponentIncome) {
+        this.opponent.setIncome(opponentIncome);
+    }
+
+    public void setOpponentGold(int opponentGold) {
+        this.opponent.setGold(opponentGold);
+    }
 }

@@ -48,4 +48,15 @@ public class Player {
         this.gold = this.gold + this.income;
     }
 
+    public void setLife(int life) {
+        this.life = life;
+    }
+
+    public void setIncome(int income) {
+        this.income = income;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
 }
