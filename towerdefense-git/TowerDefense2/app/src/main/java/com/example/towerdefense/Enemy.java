@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class Enemy extends Elements{
 
     private static final String TAG = Enemy.class.getSimpleName();
+    private final int life_max;
 
     protected Rect sourceRect;	// the rectangle to be drawn from the animation bitmap
     protected int frameNr;		// number of frames in animation
@@ -69,7 +70,7 @@ public class Enemy extends Elements{
         this.frameTicker = 0l;
         this.dx = 1;
         this.dy = 0;
-
+        this.life_max = hp;
     }
 
     protected void damaged(int damage){
@@ -146,7 +147,7 @@ public class Enemy extends Elements{
 
     public void draw(Canvas canvas) {
         // where to draw the sprite
-        Rect destRect = new Rect((int) this.getX() - this.width/2, (int) this.getY() - height, (int) this.getX() + width/2, (int) this.getY());
+        Rect destRect = new Rect((int) this.getX() - this.width/2, (int) this.getY() - height/2, (int) this.getX() + width/2, (int) this.getY() + height/2);
         canvas.drawBitmap(bitmap, sourceRect, destRect, null);
 
         //Log.d(TAG, "x :" + x + ", y :" + y);
@@ -192,4 +193,11 @@ public class Enemy extends Elements{
         return speed;
     }
 
+    public int getArmor(){
+        return armor;
+    }
+
+    public int getRM() {
+        return mr;
+    }
 }

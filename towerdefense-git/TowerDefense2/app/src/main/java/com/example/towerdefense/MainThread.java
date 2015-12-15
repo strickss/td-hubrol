@@ -57,19 +57,28 @@ public class MainThread extends Thread {
         long timeDiff; //the time it took for the cycle to execute
         int sleepTime=0; //ms to sleep (<0 if we're behind the update time)
         int framesSkipped; //number of frames being skipped
-        long beginTime =0;
+<<<<<<< HEAD
+        long beginTime =System.currentTimeMillis();
+=======
+        long beginTime = System.currentTimeMillis();
+>>>>>>> refs/remotes/origin/Tower_creation
         long endTime;
 
         while (running) {
             canvas = null;
             // try locking the canvas for exclusive pixel editing on the surface
             try { //try to get hold of it
+                Log.d(TAG, "Running");
                 canvas = this.surfaceHolder.lockCanvas();
                 //canvas.translate(1000,100);
                 canvas.translate(gamePanel.getCanvasX(), gamePanel.getCanvasY());
                 synchronized (surfaceHolder) {
+<<<<<<< HEAD
+                    Log.d(TAG, "synchro");
                     // update game state
                     // draws the canvas on the panel
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                     framesSkipped = 0; //resetting the frames skipped
                     this.gamePanel.update(); // update game state
                     this.gamePanel.render(canvas); // draws the canvas on the panel
@@ -93,10 +102,11 @@ public class MainThread extends Thread {
                         // add frame period to check if in next frame
                         sleepTime += FRAME_PERIOD;
                         framesSkipped++;
+                        Log.d(TAG, "sleepMore");
                     }
                     if (framesSkipped >0){
                         //Log.d(TAG, "Skipped:" + framesSkipped);
-                        sleepTime = framesSkipped*FRAME_PERIOD;
+                        //sleepTime = framesSkipped*FRAME_PERIOD;
                     }
                     framesSkippedPerStatCycle += framesSkipped;//for statistics
                     storeStats();// calling the routine to store the gathered statistics
@@ -105,7 +115,6 @@ public class MainThread extends Thread {
                 // in case of an exception the surface is not left in
                 // an inconsistent state
                 if (canvas != null) {
-
                     surfaceHolder.unlockCanvasAndPost(canvas);
                 }
             } // end finally

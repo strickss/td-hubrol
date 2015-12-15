@@ -179,7 +179,6 @@
         android:layout_below="@id/bandeau_haut"
         android:layout_above="@id/bandeau_bas">
 
-
         <com.example.towerdefense.MainGamePanel
             android:id="@+id/GamePanel"
             android:layout_width="fill_parent"

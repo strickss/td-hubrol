@@ -9,8 +9,8 @@ import android.graphics.BitmapFactory;
 public class Fireball extends Shot {
     private static final String TAG = Fireball.class.getSimpleName();
 
-    public Fireball(int x, int y, Context context, Enemy enemy) {
-        super(x, y, BitmapFactory.decodeResource(context.getResources(), R.drawable.fireball), enemy, 10);
+    public Fireball(int x, int y, Context context, Enemy enemy, int damage) {
+        super(x, y, BitmapFactory.decodeResource(context.getResources(), R.drawable.fireball), enemy, 10, damage);
         this.bitmapAngle = 0;
         //Log.d(TAG, "Tir");
     }
