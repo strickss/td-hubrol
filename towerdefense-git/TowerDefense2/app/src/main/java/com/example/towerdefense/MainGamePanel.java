@@ -390,13 +390,12 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     public void CreateMonster(Enemy enemy) {
         if (player1.getGold() >= enemy.getCost()) {
             enemies.add(enemy);
-<<<<<<< HEAD
 
-=======
+
             life_bars.add(new LifeBar(enemy, getContext()));
             player1.cost(enemy.getCost());
             player1.increaseIncome(enemy.getValue());
->>>>>>> refs/remotes/origin/master
+
         } else {
             Toast toast = Toast.makeText(getContext(), "Not enough gold !", Toast.LENGTH_SHORT);
             toast.show();
