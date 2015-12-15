@@ -56,7 +56,4 @@ public class Player {
         this.income = income;
     }
 
-    public void setGold(int gold) {
-        this.gold = gold;
-    }
 }

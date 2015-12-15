@@ -29,5 +29,6 @@ public class Gryphon extends Enemy {
         this.height = 200;
         this.framePeriod = 1000 / 7; // 1000/fps
         this.speed = 2;
+        this.type = 10;
     }
 }

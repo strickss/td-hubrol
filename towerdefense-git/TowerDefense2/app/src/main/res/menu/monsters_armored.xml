@@ -16,9 +16,9 @@
         android:visible = "true"/>
 
     <item
-        android:id="@+id/devil2"
-        android:icon="@drawable/devil2_icon"
-        android:title="@string/monster_devil2"
+        android:id="@+id/charizard"
+        android:icon="@drawable/charizard_icon"
+        android:title="@string/monster_charizard"
         android:onClick="onMenuItemClick"
         android:visible = "true"/>
 

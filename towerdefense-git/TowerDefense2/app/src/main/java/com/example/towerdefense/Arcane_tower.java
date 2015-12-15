@@ -23,5 +23,13 @@ public class Arcane_tower extends Towers{
         shots.add(new Iceball((int)x, (int) y, context, enemy, getDamage(2, enemy)));
     }
 
+    public void upgrade() {
+        this.damage_min = (int) Math.ceil(this.damage_min*1.10);
+        this.damage_max = (int) Math.ceil(this.damage_max*1.10);
+        this.range = (int) Math.ceil(this.range*1);
+        this.recharge = (int) Math.floor(this.recharge*0.9);
+        this.penetration = (int) Math.floor(this.penetration*1.10);
+        this.level ++;
+    }
 
 }

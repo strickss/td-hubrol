@@ -9,7 +9,7 @@ import android.graphics.BitmapFactory;
 public class Defeat extends Buttons{
 
     public Defeat(int x, int y, Context context) {
-        super(x,y, BitmapFactory.decodeResource(context.getResources(), R.drawable.defeat));
+        super(x,y, BitmapFactory.decodeResource(context.getResources(), R.drawable.defeat2));
         this.width = 4*bitmap.getWidth();
         this.height = 4*bitmap.getHeight();
     }

@@ -44,6 +44,7 @@ public class Enemy extends Elements{
     private int spId;
     protected int cost;
     protected int value;
+    protected int type;
 
     public Enemy(Bitmap bitmap, int hp, int armor, int mr, ArrayList<Elements> path){
         super(path.get(0).getX(),path.get(0).getY(), bitmap);
@@ -199,5 +200,9 @@ public class Enemy extends Elements{
 
     public int getRM() {
         return mr;
+    }
+
+    public int getType() {
+        return type;
     }
 }
