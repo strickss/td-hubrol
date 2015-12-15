@@ -213,6 +213,8 @@ public class DeviceListActivity extends Activity {
                 }
             } else if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
                 finish(); //Device is now connected
+
+
             }
 
         }

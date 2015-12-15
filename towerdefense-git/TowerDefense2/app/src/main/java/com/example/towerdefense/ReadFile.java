@@ -29,7 +29,7 @@ public class ReadFile {
         ListLevel.add("Map3.txt");
 
         String [][] map = new String[45][33];
-        Log.d(TAG, "n: " + map);
+        //Log.d(TAG, "n: " + map);
         try{
             AssetManager assetManager = ApplicationContextProvider.getContext().getAssets();
             InputStream iS = assetManager.open(ListLevel.get(a));
@@ -40,7 +40,7 @@ public class ReadFile {
 
 
             while ((ligne=br.readLine())!= null){
-                Log.d(TAG, "ligne: " +ligne);
+                //Log.d(TAG, "ligne: " +ligne);
                 for (int i=0; i < ligne.length(); i++){
                     String l = ligne.substring(i,i+1);
                     map [i][line] = l;
