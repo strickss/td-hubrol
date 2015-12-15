@@ -38,12 +38,20 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private MediaPlayer mediaPlayer;
     private String avgFps; //the fps to be displayed
     private float x1,y1;
+<<<<<<< HEAD
     private SoundPool sp;
 <<<<<<< HEAD
 =======
     //private int spId;
 >>>>>>> refs/remotes/origin/Tower_creation
     private int spId;
+=======
+    //private SoundPool sp;
+    //private int spId;
+
+    private int spId;
+
+>>>>>>> origin/master
     ArrayList<Integer> buildingZone;
 
     private long a =System.currentTimeMillis();
@@ -58,6 +66,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         paint_canvas = new Paint();
         paint_canvas.setARGB(255, 10, 160, 50);
 <<<<<<< HEAD
+<<<<<<< HEAD
         mediaPlayer = MediaPlayer.create(context, R.raw.song);
         mediaPlayer = MediaPlayer.create(context, R.raw.song);
         mediaPlayer.setLooping(true);
@@ -68,13 +77,27 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         mediaPlayer = MediaPlayer.create(context, R.raw.song);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
+=======
+        
         //mediaPlayer = MediaPlayer.create(context, R.raw.song);
         //mediaPlayer.start();
         //mediaPlayer.setLooping(true);
         //mediaPlayer.start();
-        sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
         //sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
->>>>>>> refs/remotes/origin/Tower_creation
+
+>>>>>>> origin/master
+        //mediaPlayer = MediaPlayer.create(context, R.raw.song);
+        //mediaPlayer.start();
+        //mediaPlayer.setLooping(true);
+        //mediaPlayer.start();
+<<<<<<< HEAD
+        sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
+=======
+
+
+>>>>>>> origin/master
+        //sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
+
         // create tower and load bitmap
         this.player = new Player(5000,10,1);
         this.opponent = new Player(5000,10,1);
@@ -207,12 +230,16 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     protected void render(Canvas canvas) {
         canvas.drawPaint(paint_canvas);
         map.draw(canvas);
-<<<<<<< HEAD
+
         Log.d(TAG, "Launch");
         //goblin.draw(canvas);
 
+<<<<<<< HEAD
 =======
 >>>>>>> refs/remotes/origin/Tower_creation
+=======
+
+>>>>>>> origin/master
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).draw(canvas);
         }
@@ -338,8 +365,20 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         switch (i){
             case 1:
                 CreateMonster(new Gobelin(getContext(), map.getLogicPath()));
+<<<<<<< HEAD
                 //sp.play(sp.load(getContext(), R.raw.goblin,1),1,1,0,0,1);
                 sp.play(b,1,1,0,0,1);
+=======
+
+                //sp.play(sp.load(getContext(), R.raw.goblin,1),1,1,0,0,1);
+
+
+
+                //sp.play(b,1,1,0,0,1);
+
+
+
+>>>>>>> origin/master
                 return;
             case 2 :
                 CreateMonster(new Eye(getContext(),map.getLogicPath()));
