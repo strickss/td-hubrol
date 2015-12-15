@@ -176,13 +176,13 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     }
 
     private void towerUpgrade(int towerIndex) {
-        buttons.add(new Buttons_tower_upgrade((int) towers.get(towerIndex).getX(),(int) towers.get(towerIndex).getY() - 200, getContext(), towerIndex));
+        buttons.add(new Buttons_tower_upgrade((int) towers.get(towerIndex).getX(), (int) towers.get(towerIndex).getY() - 200, getContext(), towerIndex));
         buttons.add(new Buttons_tower_stop((int) towers.get(towerIndex).getX(), (int) towers.get(towerIndex).getY(), getContext()));
         buttons.add(new Buttons_tower_delete((int) towers.get(towerIndex).getX(), (int) towers.get(towerIndex).getY() + 200, getContext(), towerIndex));
     }
 
     private void towerCreation(long x, long y) {
-        buttons.add(new Buttons_arcane_tower_creation((int) (x), (int) (y  - 200), getContext()));
+        buttons.add(new Buttons_arcane_tower_creation((int) (x), (int) (y - 200), getContext()));
         buttons.add(new Buttons_mortar_tower_creation((int) (x - 200), (int) (y), getContext()));
         buttons.add(new Buttons_archer_tower_creation((int) (x), (int) (y + 200), getContext()));
         buttons.add(new Buttons_magma_tower_creation((int) (x + 200), (int) (y), getContext()));
@@ -203,9 +203,6 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         for (int i = 0; i < towers.size(); i++) {
             towers.get(i).draw(canvas);
         }
-        for (int i = 0; i < buttons.size(); i++) {
-            buttons.get(i).draw(canvas);
-        }
         //canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.goblin),10,10,null);
         displayFps(canvas, avgFps);
 
@@ -222,6 +219,10 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
         for (int i = 0; i < shots.size(); i++) {
             shots.get(i).draw(canvas);
+        }
+
+        for (int i = 0; i < buttons.size(); i++) {
+            buttons.get(i).draw(canvas);
         }
     }
 
@@ -365,16 +366,50 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
-    public void CreateMonster(Enemy enemy) {
-        if (player.getGold() >= enemy.getCost()) {
-            enemies.add(enemy);
-            life_bars.add(new LifeBar(enemy, getContext()));
-            player.cost(enemy.getCost());
-            player.increaseIncome(enemy.getValue());
-        } else {
-            Toast toast = Toast.makeText(getContext(), "Not enough gold !", Toast.LENGTH_SHORT);
-            toast.show();
+    public Enemy MonsterType(int i){
+        switch (i){
+            case 1:
+                return new Gobelin(getContext(), map.getLogicPath());
+            case 2 :
+                return new Eye(getContext(),map.getLogicPath());
+            case 3:
+                return new Devil(getContext(), map.getLogicPath());
+            case 4 :
+                return new Eagle(getContext(),map.getLogicPath());
+            case 5:
+                return new Skeleton(getContext(), map.getLogicPath());
+            case 6:
+                return new Dwarf(getContext(), map.getLogicPath());
+            case 7 :
+                return new Devil2(getContext(),map.getLogicPath());
+            case 8:
+                return new Golem(getContext(), map.getLogicPath());
+            case 9 :
+                return new Robot(getContext(),map.getLogicPath());
+            case 10:
+                return new Gryphon(getContext(), map.getLogicPath());
+            case 11:
+                return new Fairy(getContext(),map.getLogicPath());
+            case 12:
+                return new DarkVador(getContext(), map.getLogicPath());
+            case 13 :
+                return new BlueDragon(getContext(),map.getLogicPath());
+            case 14:
+                return new Pikachu(getContext(), map.getLogicPath());
+            case 15:
+                return new Spider(getContext(),map.getLogicPath());
+            case 16:
+                return new Unicorn(getContext(), map.getLogicPath());
+            case 17:
+                return new Wolf(getContext(),map.getLogicPath());
+            default:
+                return new Wolf(getContext(),map.getLogicPath());
         }
+    }
+
+    public void CreateMonster(Enemy enemy){
+        enemies.add(enemy);
+        life_bars.add(new LifeBar(enemy, getContext()));
     }
 
     public Player getPlayer() {
@@ -385,4 +420,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     public float getCanvasY() {return canvasY;}
 
+    public Player getOpponent() {
+        return opponent;
+    }
 }
