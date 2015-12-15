@@ -37,10 +37,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.Set;
-<<<<<<< HEAD
 
-=======
->>>>>>> refs/remotes/origin/Tower_creation
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -49,10 +46,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private static final int REQUEST_ENABLE_BT = 3;
     private String mConnectedDeviceName = null;
     private MainGamePanel gamePanel;
-<<<<<<< HEAD
-=======
-    private Handler mHandler_menu;
->>>>>>> refs/remotes/origin/Tower_creation
     private TextView textGold;
     private TextView textYourIncome;
     private TextView textOppIncome;
@@ -67,12 +60,10 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private StringBuffer mOutStringBuffer;
     static final int PICK_DEVICE_REQUEST = 1;  // The request code
     private View view;
-<<<<<<< HEAD
     private Handler mHandler_menu;
     private List<View> text_monsters;
     private ArrayList<creationButton> monster_creationButtons;
-=======
->>>>>>> refs/remotes/origin/Tower_creation
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -103,27 +94,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         updateMenu = true;
         mHandler_menu = new Handler();
         mHandler_menu.post(mUpdate);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-        mHandler_menu = new Handler();
-        mHandler_menu.post(mUpdate);
->>>>>>> origin/master
-
->>>>>>> refs/remotes/origin/master
->>>>>>> refs/remotes/origin/Tower_creation
-=======
->>>>>>> refs/remotes/origin/Tower_creation
->>>>>>> origin/master
-=======
->>>>>>> refs/remotes/origin/Tower_creation
     }
 
 
@@ -133,7 +103,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             textGold.setText("" + txtGold);
             int txtYourIncome = gamePanel.getPlayer().getIncome();
             textYourIncome.setText("" + txtYourIncome);
-<<<<<<< HEAD
             txtYourIncome = txtYourIncome + 200;
             sendMessage("" + txtYourIncome);
             int txtOppIncome = gamePanel.getOpponent().getIncome();
@@ -145,18 +114,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             int txtOppLife = gamePanel.getOpponent().getLife();
             textOppLife.setText("" + txtOppLife);
 
-=======
-            txtYourIncome = txtYourIncome + 100;
-            sendMessage(""+txtYourIncome);
-            int txtOppIncome = gamePanel.getPlayer().getIncome() + 1;
-            textOppIncome.setText("" + txtOppIncome);
-            int txtYourLife = gamePanel.getPlayer().getLife();
-            textYourLife.setText("" + txtYourLife);
-            txtYourLife = txtYourLife + 20;
-            sendMessage(""+txtYourLife);
-            int txtOppLife = gamePanel.getOpponent().getLife();
-            textOppLife.setText("" + txtOppLife);
->>>>>>> refs/remotes/origin/Tower_creation
             mHandler_menu.postDelayed(this, 100);
         }
     };
@@ -232,10 +189,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 //sendMessage("1");
                 return true;
             case R.id.eye:
-<<<<<<< HEAD
-=======
-                sendMessage("2");
->>>>>>> refs/remotes/origin/Tower_creation
                 gamePanel.create(2);
                 showPopup1(view);
                 //sendMessage("2");
@@ -337,10 +290,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 TrySendMessage(2);
                 return true;
             case R.id.devil:
-<<<<<<< HEAD
-                //gamePanel.create(3);
-=======
->>>>>>> refs/remotes/origin/Tower_creation
                 showPopup1(view);
                 TrySendMessage(3);
                 return true;
@@ -531,23 +480,12 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     int i = new Integer(readMessage);
-<<<<<<< HEAD
                     if (i <100) {
                         gamePanel.create(i);
                     } else if (i<200){
-                        gamePanel.setOpponentLife(i-100);
-                    } else if (i<10000){
-                        gamePanel.setOpponentIncome(i-200);
+                        gamePanel.getOpponent().setLife(i-100);
                     } else {
-                        gamePanel.setOpponentGold(i-10000);
-=======
-                    if (i<20) {
-                        gamePanel.create(i);
-                    } else if (i<100) {
-                        gamePanel.getOpponent().setLife(i-20);
-                    } else{
-                        gamePanel.getOpponent().setIncome(i-100);
->>>>>>> refs/remotes/origin/Tower_creation
+                        gamePanel.getOpponent().setIncome(i-200);
                     }
                     break;
                 case Constants.MESSAGE_DEVICE_NAME:
