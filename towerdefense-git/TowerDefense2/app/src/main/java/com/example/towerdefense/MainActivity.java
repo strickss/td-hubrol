@@ -23,13 +23,46 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/Tower_creation
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
 import org.w3c.dom.Text;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
 
+
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.ArrayList;
+import java.util.Set;
+
+<<<<<<< HEAD
+
+=======
+>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/Tower_creation
+=======
+
+>>>>>>> refs/remotes/origin/Tower_creation
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -38,6 +71,15 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private static final int REQUEST_ENABLE_BT = 3;
     private String mConnectedDeviceName = null;
     private MainGamePanel gamePanel;
+<<<<<<< HEAD
+    private Handler mHandler_menu;
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/Tower_creation
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
     private TextView textGold;
     private TextView textYourIncome;
     private TextView textOppIncome;
@@ -53,9 +95,19 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     static final int PICK_DEVICE_REQUEST = 1;  // The request code
 
     private View view;
-    private Handler mHandler_menu;
+<<<<<<< HEAD
     //private List<View> text_monsters;
     //private ArrayList<creationButton> monster_creationButtons;
+=======
+    private Handler mHandler_menu;
+<<<<<<< HEAD
+    private List<View> text_monsters;
+    private ArrayList<creationButton> monster_creationButtons;
+>>>>>>> refs/remotes/origin/Tower_creation
+=======
+    //private List<View> text_monsters;
+    //private ArrayList<creationButton> monster_creationButtons;
+>>>>>>> refs/remotes/origin/Tower_creation
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,7 +147,20 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         updateMenu = true;
         mHandler_menu = new Handler();
         mHandler_menu.post(mUpdate);
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+        mHandler_menu = new Handler();
+        mHandler_menu.post(mUpdate);
+
+>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/Tower_creation
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
     }
+
 
     private Runnable mUpdate = new Runnable() {
         public void run() {
@@ -124,11 +189,31 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
 
 >>>>>>> refs/remotes/origin/master
             mHandler_menu.postDelayed(this, 100);
+<<<<<<< HEAD
+            /*
+            if (updateMenu) {
+                if (System.currentTimeMillis() - a > 10000) {
+                    try {
+                        popup.dismiss();
+                        showPopup1(view);
+                    } catch (Exception e) {
+                    }
+                    updateMenu = false;
+                }
+<<<<<<< HEAD
+=======
+            }
+>>>>>>> refs/remotes/origin/Tower_creation
+            */
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
         }
-
     };
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> refs/remotes/origin/Tower_creation
     @Override
     protected void onDestroy() {
         Log.d(TAG, "Destroying...");
@@ -215,6 +300,12 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 //sendMessage("1");
                 return true;
             case R.id.eye:
+<<<<<<< HEAD
+<<<<<<< HEAD
+                sendMessage("2");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
+=======
                 gamePanel.create(2);
                 showPopup1(view);
                 //sendMessage("2");
@@ -312,84 +403,146 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 sendMessage("1");
                 return true;
             case R.id.eye:
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(2);
                 showPopup1(view);
                 sendMessage("2");
                 return true;
             case R.id.devil:
+<<<<<<< HEAD
+                sendMessage("3");
+                gamePanel.create(3);
+=======
                 //gamePanel.create(3);
+>>>>>>> refs/remotes/origin/Tower_creation
                 showPopup1(view);
                 sendMessage("3");
                 return true;
             case R.id.eagle:
+<<<<<<< HEAD
+                sendMessage("4");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(4);
                 showPopup1(view);
                 sendMessage("4");
                 return true;
             case R.id.skeleton:
+<<<<<<< HEAD
+                sendMessage("5");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(5);
                 showPopup1(view);
                 sendMessage("5");
                 return true;
 
             case R.id.dwarf:
+<<<<<<< HEAD
+                sendMessage("6");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(6);
                 showPopup2(view);
                 sendMessage("6");
                 return true;
             case R.id.devil2:
+<<<<<<< HEAD
+                sendMessage("7");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(7);
                 showPopup2(view);
                 sendMessage("7");
                 return true;
             case R.id.golem:
+<<<<<<< HEAD
+                sendMessage("8");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(8);
                 showPopup2(view);
                 sendMessage("8");
                 return true;
             case R.id.robot:
+<<<<<<< HEAD
+                sendMessage("9");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(9);
                 showPopup2(view);
                 sendMessage("9");
                 return true;
 
             case R.id.gryphon:
+<<<<<<< HEAD
+                sendMessage("10");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(10);
                 showPopup3(view);
                 sendMessage("10");
                 return true;
             case R.id.fairy:
+<<<<<<< HEAD
+                sendMessage("11");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(11);
                 showPopup3(view);
                 sendMessage("11");
                 return true;
             case R.id.dark_vador:
+<<<<<<< HEAD
+                sendMessage("12");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(12);
                 showPopup3(view);
                 sendMessage("12");
                 return true;
             case R.id.blue_dragon:
+<<<<<<< HEAD
+                sendMessage("13");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(13);
                 showPopup3(view);
                 sendMessage("13");
                 return true;
 
             case R.id.pikachu:
+<<<<<<< HEAD
+                sendMessage("14");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(14);
                 showPopup4(view);
                 sendMessage("14");
                 return true;
             case R.id.spider:
+<<<<<<< HEAD
+                sendMessage("15");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(15);
                 showPopup4(view);
                 sendMessage("15");
                 return true;
             case R.id.unicorn:
+<<<<<<< HEAD
+                sendMessage("16");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(16);
                 showPopup4(view);
                 sendMessage("16");
                 return true;
             case R.id.wolf:
+<<<<<<< HEAD
+                sendMessage("17");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(17);
                 showPopup4(view);
                 sendMessage("17");
