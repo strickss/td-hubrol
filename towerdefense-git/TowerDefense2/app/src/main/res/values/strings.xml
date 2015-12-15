@@ -62,5 +62,6 @@
     <string name="title_activity_home_screen">HomeScreenActivity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_ensure_connect">EnsureConnectActivity</string>
 
 </resources>

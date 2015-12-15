@@ -61,7 +61,7 @@ public class Map {
                     mapList.add(new EndZone(getBlockSizeX() * x, getBlockSizeY() * y, context));
                     endzoneX = getBlockSizeX() * x;
                     endzoneY = getBlockSizeY() * y;
-                    Log.d(TAG, "EndZone X : "+ endzoneX + "EndZone y : " + endzoneY);
+                    //Log.d(TAG, "EndZone X : "+ endzoneX + "EndZone y : " + endzoneY);
                 }
                 if (mapMatrix[x][y].equals("P")) {
                      mapList.add(new Path(getBlockSizeX() * x, getBlockSizeY() * y, context, getBlockSizeX(), getBlockSizeY()));

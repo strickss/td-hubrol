@@ -24,6 +24,6 @@ public class Pikachu extends Enemy {
         this.width = 120;
         this.height = 120;
         this.framePeriod = 1000 / 5; // 1000/fps
-        this.speed = 3;
+        this.speed = 6;
     }
 }

@@ -10,8 +10,8 @@ import android.util.Log;
 public class Missile extends Shot {
     private static final String TAG = Missile.class.getSimpleName();
 
-    public Missile(int x, int y, Context context, Enemy enemy) {
-        super(x, y, BitmapFactory.decodeResource(context.getResources(), R.drawable.missile), enemy, 10);
+    public Missile(int x, int y, Context context, Enemy enemy, int damage) {
+        super(x, y, BitmapFactory.decodeResource(context.getResources(), R.drawable.missile), enemy, 10, damage);
         this.bitmapAngle = 45;
         //Log.d(TAG, "Tir");
     }

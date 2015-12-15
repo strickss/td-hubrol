@@ -1,11 +1,15 @@
 package com.example.towerdefense;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/master
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,12 +22,50 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+<<<<<<< HEAD
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+=======
+
+import android.widget.PopupMenu;
+import android.widget.TextView;
+import android.widget.Toast;
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/Tower_creation
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
+import org.w3c.dom.Text;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
+>>>>>>> refs/remotes/origin/master
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/Tower_creation
+=======
+
+>>>>>>> refs/remotes/origin/Tower_creation
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -31,11 +73,16 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private static final int REQUEST_CONNECT_DEVICE_INSECURE = 2;
     private static final int REQUEST_ENABLE_BT = 3;
     private String mConnectedDeviceName = null;
-    private ArrayAdapter<String> mArrayAdapter;
-    private ArrayAdapter<String> mArrayAdapter2;
-    private BluetoothChatService mBluetoothChatService;
-    private BluetoothSocket mBTSocket;
     private MainGamePanel gamePanel;
+<<<<<<< HEAD
+    private Handler mHandler_menu;
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/Tower_creation
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
     private TextView textGold;
     private TextView textYourIncome;
     private TextView textOppIncome;
@@ -51,9 +98,19 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     static final int PICK_DEVICE_REQUEST = 1;  // The request code
 
     private View view;
-    private Handler mHandler_menu;
+<<<<<<< HEAD
     //private List<View> text_monsters;
     //private ArrayList<creationButton> monster_creationButtons;
+=======
+    private Handler mHandler_menu;
+<<<<<<< HEAD
+    private List<View> text_monsters;
+    private ArrayList<creationButton> monster_creationButtons;
+>>>>>>> refs/remotes/origin/Tower_creation
+=======
+    //private List<View> text_monsters;
+    //private ArrayList<creationButton> monster_creationButtons;
+>>>>>>> refs/remotes/origin/Tower_creation
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,26 +134,36 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         chronometer.start();
 
 
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (mBluetoothAdapter == null) {
-            // Device does not support Bluetooth
-            int duration = Toast.LENGTH_SHORT;
-            Toast.makeText(this, "No Bluetooth on this handset", duration).show();
 
-        }
 
         textGold = (TextView) findViewById(R.id.gold);
         textYourIncome = (TextView) findViewById(R.id.yourIncomeValue);
         textOppIncome = (TextView) findViewById(R.id.oppIncomeValue);
         textYourLife = (TextView) findViewById(R.id.yourLifeValue);
         textOppLife = (TextView) findViewById(R.id.oppLifeValue);
-        //text_monsters = Arrays.asList(findViewById(R.id.goblin),findViewById(R.id.eye),findViewById(R.id.devil),findViewById(R.id.eagle),findViewById(R.id.skeleton),findViewById(R.id.dwarf),findViewById(R.id.devil2),findViewById(R.id.golem),findViewById(R.id.robot),findViewById(R.id.gryphon),findViewById(R.id.fairy),findViewById(R.id.dark_vador),findViewById(R.id.blue_dragon),findViewById(R.id.pikachu),findViewById(R.id.spider),findViewById(R.id.unicorn),findViewById(R.id.wolf));
-        //monster_creationButtons = new ArrayList<creationButton>(Arrays.asList(new creationButton(1000), new creationButton(2000),new creationButton(3000),new creationButton(4000),new creationButton(5000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000)));
         updateMenu = true;
         mHandler_menu = new Handler();
         mHandler_menu.post(mUpdate);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+        mHandler_menu = new Handler();
+        mHandler_menu.post(mUpdate);
+>>>>>>> origin/master
+>>>>>>> refs/remotes/origin/master
 
+>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/Tower_creation
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
     }
+
 
     private Runnable mUpdate = new Runnable() {
         public void run() {
@@ -110,6 +177,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             textYourLife.setText("" + txtYourLife);
             int txtOppLife = gamePanel.getPlayer().getLife() + 1;
             textOppLife.setText("" + txtOppLife);
+<<<<<<< HEAD
+=======
 
             //for (int i=0; i < text_monsters.size(); i++){
             //    monster_creationButtons.get(i).update(a);
@@ -121,9 +190,13 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             //}
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/master
             mHandler_menu.postDelayed(this, 100);
-
+<<<<<<< HEAD
             /*
             if (updateMenu) {
                 if (System.currentTimeMillis() - a > 10000) {
@@ -134,13 +207,20 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                     }
                     updateMenu = false;
                 }
+<<<<<<< HEAD
+=======
             }
+>>>>>>> refs/remotes/origin/Tower_creation
             */
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
         }
-
     };
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> refs/remotes/origin/Tower_creation
     @Override
     protected void onDestroy() {
         Log.d(TAG, "Destroying...");
@@ -156,22 +236,11 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         super.onStop();
     }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-        //requests that bluetooth is enabled if it is not
-        if (!mBluetoothAdapter.isEnabled()) {
-            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
-            // Otherwise, setup the chat session
-        } else if (mChatService == null) {
-            setupCom();
-        }
-    }
 
     @Override
     public void onResume() {
         super.onResume();
+
 
         // Performing this check in onResume() covers the case in which BT was
         // not enabled during onStart(), so we were paused to enable it...
@@ -184,19 +253,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             }
         }
     }
-
-    private void setupCom() {
-        Log.d(TAG, "setupCom()");
-
-        // Initialize the BluetoothChatService to perform bluetooth connections
-        mChatService = new BluetoothChatService(this, mHandler);
-        Intent deviceIntent = new Intent(this, DeviceListActivity.class);
-        startActivityForResult(deviceIntent,PICK_DEVICE_REQUEST);
-
-        // Initialize the buffer for outgoing messages
-        mOutStringBuffer = new StringBuffer("");
-    }
-
 
 
 
@@ -218,11 +274,111 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         }
     }
 
-
-
-
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.goblin:
+                gamePanel.create(1);
+                showPopup1(view);
+                //sendMessage("1");
+                return true;
+            case R.id.eye:
+<<<<<<< HEAD
+<<<<<<< HEAD
+                sendMessage("2");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
+=======
+                gamePanel.create(2);
+                showPopup1(view);
+                //sendMessage("2");
+                return true;
+            case R.id.devil:
+                gamePanel.create(3);
+                showPopup1(view);
+                //sendMessage("3");
+                return true;
+            case R.id.eagle:
+                gamePanel.create(4);
+                showPopup1(view);
+                //sendMessage("4");
+                return true;
+            case R.id.skeleton:
+                gamePanel.create(5);
+                showPopup1(view);
+                //sendMessage("5");
+                return true;
+
+            case R.id.dwarf:
+                gamePanel.create(6);
+                showPopup2(view);
+                //sendMessage("6");
+                return true;
+            case R.id.devil2:
+                gamePanel.create(7);
+                showPopup2(view);
+                //sendMessage("7");
+                return true;
+            case R.id.golem:
+                gamePanel.create(8);
+                showPopup2(view);
+                //sendMessage("8");
+                return true;
+            case R.id.robot:
+                gamePanel.create(9);
+                showPopup2(view);
+                //sendMessage("9");
+                return true;
+
+            case R.id.gryphon:
+                gamePanel.create(10);
+                showPopup3(view);
+                //sendMessage("10");
+                return true;
+            case R.id.fairy:
+                gamePanel.create(11);
+                showPopup3(view);
+                //sendMessage("11");
+                return true;
+            case R.id.dark_vador:
+                gamePanel.create(12);
+                showPopup3(view);
+                //sendMessage("12");
+                return true;
+            case R.id.blue_dragon:
+                gamePanel.create(13);
+                showPopup3(view);
+                //sendMessage("13");
+                return true;
+
+            case R.id.pikachu:
+                gamePanel.create(14);
+                showPopup4(view);
+                //sendMessage("14");
+                return true;
+            case R.id.spider:
+                gamePanel.create(15);
+                showPopup4(view);
+                //sendMessage("15");
+                return true;
+            case R.id.unicorn:
+                gamePanel.create(16);
+                showPopup4(view);
+                //sendMessage("16");
+                return true;
+            case R.id.wolf:
+                gamePanel.create(17);
+                showPopup4(view);
+                //sendMessage("17");
+                return true;
+
+            default:
+                return false;
+        }
+    }
+
+    //@Override
+    public boolean onMenuItemClick_t(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.goblin:
                 //gamePanel.create(1);
@@ -231,24 +387,38 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 gamePanel.PayMonsterType(1);
                 return true;
             case R.id.eye:
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(2);
                 showPopup1(view);
                 sendMessage("2");
                 gamePanel.PayMonsterType(2);
                 return true;
             case R.id.devil:
+<<<<<<< HEAD
+                sendMessage("3");
+                gamePanel.create(3);
+=======
                 //gamePanel.create(3);
+>>>>>>> refs/remotes/origin/Tower_creation
                 showPopup1(view);
                 sendMessage("3");
                 gamePanel.PayMonsterType(3);
                 return true;
             case R.id.eagle:
+<<<<<<< HEAD
+                sendMessage("4");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(4);
                 showPopup1(view);
                 sendMessage("4");
                 gamePanel.PayMonsterType(4);
                 return true;
             case R.id.skeleton:
+<<<<<<< HEAD
+                sendMessage("5");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(5);
                 showPopup1(view);
                 sendMessage("5");
@@ -256,24 +426,40 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 return true;
 
             case R.id.dwarf:
+<<<<<<< HEAD
+                sendMessage("6");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(6);
                 showPopup2(view);
                 sendMessage("6");
                 gamePanel.PayMonsterType(6);
                 return true;
             case R.id.devil2:
+<<<<<<< HEAD
+                sendMessage("7");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(7);
                 showPopup2(view);
                 sendMessage("7");
                 gamePanel.PayMonsterType(7);
                 return true;
             case R.id.golem:
+<<<<<<< HEAD
+                sendMessage("8");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(8);
                 showPopup2(view);
                 sendMessage("8");
                 gamePanel.PayMonsterType(8);
                 return true;
             case R.id.robot:
+<<<<<<< HEAD
+                sendMessage("9");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(9);
                 showPopup2(view);
                 sendMessage("9");
@@ -281,24 +467,40 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 return true;
 
             case R.id.gryphon:
+<<<<<<< HEAD
+                sendMessage("10");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(10);
                 showPopup3(view);
                 sendMessage("10");
                 gamePanel.PayMonsterType(10);
                 return true;
             case R.id.fairy:
+<<<<<<< HEAD
+                sendMessage("11");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(11);
                 showPopup3(view);
                 sendMessage("11");
                 gamePanel.PayMonsterType(11);
                 return true;
             case R.id.dark_vador:
+<<<<<<< HEAD
+                sendMessage("12");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(12);
                 showPopup3(view);
                 sendMessage("12");
                 gamePanel.PayMonsterType(12);
                 return true;
             case R.id.blue_dragon:
+<<<<<<< HEAD
+                sendMessage("13");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(13);
                 showPopup3(view);
                 sendMessage("13");
@@ -306,24 +508,40 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 return true;
 
             case R.id.pikachu:
+<<<<<<< HEAD
+                sendMessage("14");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(14);
                 showPopup4(view);
                 sendMessage("14");
                 gamePanel.PayMonsterType(14);
                 return true;
             case R.id.spider:
+<<<<<<< HEAD
+                sendMessage("15");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(15);
                 showPopup4(view);
                 sendMessage("15");
                 gamePanel.PayMonsterType(15);
                 return true;
             case R.id.unicorn:
+<<<<<<< HEAD
+                sendMessage("16");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(16);
                 showPopup4(view);
                 sendMessage("16");
                 gamePanel.PayMonsterType(16);
                 return true;
             case R.id.wolf:
+<<<<<<< HEAD
+                sendMessage("17");
+=======
+>>>>>>> refs/remotes/origin/Tower_creation
                 //gamePanel.create(17);
                 showPopup4(view);
                 sendMessage("17");
@@ -460,45 +678,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             }
         }
     };
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case REQUEST_CONNECT_DEVICE_SECURE:
-                // When DeviceListActivity returns with a device to connect
-                if (resultCode == Activity.RESULT_OK) {
-                    connectDevice(data, true);
-                }
-                break;
-            case REQUEST_CONNECT_DEVICE_INSECURE:
-                // When DeviceListActivity returns with a device to connect
-                if (resultCode == Activity.RESULT_OK) {
-                    connectDevice(data, false);
-                }
-                break;
-            case REQUEST_ENABLE_BT:
-                // When the request to enable Bluetooth returns
-                if (resultCode == Activity.RESULT_OK) {
-                    // Bluetooth is now enabled, so set up a chat session
-                    setupCom();
-                } else {
-                    // User did not enable Bluetooth or an error occurred
-                    Log.d(TAG, "BT not enabled");
-                    Toast.makeText(getActivity(), R.string.bt_not_enabled_leaving,
-                            Toast.LENGTH_SHORT).show();
-                    getActivity().finish();
-                }
-        }
-    }
-
-    private void connectDevice(Intent data, boolean secure) {
-        // Get the device MAC address
-        String address = data.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
-        // Get the BluetoothDevice object
-        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
-        // Attempt to connect to the device
-        mChatService.connect(device, secure);
-    }
-
 
 
 

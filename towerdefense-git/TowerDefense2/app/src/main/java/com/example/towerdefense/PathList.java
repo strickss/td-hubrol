@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class PathList{
     private final ArrayList<Elements> path1;
     private final ArrayList<Elements> path2;
-    private static final String TAG = Map.class.getSimpleName();
+    private static final String TAG = PathList.class.getSimpleName();
     private final Map map;
     private final Context context;
     private ArrayList<ArrayList<Elements>> PathList;
@@ -49,7 +49,7 @@ public class PathList{
     private void CreatePathList(String[][] mapMatrix) {
         for (int x = 0; x < mapMatrix.length; x++) {
             for (int y = 0; y < mapMatrix[0].length; y++) {
-                Log.d(TAG, "x: " + x + " y: " + y);
+                //Log.d(TAG, "x: " + x + " y: " + y);
                 if (mapMatrix[x][y].equals("S")) {
                     path1.set(0, new Path(map.getBlockSizeX() * x, map.getBlockSizeY() * y, context, map.getBlockSizeX(), map.getBlockSizeY()));
                     //Log.d(TAG, "PATH" + path1);

@@ -19,9 +19,10 @@ public class Shot extends Elements {
     protected int bitmapAngle;
     private double vx;
     private double vy;
+    private int damage;
 
     //shot speed : pixel per update
-    public Shot(double x, double y, Bitmap bitmap, Enemy enemy, double shot_speed) {
+    public Shot(double x, double y, Bitmap bitmap, Enemy enemy, double shot_speed, int damage) {
         super(x, y, bitmap);
         double a = shot_speed*shot_speed - enemy.getDx()*enemy.getSpeed()* enemy.getDx()*enemy.getSpeed() - enemy.getDy()*enemy.getSpeed()* enemy.getDy()*enemy.getSpeed();
         double b = 2*(enemy.getDx()*enemy.getSpeed()*(x- enemy.getX()) + enemy.getDy()*enemy.getSpeed()*(y- enemy.getY()));
@@ -57,6 +58,7 @@ public class Shot extends Elements {
         }
 
         this.setBitmap(Bitmap.createBitmap(bitmap, 0, 0, this.getBitmap().getWidth(), this.getBitmap().getHeight(), matrix, true));
+        this.damage = damage;
     }
 
     public void update() {
@@ -107,4 +109,7 @@ public class Shot extends Elements {
         //canvas.drawCircle((int)this.targetX,(int) this.targetY, 10, paint2);
     }
 
+    public int getDamage() {
+        return damage;
+    }
 }
