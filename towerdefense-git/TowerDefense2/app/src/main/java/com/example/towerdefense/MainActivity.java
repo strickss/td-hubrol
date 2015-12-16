@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -48,8 +49,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     static final int PICK_DEVICE_REQUEST = 1;  // The request code
     private View view;
     private Handler mHandler_menu;
-    private List<View> text_monsters;
-    private ArrayList<creationButton> monster_creationButtons;
+    private long timeWhenStopped = 0;
 
 
     @Override
@@ -64,13 +64,16 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         //setContentView(new MainGamePanel(this));
         setContentView(R.layout.activity_main);
         gamePanel = (MainGamePanel) findViewById(R.id.GamePanel);
+        gamePanel.setActivity(getActivity());
         Log.d(TAG, "View added");
 
         final ImageButton imageButton1 = (ImageButton) findViewById(R.id.button_1);
         final ImageButton imageButton2 = (ImageButton) findViewById(R.id.button_2);
         final ImageButton imageButton3 = (ImageButton) findViewById(R.id.button_3);
         final ImageButton imageButton4 = (ImageButton) findViewById(R.id.button_4);
+        final ImageButton imageButton5 = (ImageButton) findViewById(R.id.button_pause);
         this.chronometer = (Chronometer) findViewById(R.id.chronometer);
+        chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
 
         textGold = (TextView) findViewById(R.id.gold);
@@ -101,7 +104,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             txtYourIncome = txtYourIncome + 200;
             sendMessage("" + txtYourIncome);
             int txtOppIncome = gamePanel.getOpponent().getIncome();
-            Log.d(TAG,""+txtOppIncome);
             textOppIncome.setText("" + txtOppIncome);
             int txtYourLife = gamePanel.getPlayer().getLife();
             textYourLife.setText("" + txtYourLife);
@@ -387,6 +389,10 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                         gamePanel.getOpponent().setLife(i-100);
                     } else if (i<10000){
                         gamePanel.getOpponent().setIncome(i-200);
+                    } else if (i == 10001) {
+                        gamePanel.setPause(false);
+                    } else if (i == 10002) {
+                        gamePanel.setPause(true);
                     }
                     break;
                 case Constants.MESSAGE_DEVICE_NAME:
@@ -481,7 +487,29 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         }
     }
 
+    public void restart(){
+        this.gamePanel.getThread().setRunning(false);
+        Intent intentGame = new Intent(this, HomeScreenActivity.class);
+        startActivity(intentGame);
+    }
 
+    public void resumeGame() {
+        //sendMessage("10001");
+        gamePanel.setPause(false);
+        chronometer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+        chronometer.start();
+    }
+
+    public void pauseGame(View v){
+        gamePanel.setPause(true);
+        timeWhenStopped = chronometer.getBase() - SystemClock.elapsedRealtime();
+        chronometer.stop();
+        //sendMessage("10002");
+    }
+
+    public MainGamePanel getGamePanel() {
+        return gamePanel;
+    }
 }
 
 

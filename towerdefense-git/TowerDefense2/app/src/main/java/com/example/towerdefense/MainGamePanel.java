@@ -12,6 +12,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -41,9 +42,12 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private SoundPool sp;
     ArrayList<Integer> buildingZone;
 
-    private long a =System.currentTimeMillis();
+    private long a = System.currentTimeMillis() + 100;
     private float canvasX =0;
     private float canvasY=0;
+    private Activity activity;
+    private boolean pause = false;
+    private boolean newButtons = true;
 
     public MainGamePanel(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -58,7 +62,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
 
         //create tower and load bitmap
-        this.player = new Player(100,10,20);
+        this.player = new Player(1000,10,20);
         this.opponent = new Player(100,10,20);
 
         towers = new ArrayList<Towers>();
@@ -140,16 +144,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         if (event.getAction() == MotionEvent.ACTION_UP) {
             if (thread.getCanvasMoved() == false) {
                 if (buttons.size() != 0) {
-                    for (int i = 0; i < buttons.size(); i++) {
-                        //if ((event.getX() < buttons.get(i).getX() + buttons.get(i).getBitmap().getWidth()) && (event.getX() > buttons.get(i).getX() - buttons.get(i).getBitmap().getWidth())) {
-                        //if ((event.getY() < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight()) && (event.getY() > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight())) {
-                        if (((event.getX() - canvasX) < buttons.get(i).getX() + buttons.get(i).getBitmap().getWidth() / 2) && ((event.getX() - canvasX) > buttons.get(i).getX() - buttons.get(i).getBitmap().getWidth() / 2)) {
-                            if (((event.getY() - canvasY) < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight() / 2) && ((event.getY() - canvasY) > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight() / 2)) {
-                                buttons.get(i).getEvent(towers, getContext(), player);
-                            }
-                        }
-                    }
-                    buttons.clear();//buttons = new ArrayList<Buttons>();
+                    checkButtonClick(event);
                 } else {
                     buildingZone = map.BuildingZone(event.getX() - canvasX,event.getY() - canvasY);
                     //Log.d(TAG, "BZ: x=" + buildingZone.get(0) + ",y=" + buildingZone.get(1));
@@ -186,6 +181,19 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             y1 = event.getY();
         }
         return true;
+    }
+
+    private void checkButtonClick(MotionEvent event){
+        for (int i = 0; i < buttons.size(); i++) {
+            if (((event.getX() - canvasX) < buttons.get(i).getX() + buttons.get(i).getBitmap().getWidth() / 2) && ((event.getX() - canvasX) > buttons.get(i).getX() - buttons.get(i).getBitmap().getWidth() / 2)) {
+                if (((event.getY() - canvasY) < buttons.get(i).getY() + buttons.get(i).getBitmap().getHeight() / 2) && ((event.getY() - canvasY) > buttons.get(i).getY() - buttons.get(i).getBitmap().getHeight() / 2)) {
+                    buttons.get(i).getEvent(towers, getContext(), player);
+                }
+            }
+        }
+        if (newButtons){
+            buttons.clear();//buttons = new ArrayList<Buttons>();
+        }
     }
 
     private void towerOnClickEvent(long x, long y) {
@@ -258,23 +266,37 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
 
     public void update() {// check collision with right wall if heading right
-        if (player.getLife() <= 0){
-            buttons.clear();
-            buttons.add(new Defeat((int) (this.getWidth() / 2 - canvasX), (int) (this.getHeight() / 2 - canvasY - 100), getContext()));
-            buttons.add(new Buttons_continue((int) (this.getWidth() / 2 - canvasX), (int) (this.getHeight() / 2 - canvasY + 400), getContext()));
-        } else if (opponent.getLife() <=0){
-            buttons.clear();
-            buttons.add(new Victory((int) (this.getWidth() / 2 - canvasX), (int) (this.getHeight() / 2 - canvasY - 100), getContext()));
-            buttons.add(new Buttons_continue((int) (this.getWidth() / 2 - canvasX), (int) (this.getHeight() / 2 - canvasY + 400), getContext()));
+        if (player.getLife() <= 0) {
+            if (thread.getCanvasMoved() || newButtons){
+                newButtons = false;
+                buttons.clear();
+                buttons.add(new Defeat((int) (this.getWidth() / 2 - canvasX), (int) (this.getHeight() / 2 - canvasY - 100), getContext()));
+                buttons.add(new Buttons_continue((int) (this.getWidth() / 2 - canvasX), (int) (this.getHeight() / 2 - canvasY + 400), getContext(), this.activity));
+            }
+        } else if (opponent.getLife() <= 0) {
+            if (thread.getCanvasMoved() || newButtons){
+                newButtons = false;
+                buttons.clear();
+                buttons.add(new Victory((int) (this.getWidth() / 2 - canvasX), (int) (this.getHeight() / 2 - canvasY - 100), getContext()));
+                buttons.add(new Buttons_continue((int) (this.getWidth() / 2 - canvasX), (int) (this.getHeight() / 2 - canvasY + 400), getContext(), this.activity));
+            }
+        } else if (pause) {
+            if (thread.getCanvasMoved() || newButtons){
+                newButtons = false;
+                buttons.clear();
+                buttons.add(new Pause((int) (this.getWidth() / 2 - canvasX), (int) (this.getHeight() / 2 - canvasY - 150), getContext()));
+                buttons.add(new Buttons_resume((int) (this.getWidth() / 2 - canvasX - 400), (int) (this.getHeight() / 2 - canvasY + 400), getContext(), this.activity));
+                buttons.add(new Buttons_leave((int) (this.getWidth() / 2 - canvasX + 400), (int) (this.getHeight() / 2 - canvasY + 400), getContext(), this.activity));
+            }
         } else {
             if (System.currentTimeMillis() - a > 10000) {
                 player.getFunding();
                 a = System.currentTimeMillis();
             }
-        if (System.currentTimeMillis() - a > 10000){
-            player.getFunding();
-            a = System.currentTimeMillis();
-        }
+            if (System.currentTimeMillis() - a > 10000) {
+                player.getFunding();
+                a = System.currentTimeMillis();
+            }
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.get(i).enemyUpdate(map, System.currentTimeMillis());
             }
@@ -304,17 +326,28 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     private void missileCreation() {
         for (int i = 0; i < towers.size(); i++) {
-            for (int j = 0; j < enemies.size(); j++) {
-                double dx =towers.get(i).getX()- enemies.get(j).getX();
-                double dy = towers.get(i).getY()- enemies.get(j).getY();
-                double dist = Math.sqrt(dx*dx + dy*dy);
-                //Log.d(TAG, "dist:" + dist);
-                if (towers.get(i).getRange() >= dist){
-                    if (towers.get(i).canFire()) {
-                        towers.get(i).fire();
-                        //Log.d(TAG, "1 missile created");
-                        towers.get(i).shot(shots, getContext(), enemies.get(j));
+            if (towers.get(i).canFire()) {
+                double dist_aim = 1000000;
+                int aim = 0;
+                for (int j = 0; j < enemies.size(); j++) {
+                    double dx = towers.get(i).getX()- enemies.get(j).getX();
+                    double dy = towers.get(i).getY()- enemies.get(j).getY();
+                    double dist = Math.sqrt(dx*dx + dy*dy);
+                    //Log.d(TAG, "dist:" + dist);
+                    if (towers.get(i).getRange() >= dist){
+                        dx = map.getEndZoneX() - enemies.get(j).getX();
+                        dy = map.getEndZoneY() - enemies.get(j).getY();
+                        dist = Math.sqrt(dx*dx + dy*dy);
+                        if (dist < dist_aim) {
+                            aim = j;
+                            dist_aim = dist;
+                        }
                     }
+                }
+                if (dist_aim != 1000000) {
+                    towers.get(i).fire();
+                    //Log.d(TAG, "1 missile created");
+                    towers.get(i).shot(shots, getContext(), enemies.get(aim));
                 }
             }
         }
@@ -325,9 +358,11 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         for (int i = 0; i < shots.size(); i++) {
             shots.get(i).update();
             if (shots.get(i).hasHit()){
+                Log.d(TAG, "Has Hit");
                 for (int j = 0; j < enemies.size(); j++) {
-                    if ((Math.abs(enemies.get(j).getX() - shots.get(i).getX()) < 10) && (Math.abs(enemies.get(j).getY() - shots.get(i).getY()) < 10)){
+                    if ((Math.abs(enemies.get(j).getX() - shots.get(i).getX()) < 15) && (Math.abs(enemies.get(j).getY() - shots.get(i).getY()) < 15)){
                         int damage = shots.get(i).getDamage();
+                        Log.d(TAG, "DAMAGE");
                         enemies.get(j).damaged(damage);
                         life_bars.get(j).damaged(damage);
                     }
@@ -350,7 +385,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     }
 
     public void create(int i){
-        sp.play(sound_pop[i],1,1,0,0,1);
+        //sp.play(sound_pop[i],1,1,0,0,1);
         switch (i){
             case 1:
                 CreateMonster(new Gobelin(getContext(), map.getLogicPath()));
@@ -468,4 +503,23 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         return opponent;
     }
 
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    public MainThread getThread() {
+        return thread;
+    }
+
+    public void setPause(boolean pause) {
+        this.pause = pause;
+    }
+
+    public void setNewButtons(boolean newButtons) {
+        this.newButtons = newButtons;
+    }
+
+    public void delayTime(long time) {
+        this.a = this.a + time;
+    }
 }

@@ -64,12 +64,12 @@ public class MainThread extends Thread {
             canvas = null;
             // try locking the canvas for exclusive pixel editing on the surface
             try { //try to get hold of it
-                Log.d(TAG, "Running");
+                //Log.d(TAG, "Running");
                 canvas = this.surfaceHolder.lockCanvas();
                 //canvas.translate(1000,100);
                 canvas.translate(gamePanel.getCanvasX(), gamePanel.getCanvasY());
                 synchronized (surfaceHolder) {
-                    Log.d(TAG, "synchro");
+                    //Log.d(TAG, "synchro");
                     // update game state
                     // draws the canvas on the panel
                     framesSkipped = 0; //resetting the frames skipped
@@ -95,7 +95,7 @@ public class MainThread extends Thread {
                         // add frame period to check if in next frame
                         sleepTime += FRAME_PERIOD;
                         framesSkipped++;
-                        Log.d(TAG, "sleepMore");
+                        //Log.d(TAG, "sleepMore");
                     }
                     if (framesSkipped >0){
                         //Log.d(TAG, "Skipped:" + framesSkipped);
@@ -177,4 +177,5 @@ public class MainThread extends Thread {
         canvasMoved = bool;
     }
     public boolean getCanvasMoved(){return canvasMoved;}
+
 }
