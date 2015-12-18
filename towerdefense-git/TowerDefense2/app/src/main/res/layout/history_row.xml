@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/text_hist1"
+    android:layout_width="@dimen/width_history"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:textStyle="bold"
+    android:padding="10dp"
+    android:autoText="false">
+</TextView>
+
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/text_hist2"
+        android:layout_width="@dimen/width_history"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="10dp">
+    </TextView>
+
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/text_hist3"
+        android:layout_width="@dimen/width_history"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="10dp">
+    </TextView>
+
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/text_hist4"
+        android:layout_width="@dimen/width_history"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="10dp">
+    </TextView>
+
+</LinearLayout>

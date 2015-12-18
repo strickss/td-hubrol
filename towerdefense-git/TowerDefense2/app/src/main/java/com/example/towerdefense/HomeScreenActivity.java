@@ -38,7 +38,7 @@ public class HomeScreenActivity extends Activity {
 
 
     public void play_game(View v){
-
+        mediaPlayer.stop();
         Intent intentBT = new Intent(this, MainActivity.class);
         //Intent intentBT = new Intent(this, EnsureConnectActivity.class);
         startActivity(intentBT);
@@ -46,6 +46,9 @@ public class HomeScreenActivity extends Activity {
     }
 
     public void show_history(View v){
-        return;
+        mediaPlayer.stop();
+        Intent intentBT = new Intent(this,HistoryActivity.class);
+        //Intent intentBT = new Intent(this, EnsureConnectActivity.class);
+        startActivity(intentBT);
     }
 }

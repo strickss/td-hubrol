@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,8 +24,11 @@ import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
@@ -40,7 +44,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private TextView textYourLife;
     private TextView textOppLife;
     private Chronometer chronometer;
-    private long a = System.currentTimeMillis();
     private boolean updateMenu;
     private PopupMenu popup;
     private BluetoothAdapter mBluetoothAdapter = null;
@@ -50,11 +53,10 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private View view;
     private Handler mHandler_menu;
     private long timeWhenStopped = 0;
-
+    private HistoryDbAdapter mDbHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         // requesting to turn the title OFF;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -92,6 +94,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             Toast.makeText(this, "No Bluetooth on this handset", duration).show();
 
         }
+        mDbHelper = new HistoryDbAdapter(this);
     }
 
 
@@ -111,7 +114,6 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             sendMessage("" + txtYourLife);
             int txtOppLife = gamePanel.getOpponent().getLife();
             textOppLife.setText("" + txtOppLife);
-
             mHandler_menu.postDelayed(this, 100);
         }
     };
@@ -153,8 +155,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         if (gamePanel.getPlayer().getGold() >= gamePanel.MonsterType(i).getCost()){
             gamePanel.getPlayer().cost(gamePanel.MonsterType(i).getCost());
             gamePanel.getPlayer().increaseIncome(gamePanel.MonsterType(i).getValue());
-            //sendMessage(""+i);
-            gamePanel.create(i);
+            sendMessage(""+i);
+            //gamePanel.create(i);
         } else {
             Toast toast = Toast.makeText(this, "Not enough gold !", Toast.LENGTH_SHORT);
             toast.show();
@@ -356,6 +358,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     }
 
     private final Handler mHandler = new Handler() {
+
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -489,26 +492,40 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
 
     public void restart(){
         this.gamePanel.getThread().setRunning(false);
+        chronometer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
         Intent intentGame = new Intent(this, HomeScreenActivity.class);
         startActivity(intentGame);
     }
 
     public void resumeGame() {
-        //sendMessage("10001");
+        sendMessage("10001");
         gamePanel.setPause(false);
         chronometer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
         chronometer.start();
     }
 
     public void pauseGame(View v){
+        sendMessage("10002");
         gamePanel.setPause(true);
         timeWhenStopped = chronometer.getBase() - SystemClock.elapsedRealtime();
         chronometer.stop();
-        //sendMessage("10002");
     }
 
     public MainGamePanel getGamePanel() {
         return gamePanel;
+    }
+
+    public void saveState(String state){
+        long dur = SystemClock.elapsedRealtime()- chronometer.getBase();
+        Log.d(TAG, "Duration : " + dur);
+        String duration = String.format("%d min %d sec", TimeUnit.MILLISECONDS.toMinutes(dur),
+                TimeUnit.MILLISECONDS.toSeconds(dur) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(dur)));
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c.getTime());
+        mDbHelper.open();
+        long id = mDbHelper.createHistory(state, duration, mConnectedDeviceName, formattedDate);
+        mDbHelper.close();
     }
 }
 

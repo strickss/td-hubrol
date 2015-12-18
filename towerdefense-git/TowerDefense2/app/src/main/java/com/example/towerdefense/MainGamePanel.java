@@ -17,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -48,6 +49,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private Activity activity;
     private boolean pause = false;
     private boolean newButtons = true;
+    private boolean finish = false;
 
     public MainGamePanel(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -267,6 +269,10 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     public void update() {// check collision with right wall if heading right
         if (player.getLife() <= 0) {
+            if (finish == false){
+                ((MainActivity) activity).saveState("Defeat");
+                finish = true;
+            }
             if (thread.getCanvasMoved() || newButtons){
                 newButtons = false;
                 buttons.clear();
@@ -274,6 +280,10 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                 buttons.add(new Buttons_continue((int) (this.getWidth() / 2 - canvasX), (int) (this.getHeight() / 2 - canvasY + 400), getContext(), this.activity));
             }
         } else if (opponent.getLife() <= 0) {
+            if (finish == false){
+                ((MainActivity) activity).saveState("Victory");
+                finish = true;
+            }
             if (thread.getCanvasMoved() || newButtons){
                 newButtons = false;
                 buttons.clear();
