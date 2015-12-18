@@ -269,7 +269,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     public void update() {// check collision with right wall if heading right
         if (player.getLife() <= 0) {
-            if (finish == false){
+            if (!finish){
                 ((MainActivity) activity).saveState("Defeat");
                 finish = true;
             }
@@ -280,7 +280,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
                 buttons.add(new Buttons_continue((int) (this.getWidth() / 2 - canvasX), (int) (this.getHeight() / 2 - canvasY + 400), getContext(), this.activity));
             }
         } else if (opponent.getLife() <= 0) {
-            if (finish == false){
+            if (!finish){
                 ((MainActivity) activity).saveState("Victory");
                 finish = true;
             }

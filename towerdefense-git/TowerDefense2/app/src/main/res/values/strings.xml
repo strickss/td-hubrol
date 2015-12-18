@@ -39,6 +39,8 @@
     <string name="no_reminder"> No game played </string>
     <string name="menu_insert"> Rajoute ton taf ! </string>
     <string name="menu_delete"> Hide your shame </string>
+    <string name="winRate"> 1 </string>
+    <string name="lossRate"> 1 </string>
 
     <string name="monster_goblin"> Goblin </string>
     <string name="monster_eye"> Eye </string>

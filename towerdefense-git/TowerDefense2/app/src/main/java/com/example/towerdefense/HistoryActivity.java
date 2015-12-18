@@ -12,11 +12,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 public class HistoryActivity extends ListActivity {
 
     private static final int ACTIVITY_CREATE = 0;
     private HistoryDbAdapter mDbHelper;
+    private TextView textWinRate;
+    private TextView textLossRate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,8 @@ public class HistoryActivity extends ListActivity {
         setContentView(R.layout.activity_history);
         mDbHelper = new HistoryDbAdapter(this);
         mDbHelper.open();
+        textWinRate = (TextView) findViewById(R.id.winRate);
+        textLossRate = (TextView) findViewById(R.id.lossRate);
         fillData();
         registerForContextMenu(getListView());
     }
@@ -101,16 +106,15 @@ public class HistoryActivity extends ListActivity {
     private void fillData(){
         Cursor historyCursor = mDbHelper.fetchAllHistory();
         if (historyCursor != null){
-            //Create an array to specify the fields we want (only the TITLE)
             String[] from = new String[]{HistoryDbAdapter.KEY_TITLE, HistoryDbAdapter.KEY_BODY, HistoryDbAdapter.KEY_OPPONENT, HistoryDbAdapter.KEY_DATE_TIME};
-
-            //and an array of the fields we want to bind in the view
             int[] to = new int[]{R.id.text_hist1, R.id.text_hist2, R.id.text_hist3, R.id.text_hist4};
-
-            //Now create a simple cursor adapter and set it to display
             SimpleCursorAdapter reminders = new SimpleCursorAdapter(this, R.layout.history_row, historyCursor, from, to, 0);
             setListAdapter(reminders);
         }
+        int win_rate = mDbHelper.statistics("Victory");
+        int loss_rate = mDbHelper.statistics("Defeat");
+        textWinRate.setText("Win : " + win_rate);
+        textLossRate.setText("Loss : " + loss_rate);
     }
 
     public void resumeMenu(View v){

@@ -88,6 +88,24 @@ public class HistoryDbAdapter {
         return mCursor;
     }
 
+    public int statistics(String amount){
+        Log.d(TAG, "amount :  " + amount);
+        int win_rate = 0;
+        Cursor cursor = mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_TITLE, KEY_BODY, KEY_OPPONENT, KEY_DATE_TIME},null,null,null,null,null);
+        if (cursor.moveToFirst()){
+            do{
+                String data = cursor.getString(cursor.getColumnIndex("title"));
+                Log.d(TAG, "data : " + data);
+                if (data.equals(amount)){
+                    win_rate = win_rate + 1;
+                }
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        Log.d(TAG, "win_rate : " + win_rate);
+        return win_rate;
+    }
+
     public boolean updateReminder(long rowId, String title, String body,String opponent, String reminderDateTime){
         ContentValues args = new ContentValues();
         args.put(KEY_TITLE, title);

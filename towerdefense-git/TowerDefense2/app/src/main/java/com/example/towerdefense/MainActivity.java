@@ -155,8 +155,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         if (gamePanel.getPlayer().getGold() >= gamePanel.MonsterType(i).getCost()){
             gamePanel.getPlayer().cost(gamePanel.MonsterType(i).getCost());
             gamePanel.getPlayer().increaseIncome(gamePanel.MonsterType(i).getValue());
-            sendMessage(""+i);
-            //gamePanel.create(i);
+            //sendMessage(""+i);
+            gamePanel.create(i);
         } else {
             Toast toast = Toast.makeText(this, "Not enough gold !", Toast.LENGTH_SHORT);
             toast.show();
@@ -524,7 +524,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String formattedDate = df.format(c.getTime());
         mDbHelper.open();
-        long id = mDbHelper.createHistory(state, duration, mConnectedDeviceName, formattedDate);
+        long id = mDbHelper.createHistory(state, duration, "bilbo", formattedDate);
+        //long id = mDbHelper.createHistory(state, duration, mConnectedDeviceName, formattedDate); //Works only when connected by bluetooth
         mDbHelper.close();
     }
 }
