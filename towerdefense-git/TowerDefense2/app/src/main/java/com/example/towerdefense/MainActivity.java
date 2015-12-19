@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,30 +20,15 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
-<<<<<<< HEAD
-
-import org.w3c.dom.Text;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-=======
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.nio.Buffer;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.ArrayList;
-import java.util.Set;
 
->>>>>>> origin/master
 
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
@@ -58,10 +42,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private BluetoothChatService mBluetoothChatService;
     private BluetoothSocket mBTSocket;
     private MainGamePanel gamePanel;
-<<<<<<< HEAD
     private Handler mHandler_menu;
-=======
->>>>>>> origin/master
     private TextView textGold;
     private TextView textYourIncome;
     private TextView textOppIncome;
@@ -101,7 +82,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         this.chronometer = (Chronometer) findViewById(R.id.chronometer);
         chronometer.start();
 
-
+        /*
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
             // Device does not support Bluetooth
@@ -109,21 +90,17 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             Toast.makeText(this, "No Bluetooth on this handset", duration).show();
 
         }
-
+    */
         textGold = (TextView) findViewById(R.id.gold);
         textYourIncome = (TextView) findViewById(R.id.yourIncomeValue);
         textOppIncome = (TextView) findViewById(R.id.oppIncomeValue);
         textYourLife = (TextView) findViewById(R.id.yourLifeValue);
         textOppLife = (TextView) findViewById(R.id.oppLifeValue);
-        text_monsters = Arrays.asList(findViewById(R.id.goblin),findViewById(R.id.eye),findViewById(R.id.devil),findViewById(R.id.eagle),findViewById(R.id.skeleton),findViewById(R.id.dwarf),findViewById(R.id.devil2),findViewById(R.id.golem),findViewById(R.id.robot),findViewById(R.id.gryphon),findViewById(R.id.fairy),findViewById(R.id.dark_vador),findViewById(R.id.blue_dragon),findViewById(R.id.pikachu),findViewById(R.id.spider),findViewById(R.id.unicorn),findViewById(R.id.wolf));
-        monster_creationButtons = new ArrayList<creationButton>(Arrays.asList(new creationButton(1000), new creationButton(2000),new creationButton(3000),new creationButton(4000),new creationButton(5000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000)));
+       // text_monsters = Arrays.asList(findViewById(R.id.goblin),findViewById(R.id.eye),findViewById(R.id.devil),findViewById(R.id.eagle),findViewById(R.id.skeleton),findViewById(R.id.dwarf),findViewById(R.id.devil2),findViewById(R.id.golem),findViewById(R.id.robot),findViewById(R.id.gryphon),findViewById(R.id.fairy),findViewById(R.id.dark_vador),findViewById(R.id.blue_dragon),findViewById(R.id.pikachu),findViewById(R.id.spider),findViewById(R.id.unicorn),findViewById(R.id.wolf));
+       // monster_creationButtons = new ArrayList<creationButton>(Arrays.asList(new creationButton(1000), new creationButton(2000),new creationButton(3000),new creationButton(4000),new creationButton(5000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000)));
         updateMenu = true;
-<<<<<<< HEAD
         mHandler_menu = new Handler();
         mHandler_menu.post(mUpdate);
-=======
-
->>>>>>> origin/master
     }
 
     private Runnable mUpdate = new Runnable() {
@@ -138,10 +115,10 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
             textYourLife.setText("" + txtYourLife);
             int txtOppLife = gamePanel.getPlayer().getLife() + 1;
             textOppLife.setText("" + txtOppLife);
-            for (int i=0; i < text_monsters.size(); i++){
-                monster_creationButtons.get(i).update(a);
-                ((TextView) text_monsters.get(i)).setText("" + monster_creationButtons.get(i).getNumber());
-            }
+            //for (int i=0; i < text_monsters.size(); i++){
+              //  monster_creationButtons.get(i).update(a);
+               // ((TextView) text_monsters.get(i)).setText("" + monster_creationButtons.get(i).getNumber());
+            //}
 
             mHandler_menu.postDelayed(this, 100);
 
@@ -188,6 +165,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     protected void onStart(){
         super.onStart();
         //requests that bluetooth is enabled if it is not
+        /*
         if (!mBluetoothAdapter.isEnabled()) {
             Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
@@ -195,6 +173,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         } else if (mChatService == null) {
             setupCom();
         }
+        */
     }
 
     @Override
@@ -261,9 +240,9 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.goblin:
-                //gamePanel.create(1);
+                gamePanel.create(1);
                 showPopup1(view);
-                sendMessage("1");
+                //sendMessage("1");
                 return true;
             case R.id.eye:
                 gamePanel.create(2);
