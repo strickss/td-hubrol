@@ -25,26 +25,11 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
-<<<<<<< HEAD
-
-import org.w3c.dom.Text;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-=======
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.nio.Buffer;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.ArrayList;
-import java.util.Set;
-
->>>>>>> origin/master
 
 public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
@@ -58,10 +43,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
     private BluetoothChatService mBluetoothChatService;
     private BluetoothSocket mBTSocket;
     private MainGamePanel gamePanel;
-<<<<<<< HEAD
     private Handler mHandler_menu;
-=======
->>>>>>> origin/master
     private TextView textGold;
     private TextView textYourIncome;
     private TextView textOppIncome;
@@ -118,12 +100,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         text_monsters = Arrays.asList(findViewById(R.id.goblin),findViewById(R.id.eye),findViewById(R.id.devil),findViewById(R.id.eagle),findViewById(R.id.skeleton),findViewById(R.id.dwarf),findViewById(R.id.devil2),findViewById(R.id.golem),findViewById(R.id.robot),findViewById(R.id.gryphon),findViewById(R.id.fairy),findViewById(R.id.dark_vador),findViewById(R.id.blue_dragon),findViewById(R.id.pikachu),findViewById(R.id.spider),findViewById(R.id.unicorn),findViewById(R.id.wolf));
         monster_creationButtons = new ArrayList<creationButton>(Arrays.asList(new creationButton(1000), new creationButton(2000),new creationButton(3000),new creationButton(4000),new creationButton(5000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000),new creationButton(1000)));
         updateMenu = true;
-<<<<<<< HEAD
         mHandler_menu = new Handler();
         mHandler_menu.post(mUpdate);
-=======
-
->>>>>>> origin/master
     }
 
     private Runnable mUpdate = new Runnable() {

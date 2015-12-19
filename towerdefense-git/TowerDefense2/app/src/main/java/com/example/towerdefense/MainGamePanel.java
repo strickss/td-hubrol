@@ -57,14 +57,10 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         paint_canvas.setARGB(255, 10, 160, 50);
 
         mediaPlayer = MediaPlayer.create(context, R.raw.song);
-<<<<<<< HEAD
-        //mediaPlayer.start();
-=======
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
 
         sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
->>>>>>> origin/master
         // create tower and load bitmap
         this.player1 = new Player(5000,10,20);
 
