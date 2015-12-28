@@ -16,14 +16,18 @@
 
 package com.example.towerdefense;
 
+import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 
@@ -38,13 +42,14 @@ import java.util.UUID;
  * incoming connections, a thread for connecting with a device, and a
  * thread for performing data transmissions when connected.
  */
-public class BluetoothChatService {
+public class BluetoothChatService extends Service {
     // Debugging
     private static final String TAG = "BluetoothChatService";
 
     // Name for the SDP record when creating server socket
     private static final String NAME_SECURE = "BluetoothChatSecure";
     private static final String NAME_INSECURE = "BluetoothChatInsecure";
+
 
     // Unique UUID for this application
     private static final UUID MY_UUID_SECURE =
@@ -280,6 +285,12 @@ public class BluetoothChatService {
 
         // Start the service over to restart listening mode
         BluetoothChatService.this.start();
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
     /**

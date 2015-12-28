@@ -331,7 +331,7 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
                 return true;
             case R.id.devil:
 
-                
+
                 gamePanel.create(3);
 
                 //gamePanel.create(3);
