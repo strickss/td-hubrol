@@ -8,6 +8,6 @@ import android.graphics.BitmapFactory;
  */
 public class EndZone extends Elements {
     public EndZone(double x, double y, Context context) {
-        super(x,y, BitmapFactory.decodeResource(context.getResources(), R.drawable.endzone));
+        super(x,y, BitmapFactory.decodeResource(context.getResources(), R.drawable.castle));
     }
 }

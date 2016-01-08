@@ -524,8 +524,8 @@ public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickL
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String formattedDate = df.format(c.getTime());
         mDbHelper.open();
-        long id = mDbHelper.createHistory(state, duration, "bilbo", formattedDate);
-        //long id = mDbHelper.createHistory(state, duration, mConnectedDeviceName, formattedDate); //Works only when connected by bluetooth
+        //long id = mDbHelper.createHistory(state, duration, "bilbo", formattedDate);
+        long id = mDbHelper.createHistory(state, duration, mConnectedDeviceName, formattedDate); //Works only when connected by bluetooth
         mDbHelper.close();
     }
 }

@@ -6,8 +6,11 @@ package com.example.towerdefense;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -25,9 +28,26 @@ import java.util.Vector;
 public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     private static final String TAG = MainGamePanel.class.getSimpleName();
-    private final Paint paint_canvas;
+    private int sound_pop_dwarf;
+    private int sound_pop_devil2;
+    private int sound_pop_robot;
+    private int sound_pop_bluedragon;
+    private int sound_pop_charizard;
+    private int sound_pop_golem_pop;
+    private int sound_pop_gryphon;
+    private int sound_pop_fairy;
+    private int sound_pop_darth_vader;
+    private int sound_pop_pikachu;
+    private int sound_pop_spider;
+    private int sound_pop_eagle;
+    private int sound_pop_skeleton;
+    private int sound_pop_wolf;
+    private int sound_pop_devil;
+    private int sound_pop_eye;
+    private int sound_pop_goblin;
+    private Paint paint_canvas;
     private int[] sound_pop;
-    private int[] sound_death;
+    private int sound_death;
     private Player player;
     private Player opponent;
     private MainThread thread;
@@ -42,6 +62,8 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private float x1,y1;
     private SoundPool sp;
     ArrayList<Integer> buildingZone;
+    private Rect destRect;
+    private Rect sourceRect;
 
     private long a = System.currentTimeMillis() + 100;
     private float canvasX =0;
@@ -50,19 +72,27 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     private boolean pause = false;
     private boolean newButtons = true;
     private boolean finish = false;
+    private Bitmap backgrd;
 
     public MainGamePanel(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         // adding the callback (this) to the surface holder to intercept events
         getHolder().addCallback(this); //  sets the current class (MainGamePanel) as the handler for the events happening on the actual surface
-        map = new Map(context, 0);
+
+        if (Math.random() < 0.5) {
+            map = new Map(context, 0);
+        }
+        else {
+            map = new Map(context, 1);
+        }
         paint_canvas = new Paint();
         paint_canvas.setARGB(255, 10, 160, 50);
-        mediaPlayer = MediaPlayer.create(context, R.raw.song);
+        mediaPlayer = MediaPlayer.create(context, R.raw.game_sound);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
         sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 1);//(#Stream, don't touch, don't touch)
 
+        backgrd = BitmapFactory.decodeResource(context.getResources(), R.drawable.background);
         //create tower and load bitmap
         this.player = new Player(1000,10,20);
         this.opponent = new Player(100,10,20);
@@ -73,24 +103,25 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         enemies = new ArrayList<Enemy>();
         life_bars = new ArrayList<LifeBar>();
 
-        /*sound_pop = {sp.load(getContext(), R.raw.gobelin_pop, 1),
-        sp.load(getContext(), R.raw.eye_pop, 1),
-        sp.load(getContext(), R.raw.devil_pop, 1),
-        sp.load(getContext(), R.raw.wolf_pop, 1),
-        sp.load(getContext(), R.raw.skeleton_pop, 1),
-        sp.load(getContext(), R.raw.dwarf_pop, 1),
-        sp.load(getContext(), R.raw.charizard_pop, 1),
-        sp.load(getContext(), R.raw.golem_pop, 1),
-        sp.load(getContext(), R.raw.robot_pop, 1),
-        sp.load(getContext(), R.raw.gryphon_pop, 1),
-        sp.load(getContext(), R.raw.fairy_pop, 1),
-        sp.load(getContext(), R.raw.darth_vader_pop, 1),
-        sp.load(getContext(), R.raw.blue_dragon_pop, 1),
-        sp.load(getContext(), R.raw.pikachu_pop, 1),
-        sp.load(getContext(), R.raw.spider_pop, 1),
-        sp.load(getContext(), R.raw.devil2_pop, 1),
-        sp.load(getContext(), R.raw.eagle_pop, 1)};*/
+        sound_pop_goblin = sp.load(getContext(), R.raw.goblin, 1);
+        sound_pop_eye = sp.load(getContext(), R.raw.eye_pop, 1);
+        sound_pop_devil = sp.load(getContext(), R.raw.devil_pop, 1);
+        sound_pop_wolf = sp.load(getContext(), R.raw.wolf_pop, 1);
+        sound_pop_skeleton = sp.load(getContext(), R.raw.skeleton_pop, 1);
+        sound_pop_dwarf = sp.load(getContext(), R.raw.dwarf_pop, 1);
+        sound_pop_charizard = sp.load(getContext(), R.raw.blue_dragon_pop, 1);
+        sound_pop_golem_pop = sp.load(getContext(), R.raw.golem_pop, 1);
+        sound_pop_robot = sp.load(getContext(), R.raw.robot_pop, 1);
+        sound_pop_gryphon = sp.load(getContext(), R.raw.gryphon_pop, 1);
+        sound_pop_fairy = sp.load(getContext(), R.raw.fairy_pop, 1);
+        sound_pop_darth_vader = sp.load(getContext(), R.raw.darth_vader_pop, 1);
+        sound_pop_bluedragon = sp.load(getContext(), R.raw.blue_dragon_pop, 1);
+        sound_pop_pikachu = sp.load(getContext(), R.raw.pikachu_pop, 1);
+        sound_pop_spider = sp.load(getContext(), R.raw.spider_pop, 1);
+        sound_pop_devil2 = sp.load(getContext(), R.raw.devil2_pop, 1);
+        sound_pop_eagle = sp.load(getContext(), R.raw.eagle_pop, 1);
 
+        sound_death = sp.load(getContext(),R.raw.death,1);
         /*sound_death = {sp.load(getContext(), R.raw.gobelin_death, 1),
         sp.load(getContext(), R.raw.eye_death, 1),
         sp.load(getContext(), R.raw.devil_death, 1),
@@ -232,6 +263,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 
     protected void render(Canvas canvas) {
         canvas.drawPaint(paint_canvas);
+        //sourceRect = new Rect(0, 0, backgrd.getWidth(), backgrd.getHeight());
+        //destRect = new Rect(0, 0, canvas.getWidth(),canvas.getHeight());//getWidth(), getHeight());
+        //canvas.drawBitmap(backgrd, sourceRect, destRect, null);
         map.draw(canvas);
 
         for (int i = 0; i < enemies.size(); i++) {
@@ -270,6 +304,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     public void update() {// check collision with right wall if heading right
         if (player.getLife() <= 0) {
             if (!finish){
+                mediaPlayer.stop();
                 ((MainActivity) activity).saveState("Defeat");
                 finish = true;
             }
@@ -281,6 +316,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             }
         } else if (opponent.getLife() <= 0) {
             if (!finish){
+                mediaPlayer.stop();
                 ((MainActivity) activity).saveState("Victory");
                 finish = true;
             }
@@ -323,7 +359,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         for (int j = 0; j < enemies.size(); j++) {
             if (enemies.get(j).getHp() <=0){
                 player.increaseGold(enemies.get(j).getValue());
-                //sp.play(sound_death[enemies.get(j).getType()],1,1,0,0,1);
+                sp.play(sound_death,1,1,0,0,1);
                 enemies.remove(j);
                 life_bars.remove(j);
             }else if(enemies.get(j).getX() == map.getEndZoneX() && enemies.get(j).getY() == map.getEndZoneY()){
@@ -395,59 +431,74 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     }
 
     public void create(int i){
-        //sp.play(sound_pop[i],1,1,0,0,1);
         switch (i){
             case 1:
                 CreateMonster(new Gobelin(getContext(), map.getLogicPath()));
-                //sp.play(sp.load(getContext(), R.raw.test,1),1,1,0,0,1);
+                sp.play(sound_pop_goblin, 1, 1, 0, 0, 1);
                 return;
             case 2 :
                 CreateMonster(new Eye(getContext(),map.getLogicPath()));
+                sp.play(sound_pop_eye, 1, 1, 0, 0, 1);
                 return;
             case 3:
                 CreateMonster(new Devil(getContext(), map.getLogicPath()));
+                sp.play(sound_pop_devil, 1, 1, 0, 0, 1);
                 return;
             case 4 :
                 CreateMonster(new Wolf(getContext(),map.getLogicPath()));
+                sp.play(sound_pop_wolf, 1, 1, 0, 0, 1);
                 return;
             case 5:
                 CreateMonster(new Skeleton(getContext(), map.getLogicPath()));
+                sp.play(sound_pop_skeleton, 1, 1, 0, 0, 1);
                 return;
             case 6:
                 CreateMonster(new Dwarf(getContext(), map.getLogicPath()));
+                sp.play(sound_pop_dwarf, 1, 1, 0, 0, 1);
                 return;
             case 7 :
                 CreateMonster(new Charizard(getContext(), map.getLogicPath()));
+                sp.play(sound_pop_charizard, 1, 1, 0, 0, 1);
                 return;
             case 8:
                 CreateMonster(new Golem(getContext(), map.getLogicPath()));
+                sp.play(sound_pop_golem_pop, 1, 1, 0, 0, 1);
                 return;
             case 9 :
                 CreateMonster(new Robot(getContext(),map.getLogicPath()));
+                sp.play(sound_pop_robot, 1, 1, 0, 0, 1);
                 return;
             case 10:
                 CreateMonster(new Gryphon(getContext(), map.getLogicPath()));
+                sp.play(sound_pop_gryphon, 1, 1, 0, 0, 1);
                 return;
             case 11:
                 CreateMonster(new Fairy(getContext(),map.getLogicPath()));
+                sp.play(sound_pop_fairy, 1, 1, 0, 0, 1);
                 return;
             case 12:
                 CreateMonster(new DarkVador(getContext(), map.getLogicPath()));
+                sp.play(sound_pop_darth_vader, 1, 1, 0, 0, 1);
                 return;
             case 13 :
                 CreateMonster(new BlueDragon(getContext(),map.getLogicPath()));
+                sp.play(sound_pop_bluedragon, 1, 1, 0, 0, 1);
                 return;
             case 14:
                 CreateMonster(new Pikachu(getContext(), map.getLogicPath()));
+                sp.play(sound_pop_pikachu, 1, 1, 0, 0, 1);
                 return;
             case 15:
                 CreateMonster(new Spider(getContext(),map.getLogicPath()));
+                sp.play(sound_pop_spider, 1, 1, 0, 0, 1);
                 return;
             case 16:
                 CreateMonster(new Devil2(getContext(),map.getLogicPath()));
+                sp.play(sound_pop_devil2, 1, 1, 0, 0, 1);
                 return;
             case 17:
                 CreateMonster(new Eagle(getContext(),map.getLogicPath()));
+                sp.play(sound_pop_eagle, 1, 1, 0, 0, 1);
                 return;
             default:
                 return;

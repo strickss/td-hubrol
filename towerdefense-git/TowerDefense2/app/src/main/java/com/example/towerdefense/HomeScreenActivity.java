@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.MediaController;
 
 public class HomeScreenActivity extends Activity {
 
@@ -19,6 +20,7 @@ public class HomeScreenActivity extends Activity {
     private static final int REQUEST_ENABLE_BT = 3 ;
     public MainActivity mainActivity;
     private MediaPlayer mediaPlayer;
+    private MediaController mcontroller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,26 +31,34 @@ public class HomeScreenActivity extends Activity {
 
         final ImageButton imageButton1 = (ImageButton) findViewById(R.id.play);
         final ImageButton imageButton2 = (ImageButton) findViewById(R.id.history);
-
-        mediaPlayer = MediaPlayer.create(this, R.raw.song);
+        mediaPlayer = MediaPlayer.create(this, R.raw.main_title);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
+        new MediaController(this);
     }
-
-
 
     public void play_game(View v){
         mediaPlayer.stop();
         Intent intentBT = new Intent(this, MainActivity.class);
         //Intent intentBT = new Intent(this, EnsureConnectActivity.class);
         startActivity(intentBT);
-
     }
 
     public void show_history(View v){
         mediaPlayer.stop();
         Intent intentBT = new Intent(this,HistoryActivity.class);
-        //Intent intentBT = new Intent(this, EnsureConnectActivity.class);
         startActivity(intentBT);
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        mediaPlayer.pause();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        mediaPlayer.start();
     }
 }

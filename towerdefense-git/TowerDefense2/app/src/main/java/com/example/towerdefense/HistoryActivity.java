@@ -121,6 +121,7 @@ public class HistoryActivity extends ListActivity {
         Intent intentBT = new Intent(this, HomeScreenActivity.class);
         //Intent intentBT = new Intent(this, EnsureConnectActivity.class);
         startActivity(intentBT);
+        //startActivityForResult(intentBT, 1);
     }
 
 }

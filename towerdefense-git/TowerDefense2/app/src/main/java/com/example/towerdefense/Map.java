@@ -44,25 +44,19 @@ public class Map {
     }
 
     public void draw(Canvas canvas) {
-        for(int j=0; j<mapList.size();j++){
-            mapList.get(j).draw(canvas);
-        }
         for(int i=0; i < path.getPathList().get(0).size(); i=i+1){
             path.getPathList().get(0).get(i).draw(canvas);
             //Log.d(TAG, "i :" + i);
             path.getPathList().get(1).get(i).draw(canvas);
+        }
+        for(int j=0; j<mapList.size();j++){
+            mapList.get(j).draw(canvas);
         }
     }
 
     private void CreateMapList(Context context) {
         for (int x = 0; x < mapMatrix.length; x++) {
             for (int y = 0; y < mapMatrix[0].length; y++) {
-                if (mapMatrix[x][y].equals("Z")) {
-                    mapList.add(new EndZone(getBlockSizeX() * x, getBlockSizeY() * y, context));
-                    endzoneX = getBlockSizeX() * x;
-                    endzoneY = getBlockSizeY() * y;
-                    //Log.d(TAG, "EndZone X : "+ endzoneX + "EndZone y : " + endzoneY);
-                }
                 if (mapMatrix[x][y].equals("P")) {
                      mapList.add(new Path(getBlockSizeX() * x, getBlockSizeY() * y, context, getBlockSizeX(), getBlockSizeY()));
                 }
@@ -70,6 +64,16 @@ public class Map {
                     mapList.add(new BuildingZone(getBlockSizeX() * x, getBlockSizeY() * y, context, getBlockSizeX(), getBlockSizeY()));
                     buildingList.add(getBlockSizeX() * x);
                     buildingList.add(getBlockSizeY() * y);
+                }
+            }
+        }
+        for (int x = 0; x < mapMatrix.length; x++) {
+            for (int y = 0; y < mapMatrix[0].length; y++) {
+                if (mapMatrix[x][y].equals("Z")) {
+                    mapList.add(new EndZone(getBlockSizeX() * x, getBlockSizeY() * y, context));
+                    endzoneX = getBlockSizeX() * x;
+                    endzoneY = getBlockSizeY() * y;
+                    //Log.d(TAG, "EndZone X : "+ endzoneX + "EndZone y : " + endzoneY);
                 }
             }
         }
@@ -92,7 +96,7 @@ public class Map {
 
     public ArrayList BuildingZone(float x, float y) {
         for (int m=0; m<buildingList.size(); m=m+2){
-            if (buildingList.get(m)>(x-getBlockSizeX()/2) && buildingList.get(m)<(x+getBlockSizeX()/2) && buildingList.get(m+1)>(y-getBlockSizeY()) && buildingList.get(m+1)<(x+getBlockSizeX()) ){
+            if (buildingList.get(m)>(x-getBlockSizeX()/2) && buildingList.get(m)<(x+getBlockSizeX()/2) && buildingList.get(m+1)>(y-getBlockSizeY()) && buildingList.get(m+1)<(y+getBlockSizeY()) ){
                 pos.set(0,buildingList.get(m));
                 pos.set(1,buildingList.get(m+1));
                 return pos;
